@@ -1,0 +1,45 @@
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* CSS Document */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root{
+    --color-primary: #278FFF;
+    --color-secondary: #FFCA26;
+    --color-tertiary: #FF8E26;
+    --color-quaternary: #536880;
+    --color-quinary: #807553;
+    --color-black   : #000000;
+    --color-white   : #FFFFFF;
+
+
+    --font-primary: Montserrat, sans-serif;
+}
+
+html{   
+    height: 100vh;
+}
+
+body{
+    background-color: var(--color-quaternary);
+    color: var(--color-black);
+    font-size: 1.6rem;
+    line-height: 1.6;
+    font-family: var(--font-primary);
+    font-weight: 400;
+    overflow-x: hidden;
+    height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+}
+
+a{
+    text-decoration: none;
+    color: var(--color-black);
+}

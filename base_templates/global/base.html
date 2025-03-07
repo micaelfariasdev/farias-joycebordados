@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block titulo %}{% endblock titulo %} | Joyce Bordados</title>
+    <link rel="stylesheet" href="{% static "global/css/style.css" %}">
+  </head>
+  <body>
+    <header>
+      {% include "global/partial/header.html" %}
+    </header>
+    <main>
+        {% block main %}{% endblock main %}
+    </main>
+    <footer>
+      {% include "global/partial/footer.html" %}
+    </footer>
+  </body>
+</html>
