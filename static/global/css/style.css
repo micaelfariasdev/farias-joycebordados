@@ -26,6 +26,7 @@
 
 html {
     height: 100vh;
+    scroll-behavior: smooth;
 }
 
 body {
@@ -35,10 +36,10 @@ body {
     line-height: 1.6;
     font-family: var(--font-primary);
     font-weight: 400;
+    height: 100%;
     overflow-x: hidden;
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: space-between;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
 }
 
 a {
@@ -74,6 +75,10 @@ header .conteiner {
     justify-content: start;
     display: flex;
     align-items: center;
+}
+
+.img-logo>a {
+    height: 100%;
 }
 
 .img-logo img {
@@ -175,6 +180,7 @@ main .conteiner {
 }
 
 .dot {
+    display: inline-block;
     width: 20px;
     height: 20px;
     border-radius: 50%;
@@ -204,7 +210,7 @@ main .conteiner {
 
 .sobre-conteiner {
     display: grid;
-    grid-template-columns:60% 40%;
+    grid-template-columns: 60% 40%;
     align-items: stretch;
     justify-content: space-between;
     width: 90%;
@@ -225,7 +231,7 @@ main .conteiner {
     padding: 40px;
 }
 
-.sobre-img{
+.sobre-img {
     height: 100%;
     object-fit: cover;
 }
@@ -285,17 +291,34 @@ main .conteiner {
     justify-content: center;
     flex-flow: column nowrap;
     gap: 20px;
-    width: 100%;
+    width: 500px;
 }
 
-.input-style {
-    width: 500px;
+input[type='checkbox'] {
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    border: 2px solid var(--color-secondary);
+}
+
+select[name=cliente] {
+    width: 200px;
+}
+
+.valortot,
+input,
+select,
+textarea {
+    width: 100%;
+    height: 40px;
+    margin-block: 5px;
     padding: 10px;
     border-radius: 10px;
     border: 2px solid var(--color-secondary);
 }
 
-.input-style:focus {
+input:focus,
+select:focus {
     border: 2px solid var(--color-tertiary);
 }
 
@@ -315,6 +338,127 @@ button {
     font-weight: bold;
     cursor: pointer;
     align-self: end;
+}
+
+.pedidos-conteiner {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-flow: row wrap;
+    max-width: 1200px;
+    gap: 40px;
+}
+
+.pedido-conteiner {
+    background: var(--color-tertiary);
+    border-radius: 30px;
+    padding: 20px;
+    max-width: 300px;
+}
+
+hr {
+    width: 100%;
+    border: 1px solid var(--color-secondary);
+}
+
+.pedido-conteiner h2 {
+    display: inline-block;
+}
+
+.pedido-conteiner a {
+    position: relative;
+    left: 70px;
+}
+
+.pedido-detail-conteiner {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    gap: 20px;
+    padding: 20px 0;
+    background: var(--color-white);
+}
+
+.pedido-detail-conteiner .pedido,
+.pedido-detail-conteiner .cliente {
+    display: flex;
+    align-self: center;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    width: 90%;
+    gap: 10px;
+}
+
+
+
+.pedido-detail-conteiner .cliente .dados {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    gap: 20px;
+}
+
+span {
+    display: inline-block;
+}
+
+.valores {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    gap: 20px;
+}
+
+.red {
+    background: rgb(253, 128, 128);
+}
+
+.gren {
+    background: rgb(185, 255, 185);
+}
+
+.gray {
+    background: rgb(185, 185, 185);
+}
+
+
+.blur-back {
+    background: rgba(255, 255, 255, 0.712);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 100;
+    display: none;
+}
+
+.conteiner-buscar {
+    background: var(--color-white);
+    padding: 20px;
+    margin: auto;
+    align-self: center;
+    width: 350px;
+    height: 200px;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    border-radius: 20px;
+    transition: all 1s;
+}
+
+.blur-back.show {
+    display: flex;
+}
+.conteiner-buscar.show {
+    display: flex;
+}
+
+
+.conteiner-buscar form>* {
+    margin-top: 10px;
 }
 
 /* footer css style */

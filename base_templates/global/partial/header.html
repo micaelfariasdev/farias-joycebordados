@@ -1,16 +1,18 @@
 <div class="conteiner">
   <div class="img-logo">
-    <img src="{{ dados.logo.url }}" alt="" />
-  </div>
+      <a href="{% url 'joycebordados:home' %}">
+      <img src="{{ dados.logo.url }}" alt="" />
+    </a>
+    </div>
   <div class="conteiner-acess">
     <div class="areas">
-      <a href="#">Área do Cliente</a>
+      <a href="#" onclick="showLog()">Área do Cliente</a>
       <a href="#">Área Administrativa</a>
     </div>
     <nav class="nav">
-      <a href="#">Home</a>
-      <a href="#">Produtos</a>
-      <a href="#">Contato</a>
+      <a href="{% url 'joycebordados:home' %}">Home</a>
+      <a href="#servicos">Produtos</a>
+      <a href="#contato">Contato</a>
     </nav>
   </div>
 </div>

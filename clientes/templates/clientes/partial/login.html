@@ -1,0 +1,13 @@
+<div class="blur-back" >
+  <div class="conteiner-buscar">
+    <form action="{% url 'cliente:pedido-cliente' %}" method="post">
+      {% csrf_token %}
+      <label for="Codigo"><strong>Código do Pedido:</strong> <i>ex.:(#00000)</i></label>
+      <input type="text" name="Codigo" placeholder="Código" required />
+      <div class="buttons">
+          <button type="submit">Buscar</button>
+          <button class="red" onclick="hiddenLog()">Fechar</button>
+      </div>
+    </form>
+  </div>
+</div>

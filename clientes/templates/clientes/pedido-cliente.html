@@ -1,0 +1,75 @@
+{% extends 'global/base.html' %}
+{% block titulo %}
+  Pedido {{ pedido.codigo }}
+{% endblock %}
+{% block main %}
+  {% load filtros %}
+  <div class="pedido-detail-conteiner">
+    <div class="pedido">
+      {% csrf_token %}
+      <h2>
+        Pedido
+        <strong>#{{ pedido.codigo }}</strong>
+        <span style="display: none;">{{ pedido.codigo }}</span>
+
+        <strong class="dot active {% if pedido.status.0 == '1' %}
+            red
+
+          {% elif pedido.status.0 == '2' %}
+            gren
+
+          {% elif pedido.status.0 == '3' %}
+            gray
+          {% endif %}">
+
+        </strong>
+
+        <span>- {{ pedido.get_status_display }}</span>
+      </h2>
+      <span><strong>Nome:</strong> {{ pedido.cliente }}</span>
+
+      <p>
+        <strong>Data de Entrega:</strong>
+        {{ pedido.data_entrega|date:'d/m/Y' }}
+      </p>
+      <p>
+        <strong>{{ pedido.produto }}</strong>
+      </p>
+      <p>
+        <strong>Descrição:</strong>
+      </p>
+      {{ pedido.observacao }}
+
+      <div class="valores">
+        <span>
+          <strong>Quantidade:</strong>
+          {{ pedido.quantidade }}
+        </span>
+
+        <span>
+          <strong>Valor:</strong>
+          {{ pedido.valor }}
+        </span>
+
+        <span>
+          <strong>Valor Total:</strong>
+          {{ pedido.valor_total }}
+        </span>
+        <span>
+          <strong>Pagamento:</strong>
+          {% if pedido.pago %}
+            Pago
+          {% else %}
+            Aguardando Pagamento
+          {% endif %}
+        </span>
+      </div>
+      {% if not pedido.pago %}
+        <div class="pagamentos">
+          <button>Efetuar pagamento:</button>
+          <div class="dados-pagamento"></div>
+        </div>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

@@ -4,18 +4,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block titulo %}{% endblock titulo %} | Joyce Bordados</title>
-    <link rel="stylesheet" href="{% static "global/css/style.css" %}">
+    <title>
+      {% block titulo %}
+      {% endblock %}| Joyce Bordados
+    </title>
+    <link rel="stylesheet" href="{% static 'global/css/style.css' %}" />
   </head>
   <body>
     <header>
-      {% include "global/partial/header.html" %}
+      {% include 'global/partial/header.html' %}
     </header>
     <main>
-        {% block main %}{% endblock main %}
+      {% block main %}
+      {% endblock %}
+      {% include 'clientes/partial/login.html' %}
     </main>
     <footer>
-      {% include "global/partial/footer.html" %}
+      {% include 'global/partial/footer.html' %}
     </footer>
     <script src="{% static 'global/js/script.js' %}"></script>
   </body>

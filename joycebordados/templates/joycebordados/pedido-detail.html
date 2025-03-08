@@ -1,0 +1,98 @@
+{% extends 'global/base.html' %}
+{% block titulo %}
+  Home
+{% endblock %}
+{% block main %}
+  {% load filtros %}
+  <form method="post" action="{% url 'empresa:pedido-edit' pk=pedido.pk %}">
+    <div class="pedido-detail-conteiner">
+      <div class="cliente">
+        <h2>Cliente</h2>
+
+        <div class="dados">
+          <span>
+            <strong>Nome:</strong></span> {{ form.cliente }}
+          
+          <p>
+            <strong>Telefone:</strong> {{ pedido.cliente.numero|formatar_telefone }}
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div class="pedido">
+        {% csrf_token %}
+        <h2>Pedido</h2><p class="cod-pedido">
+          <strong>#{{ pedido.codigo }}</strong>
+          <span style="display: none;">{{ form.codigo }}</span>
+        </p>
+        <p>
+          <strong>Data de Entrega:</strong>
+          {{ pedido.data_entrega|date:'d/m/Y' }}
+        </p>
+        <p>
+          <strong>{{ form.produto }}</strong>
+        </p>
+        <p>
+          <strong>Descrição:</strong>
+        </p>
+        {{ form.observacao }}
+        <p>
+          <strong>Status:</strong>
+          <strong class="dot active {% if pedido.status.0 == '1' %}
+              
+              
+            
+              red
+
+
+
+
+            {% elif pedido.status.0 == '2' %}
+              
+              
+            
+              gren
+
+
+
+
+            {% elif pedido.status.0 == '3' %}
+              
+              
+            
+              gray
+
+
+
+
+            {% endif %}">
+
+          </strong>
+
+          {{ form.status }}
+        </p>
+        <div class="valores">
+          <span>
+            <strong>Quantidade:</strong>
+            {{ form.quantidade }}
+          </span>
+
+          <span>
+            <strong>Valor:</strong>
+            {{ form.valor }}
+          </span>
+
+          <span>
+            <strong>Valor Total:</strong>
+            <p class="valortot">{{ pedido.valor_total }}</p>
+          </span>
+          <span>
+            <strong>Pago:</strong>
+            {{ form.pago }}
+          </span>
+        </div>
+        <button type="submit">Editar</button>
+      </div>
+    </div>
+  </form>F
+{% endblock %}

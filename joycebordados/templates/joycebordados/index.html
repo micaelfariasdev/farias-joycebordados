@@ -1,12 +1,13 @@
-{% extends "global/base.html" %}
-{% block titulo %}Home{% endblock titulo %}
+{% extends 'global/base.html' %}
+{% block titulo %}
+  Home
+{% endblock %}
 {% block main %}
-<div class="conteiner">
-    {% include "joycebordados/partial/carrossel.html" %}
-    {% include "joycebordados/partial/servicos.html" %}
-    {% include "joycebordados/partial/sobre.html" %}
-    {% include "joycebordados/partial/google.html" %}
-    {% include "joycebordados/partial/orcamento.html" %}
-    
+  <div class="conteiner">
+    {% include 'joycebordados/partial/carrossel.html' %}
+    {% include 'joycebordados/partial/servicos.html' %}
+    {% include 'joycebordados/partial/sobre.html' %}
+    {% include 'joycebordados/partial/google.html' %}
+    {% include 'joycebordados/partial/orcamento.html' %}
   </div>
-{% endblock main %}
+{% endblock %}

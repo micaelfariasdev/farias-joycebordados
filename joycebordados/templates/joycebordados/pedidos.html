@@ -1,0 +1,11 @@
+{% extends 'global/base.html' %}
+{% block titulo %}
+  Pedidos
+{% endblock %}
+{% block main %}
+  <div class="pedidos-conteiner">
+    {% for pedido in pedidos %}
+      {% include 'joycebordados/partial/pedido.html' %}
+    {% endfor %}
+  </div>
+{% endblock %}

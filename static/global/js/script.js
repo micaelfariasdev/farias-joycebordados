@@ -19,3 +19,17 @@ function autoSlide() {
 }
 
 setInterval(autoSlide, 5000);
+
+
+const show = document.querySelector('.blur-back');
+const log = document.querySelector('.conteiner-buscar');
+
+function showLog() {
+    show.classList.add('show');
+    log.classList.add('show');
+}
+
+function hiddenLog() {
+    show.classList.remove('show');
+    log.classList.remove('show');
+}

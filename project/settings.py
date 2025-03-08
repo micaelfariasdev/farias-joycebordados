@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'joycebordados',
     "empresa",
+    "clientes",
 ]
 
 MIDDLEWARE = [

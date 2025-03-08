@@ -58,3 +58,54 @@ def delete_foto_carrossel(sender, instance, **kwargs):
     if instance.foto:
         if os.path.isfile(instance.foto.path):
             os.remove(instance.foto.path)
+
+
+class Cliente(models.Model):
+    nome = models.CharField(max_length=100)
+    numero = models.CharField(max_length=15)
+
+    def __str__(self):
+        return self.nome
+
+
+class Pedido(models.Model):
+    codigo = models.CharField(
+        max_length=5, unique=True, blank=True, null=True)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    data = models.DateTimeField(auto_now_add=True)
+    data_entrega = models.DateField(blank=True, null=True)
+    produto = models.CharField(max_length=100)
+    quantidade = models.IntegerField()
+    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    valor_total = models.DecimalField(
+        max_digits=10, decimal_places=2, blank=True, null=True)
+    observacao = models.TextField(blank=True, null=True)
+    status = models.CharField(max_length=100, choices=(
+        ('0-pendente', 'Pendente'),
+        ('1-producao', 'Produção'),
+        ('2-pronto', 'Pronto para entrega'),
+        ('3-entregue', 'Finalizado')), blank=True, null=True, default='0-pendente',
+    )
+    pago = models.BooleanField(default=False)
+
+    def gerar_codigo_unico(self):
+        import random
+        import string
+        """Gera um código único para o pedido"""
+        while True:
+            codigo = ''.join(random.choices(
+                string.ascii_uppercase + string.digits, k=5))
+            if not Pedido.objects.filter(codigo=codigo).exists():
+                return codigo
+
+    def save(self, *args, **kwargs):
+        if self.codigo is None:
+            self.codigo = self.gerar_codigo_unico()
+        if self.valor is not None and self.quantidade is not None:
+            self.valor_total = self.valor * self.quantidade
+        else:
+            self.valor_total = 0
+        return super().save(*args, **kwargs)
+
+    def __str__(self):
+        return self.codigo

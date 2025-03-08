@@ -57,7 +57,9 @@
     "material-icon-theme.folders.associations": {
         "joycebordados": "app",
         "empresa": "app",
+        "clientes": "app",
         "base_templates": "template",
+        "templatetags": "utils",
         
     },
     "workbench.iconTheme": "material-icon-theme",
