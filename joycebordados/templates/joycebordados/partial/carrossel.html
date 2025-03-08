@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="carrossel-conteiner">
+  <div class="carrossel">
+    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
+    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
+    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
+    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
+  </div>
+  <div class="dots-carrossel">
+    <div class="dot active" onclick="changeSlide(0)"></div>
+    <div class="dot" onclick="changeSlide(1)"></div>
+    <div class="dot" onclick="changeSlide(2)"></div>
+    <div class="dot" onclick="changeSlide(3)"></div>
+  </div>
+</div>

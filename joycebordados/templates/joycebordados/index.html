@@ -2,10 +2,11 @@
 {% block titulo %}Home{% endblock titulo %}
 {% block main %}
 <div class="conteiner">
-    <div class="carrossel"></div>
-    <div class="servicos"></div>
-    <div class="sobre"></div>
-    <div class="contatos"></div>
-    <div class="orcamento"></div>
+    {% include "joycebordados/partial/carrossel.html" %}
+    {% include "joycebordados/partial/servicos.html" %}
+    {% include "joycebordados/partial/sobre.html" %}
+    {% include "joycebordados/partial/google.html" %}
+    {% include "joycebordados/partial/orcamento.html" %}
+    
   </div>
 {% endblock main %}

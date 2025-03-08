@@ -27,7 +27,7 @@
     },
     "[django-html]": {
         "editor.formatOnSave": false,
-        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.defaultFormatter": "junstyle.vscode-django-support",
         "editor.quickSuggestions": {
         "other": true,
         "comments": true,

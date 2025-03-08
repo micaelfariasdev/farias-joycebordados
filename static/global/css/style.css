@@ -8,38 +8,355 @@
     box-sizing: border-box;
 }
 
-:root{
+:root {
     --color-primary: #278FFF;
     --color-secondary: #FFCA26;
     --color-tertiary: #FF8E26;
-    --color-quaternary: #536880;
+    --color-quaternary: #5bd5fa;
     --color-quinary: #807553;
-    --color-black   : #000000;
-    --color-white   : #FFFFFF;
+    --color-black: #000000;
+    --color-white: #FFFFFF;
+    --color-gray: #808080;
+    --filtro-white: invert(1);
+    --filtro-black: invert(0);
 
 
     --font-primary: Montserrat, sans-serif;
 }
 
-html{   
+html {
     height: 100vh;
 }
 
-body{
+body {
     background-color: var(--color-quaternary);
     color: var(--color-black);
-    font-size: 1.6rem;
+    font-size: 1.1rem;
     line-height: 1.6;
     font-family: var(--font-primary);
     font-weight: 400;
     overflow-x: hidden;
-    height: 100%;
     display: flex;
     flex-flow: column nowrap;
     justify-content: space-between;
 }
 
-a{
+a {
     text-decoration: none;
     color: var(--color-black);
+}
+
+ul {
+    list-style: none;
+}
+
+/* header css style */
+header {
+    width: 100%;
+    background: var(--color-primary);
+
+}
+
+header .conteiner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 200px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+}
+
+.img-logo {
+    height: 100%;
+    justify-content: start;
+    display: flex;
+    align-items: center;
+}
+
+.img-logo img {
+    height: 100%;
+    filter: var(--filtro-white);
+}
+
+.conteiner-acess {
+    height: 100%;
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    width: 100%;
+    background: var(--color-primary);
+}
+
+.areas a {
+    padding: 10px;
+    border: var(--color-quaternary) 3px solid;
+    border-radius: 10px;
+    font-size: .7rem;
+    font-weight: bold;
+    color: var(--color-quaternary);
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    flex-flow: row nowrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.nav a {
+    color: var(--color-white);
+}
+
+.nav a::after {
+    content: '';
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: var(--color-secondary);
+    transition: width .3s;
+}
+
+.nav a:hover::after {
+    width: 100%;
+}
+
+/* main css style */
+
+main {
+    height: 100%;
+}
+
+main .conteiner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 40px;
+}
+
+.carrossel-conteiner {
+    width: 100%;
+    height: 720px;
+    overflow: hidden;
+}
+
+.carrossel {
+    display: flex;
+    align-items: center;
+    flex-flow: row nowrap;
+    width: 100%;
+    height: 720px;
+    transition: 1s;
+}
+
+.carrossel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dots-carrossel {
+    position: relative;
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    justify-content: center;
+    top: -30px;
+    gap: 5px;
+}
+
+.dot {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-quaternary);
+    opacity: .5;
+}
+
+.dot.active {
+    opacity: 1;
+}
+
+
+.servicos-conteiner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    width: 90%;
+    gap: 60px;
+}
+
+
+.serv {
+    justify-items: center;
+    text-align: justify;
+}
+
+.sobre-conteiner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: row nowrap;
+    width: 90%;
+    gap: 30px;
+}
+
+.sobre,
+.sobre-img {
+    background: var(--color-secondary);
+    border-radius: 30px;
+    padding: 10px;
+    height: 400px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
+}
+
+.sobre {
+    padding: 40px;
+    width: 86%;
+}
+
+.sobre h2,
+.sobre p {
+
+    color: var(--color-black);
+}
+
+.sobre-img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+}
+
+.google-conteiner {
+    display: grid;
+    align-items: start;
+    grid-template-columns: 1fr 1fr;
+    justify-content: stretch;
+    width: 100%;
+    gap: 20px;
+    font-size: 1.2rem;
+    background: var(--color-white);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
+}
+
+.map {
+    grid-row: span 2;
+
+}
+
+.map iframe {
+    border-radius: 20px;
+    border: 6px solid var(--color-secondary);
+}
+
+.contato {
+    grid-column: 2;
+}
+
+.orcamento-container {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    flex-flow: row nowrap;
+    width: 100%;
+    gap: 20px;
+}
+
+.orcamento-form form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: column nowrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.input-style {
+    width: 500px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--color-secondary);
+}
+
+.input-style:focus {
+    border: 2px solid var(--color-tertiary);
+}
+
+textarea {
+    height: 200px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--color-secondary);
+}
+
+button {
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid var(--color-secondary);
+    background: var(--color-secondary);
+    color: var(--color-white);
+    font-weight: bold;
+    cursor: pointer;
+    align-self: end;
+}
+
+/* footer css style */
+
+footer {
+    margin-top: 50px;
+    width: 100%;
+    background: var(--color-black);
+}
+
+footer .conteiner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    gap: 40px;
+    color: var(--color-gray);
+}
+
+footer .conteiner a {
+    color: var(--color-gray);
+}
+
+.nav-footer {
+    display: flex;
+    align-items: start;
+    justify-content: space-evenly;
+    flex-flow: row nowrap;
+    gap: 20px;
+    width: 100%;
+}
+
+.nav-footer dt {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.dev-create {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row nowrap;
+    gap: 20px;
+    width: 100%;
+    font-size: .8rem;
 }
