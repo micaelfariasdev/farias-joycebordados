@@ -2,15 +2,17 @@
 
 <div class="carrossel-conteiner">
   <div class="carrossel">
-    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
-    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
-    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
-    <img src="{% static 'global/img/default-carrossel.png' %}" alt="" />
+    {% for foto in fotos %}
+      <img src="{{ foto.foto.url }}" alt="" />
+    {% endfor %}
   </div>
   <div class="dots-carrossel">
-    <div class="dot active" onclick="changeSlide(0)"></div>
-    <div class="dot" onclick="changeSlide(1)"></div>
-    <div class="dot" onclick="changeSlide(2)"></div>
-    <div class="dot" onclick="changeSlide(3)"></div>
+    {% for i in fotos %}
+      {% if forloop.counter0 == 0 %}
+        <div class="dot active" onclick="changeSlide({{ forloop.counter0 }})"></div>
+      {% else %}
+        <div class="dot" onclick="changeSlide({{ forloop.counter0 }})"></div>
+      {% endif %}
+    {% endfor %}
   </div>
 </div>

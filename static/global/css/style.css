@@ -145,7 +145,6 @@ main .conteiner {
 
 .carrossel-conteiner {
     width: 100%;
-    height: 720px;
     overflow: hidden;
 }
 
@@ -154,14 +153,15 @@ main .conteiner {
     align-items: center;
     flex-flow: row nowrap;
     width: 100%;
-    height: 720px;
+    aspect-ratio: 1200/720;
     transition: 1s;
 }
 
 .carrossel img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    aspect-ratio: 1200/720;
 }
 
 .dots-carrossel {
@@ -178,7 +178,7 @@ main .conteiner {
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background: var(--color-quaternary);
+    background: var(--color-secondary);
     opacity: .5;
 }
 
@@ -203,11 +203,12 @@ main .conteiner {
 }
 
 .sobre-conteiner {
-    display: flex;
-    align-items: center;
+    display: grid;
+    grid-template-columns:60% 40%;
+    align-items: stretch;
     justify-content: space-between;
-    flex-flow: row nowrap;
     width: 90%;
+    height: 100%;
     gap: 30px;
 }
 
@@ -216,13 +217,17 @@ main .conteiner {
     background: var(--color-secondary);
     border-radius: 30px;
     padding: 10px;
-    height: 400px;
+    text-align: justify;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
 .sobre {
     padding: 40px;
-    width: 86%;
+}
+
+.sobre-img{
+    height: 100%;
+    object-fit: cover;
 }
 
 .sobre h2,
