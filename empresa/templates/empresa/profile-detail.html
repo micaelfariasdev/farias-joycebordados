@@ -1,0 +1,47 @@
+{% extends 'global/base.html' %} {% load static %} {% load filtros %} 
+{% block titulo %} {{ dados.nome }} {% endblock %} {% block main %}
+<div class="conteiner">
+  <div class="conteiner-profile">
+    <h1 style="grid-column: span 4; justify-self: start">DashBoard</h1>
+    <div class="card">
+      <h3>Vendas</h3>
+      <p>{{ pedidos.count }}</p>
+    </div>
+    <div class="card">
+      <h3>Faturamento</h3>
+      <p>{{ faturamento }}</p>
+    </div>
+    <div class="card">
+      <h3>Ticket Médio</h3>
+      <p>{{ faturamento|dividir:pedidos.count }}</p>
+    </div>
+    <canvas id="graficoPedidos" style='grid-column:1 / span 4;'></canvas>
+  </div>
+</div>
+{% endblock %} 
+{% block script %}
+<script>
+    var ctx = document.getElementById('graficoPedidos').getContext('2d');
+
+    var graficoPedidos = new Chart(ctx, {
+        type: 'line',  // Gráfico de linha
+        data: {
+            labels: {{ datas|safe }},  // Datas formatadas
+            datasets: [{
+                label: 'Pedidos por dia',
+                data: {{ pedidos_lista|safe }},  // Quantidade de pedidos por dia
+                borderColor: 'blue',
+                backgroundColor: 'rgba(0, 0, 255, 0.2)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Data' } },
+                y: { title: { display: true, text: 'Número de Pedidos' }, beginAtZero: true }
+            }
+        }
+    });
+</script>
+{% endblock %}

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from empresa.models import Empresa, Pedido
 # Create your views here.
 def PedidoClient(request):
-    codigo = request.POST.get('Codigo')
+    codigo = request.POST.get('Codigo').strip()
     if codigo[0] == '#':
         codigo = codigo[1:]
     pedido = Pedido.objects.get(codigo=codigo)

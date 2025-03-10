@@ -31,7 +31,7 @@ class ClienteAdmin(admin.ModelAdmin):
 class PedidoAdmin(admin.ModelAdmin):
     readonly_fields = ('codigo', 'valor_total', )
     list_display = ('codigo', 'cliente', 'data_entrega', 'observacao', 'status', 'pago', 'produto', 'quantidade',
-                    'valor', 'valor_total', 'data')
+                    'valor', 'valor_total',  'data_update', 'data')
     search_fields = ('cliente', 'produto', 'data')
     ordering = ('status', 'pago')
     list_editable = ('status', 'pago',)

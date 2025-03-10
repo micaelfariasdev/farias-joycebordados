@@ -1,11 +1,11 @@
 
-from .views import ModelDetailView, PedidosListView, PedidodetailView, PedidoEditView
+from .views import PedidosListView, PedidodetailView, PedidoEditView, ProfileView
 from django.urls import path
 
 app_name = 'empresa'
 
 urlpatterns = [
-    path('', ModelDetailView.as_view(), name='empresa'),
+    path('', ProfileView, name='empresa'),
     path('pedidos/', PedidosListView, name='pedidos'),
     path('pedidos/<int:pk>', PedidodetailView, name='detail-pedido'),
     path('pedidos/<int:pk>/edit', PedidoEditView, name='pedido-edit'),

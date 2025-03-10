@@ -73,6 +73,7 @@ class Pedido(models.Model):
         max_length=5, unique=True, blank=True, null=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
+    data_update = models.DateTimeField(auto_now=True)
     data_entrega = models.DateField(blank=True, null=True)
     produto = models.CharField(max_length=100)
     quantidade = models.IntegerField()
@@ -109,3 +110,12 @@ class Pedido(models.Model):
 
     def __str__(self):
         return self.codigo
+
+
+from empresa.models import Pedido
+from datetime import timedelta
+from django.utils.timezone import now
+
+
+
+

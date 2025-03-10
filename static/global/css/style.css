@@ -373,6 +373,8 @@ hr {
 
 .pedido-detail-conteiner {
     display: flex;
+    justify-self: center;
+    max-width: 1200px;
     justify-content: space-between;
     flex-flow: column nowrap;
     gap: 20px;
@@ -461,6 +463,28 @@ span {
     margin-top: 10px;
 }
 
+.conteiner-profile{
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    gap: 20px;
+    width: 100%;
+    max-width: 1200px;
+    grid-template-columns: repeat(4, minmax(300px, 1fr));
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 0 0 20px 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
+}
+
+.card{
+    width: 100%;
+    padding: 20px;
+    aspect-ratio: 5/2;
+    background: var(--color-quaternary);
+    border-radius: 20px;
+}
 /* footer css style */
 
 footer {

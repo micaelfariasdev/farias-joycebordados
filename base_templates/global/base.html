@@ -4,24 +4,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>
-      {% block titulo %}
-      {% endblock %}| Joyce Bordados
-    </title>
+    <title>{% block titulo %} {% endblock %}| Joyce Bordados</title>
     <link rel="stylesheet" href="{% static 'global/css/style.css' %}" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
-    <header>
-      {% include 'global/partial/header.html' %}
-    </header>
+    <header>{% include 'global/partial/header.html' %}</header>
     <main>
-      {% block main %}
-      {% endblock %}
-      {% include 'clientes/partial/login.html' %}
+      {% block main %} {% endblock %} {% include 'clientes/partial/login.html' %}
     </main>
-    <footer>
-      {% include 'global/partial/footer.html' %}
-    </footer>
+    <footer>{% include 'global/partial/footer.html' %}</footer>
     <script src="{% static 'global/js/script.js' %}"></script>
+    {% block script %}{% endblock script %}
   </body>
 </html>
