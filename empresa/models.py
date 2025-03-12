@@ -112,9 +112,7 @@ class Pedido(models.Model):
         return self.codigo
 
 
-from empresa.models import Pedido
-from datetime import timedelta
-from django.utils.timezone import now
+
 
 
 

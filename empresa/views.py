@@ -4,12 +4,12 @@ from .forms import PedidosForm, EmpresaForm, FotosCarrosselForm
 from django.utils.timezone import now
 from django.db.models import Count
 from django.db.models.functions import TruncDate
-from datetime import timedelta
+from datetime import timedelta, date
 
 
 def grafico():
     hoje = now().date()
-    semana = hoje - timedelta(days=7)
+    semana = hoje - timedelta(days=89)
 
     pedidos_por_dia = (
         Pedido.objects.filter(data__gte=semana)  # Filtra os últimos 30 dias
@@ -20,7 +20,7 @@ def grafico():
     )
 
     # Criar listas para o gráfico
-    datas = [(semana + timedelta(days=i)).strftime("%d/%m/%Y") for i in range(7)]  # Lista com todas as datas
+    datas = [(semana + timedelta(days=i)).strftime("%d/%m/%Y") for i in range(90)]  # Lista com todas as datas
     pedidos_dict = {p["data_trunc"].strftime("%d/%m/%Y"): p["total"] for p in pedidos_por_dia}  # Mesma formatação
 
     # Criar lista de valores para o gráfico
