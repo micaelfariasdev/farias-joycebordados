@@ -9,28 +9,41 @@ from datetime import timedelta, date
 
 def grafico():
     hoje = now().date()
-    semana = hoje - timedelta(days=89)
 
+    # Obtém os pedidos agrupados por dia
     pedidos_por_dia = (
-        Pedido.objects.filter(data__gte=semana)  # Filtra os últimos 30 dias
-        .annotate(data_trunc=TruncDate("data"))  # Agrupa por data sem horário
+        Pedido.objects.all()
+        .annotate(data_trunc=TruncDate("data"))
         .values("data_trunc")
-        .annotate(total=Count("id"))  # Conta pedidos por dia
+        .annotate(total=Count("id"))
         .order_by("data_trunc")
     )
 
-    # Criar listas para o gráfico
-    datas = [(semana + timedelta(days=i)).strftime("%d/%m/%Y") for i in range(90)]  # Lista com todas as datas
-    pedidos_dict = {p["data_trunc"].strftime("%d/%m/%Y"): p["total"] for p in pedidos_por_dia}  # Mesma formatação
+    # Verificar se há pedidos no banco
+    if pedidos_por_dia.exists():
+        dia = pedidos_por_dia.first()['data_trunc']
+        # Calculando o número de dias de diferença
+        dias_range = (hoje - dia).days
+    else:
+        # Caso não haja pedidos, retornar listas vazias
+        return {"datas": [], "pedidos_lista": []}
 
-    # Criar lista de valores para o gráfico
-    pedidos_lista = [pedidos_dict.get(data, 0) for data in datas]  
+    # Criar listas de datas para o gráfico (últimos 'dias_range' dias)
+    datas = [(dia + timedelta(days=i)).strftime("%d/%m/%Y") for i in range(dias_range+1)]
+
+    # Criar um dicionário com as datas e o total de pedidos
+    pedidos_dict = {p["data_trunc"].strftime("%d/%m/%Y"): p["total"] for p in pedidos_por_dia}
+
+    # Criar a lista de valores de pedidos para o gráfico
+    pedidos_lista = [pedidos_dict.get(data, 0) for data in datas]
 
     contexto = {
         "datas": datas,  # Enviar datas formatadas para o template
         "pedidos_lista": pedidos_lista,  # Enviar contagem de pedidos
     }
+
     return contexto
+
 
 
 def ProfileView(request):

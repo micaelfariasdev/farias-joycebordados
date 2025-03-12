@@ -30,7 +30,7 @@
   var ctx = document.getElementById('graficoPedidos').getContext('2d');
 
   var graficoPedidos = new Chart(ctx, {
-      type: 'bar',  // Tipo de gráfico: barra
+      type: 'line',  // Tipo de gráfico: barra
       data: {
           labels: {{ datas|safe }},  // Datas formatadas
           datasets: [{
