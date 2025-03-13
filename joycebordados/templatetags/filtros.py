@@ -20,7 +20,7 @@ locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 @register.filter
 def monetario(valor):
-    valor = float(valor)
+    valor = float(valor) if valor else 0
     # Formata o valor como uma string com separadores de milhar
     return locale.currency(valor, grouping=True)
 

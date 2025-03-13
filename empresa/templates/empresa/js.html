@@ -1,0 +1,69 @@
+{% load filtros %}
+<script>
+    var ctx = document.getElementById('graficoPedidos').getContext('2d');
+
+    var graficoPedidos = new Chart(ctx, {
+        type: 'line',  // Tipo de gráfico: linha
+        data: {
+            labels: {{ datas|safe }},  // Datas formatadas
+            datasets: [{
+                label: 'Pedidos por dia',
+                data: {{ pedidos_lista|safe }},  // Quantidade de pedidos por dia
+                borderColor: 'blue',
+                backgroundColor: 'rgb(46, 46, 124)',
+                borderWidth: 1,
+                yAxisID: 'y1'
+            }, {
+                label: 'Faturamento por dia',
+                data: {{ valor_lista|safe }},  // Quantidade de faturamento por dia
+                borderColor: 'green',
+                backgroundColor: 'rgb(49, 124, 46)',
+                borderWidth: 1,
+                yAxisID: 'y2',
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            var valor = tooltipItem.raw;
+                            return 'R$ ' + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        }
+                    }
+                }
+            }]
+        },
+        options: {
+            responsive: true,  // O gráfico será responsivo
+            maintainAspectRatio: false,  // Permite ajustar a proporção
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'black'  // Cor do texto da legenda
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    ticks: {
+                        color: 'black'  // Cor dos rótulos do eixo X
+                    }
+                },
+                y1: {
+                    min: 0,
+                    ticks: {
+                        color: 'blue',
+                        stepSize: 1
+                    },
+                    position: 'left'  // Coloca o primeiro eixo à esquerda
+                },
+                y2: {
+                    min: 0,
+                    ticks: {
+                        color: 'green',
+                        stepSize: 1
+                    },
+                    position: 'right'  // Coloca o segundo eixo à direita
+                }
+            }
+        },
+        devicePixelRatio: window.devicePixelRatio || 4  // Aumenta a resolução, dependendo da tela (Retina)
+    });
+</script>

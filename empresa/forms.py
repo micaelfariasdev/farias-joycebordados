@@ -15,8 +15,24 @@ class EmpresaForm(forms.ModelForm):
 
 
 class FotosCarrosselForm(forms.ModelForm):
-    excluir = forms.BooleanField(required=False, label="Excluir")  # Campo para exclusão
+    excluir = forms.BooleanField(
+        required=False, label="Excluir")  # Campo para exclusão
 
     class Meta:
         model = FotosCarrossel
-        fields = ['foto', 'excluir']  # Apenas os campos que desejo exibir no formulário
+        # Apenas os campos que desejo exibir no formulário
+        fields = ['foto', 'excluir']
+
+
+class FilterForm(forms.Form):
+    data_init = forms.DateField(
+        required=True,
+        label='Data de Inicio',
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )
+
+    data_end = forms.DateField(
+        required=True,
+        label='Data Final',
+        widget=forms.DateInput(attrs={'type': 'date'})
+    )

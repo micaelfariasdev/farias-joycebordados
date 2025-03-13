@@ -1,1 +1,1 @@
-from .gerar_grafico import grafico
+from .gerar_grafico import *

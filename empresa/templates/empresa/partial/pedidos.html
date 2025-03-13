@@ -1,0 +1,55 @@
+{% load filtros %}
+<div class="conteiner profile">
+{% include "empresa/partial/menu.html" %}
+<div class="pedidos-conteiner">
+
+  {% for pedido in pedidos %}
+
+<div class="pedido-conteiner {% if pedido.status.0 == '1' %}
+    red
+
+  {% elif pedido.status.0 == '2' %}
+    gren
+
+  {% elif pedido.status.0 == '3' %}
+    gray
+
+  {% endif %}
+">
+  <div class="cliente">
+    <h2>Cliente</h2>
+    <a href="{% url 'empresa:detail-pedido' pk=pedido.pk %}"><button type="button">Detalhe</button></a>
+    <p>
+      <strong>Nome:</strong> {{ pedido.cliente.nome }}
+    </p>
+    <p>
+      <strong>Telefone:</strong> {{ pedido.cliente.numero|formatar_telefone }}
+    </p>
+  </div>
+  <hr />
+  <div class="pedido">
+    <h2>Pedido</h2>
+    {% if pedido.pago %}<span class="icon yes">✅</span>{% else %}<span class="icon no">❌</span>{% endif %}
+    <p class="cod-pedido">
+      <strong>#{{ pedido.codigo }}</strong>
+    </p>
+    <p>
+      <strong>Data de Entrega:</strong>
+      {{ pedido.data_entrega|date:'d/m/Y' }}
+    </p>
+    <p>
+      <strong>{{ pedido.produto }}</strong>
+    </p>
+    <p>
+      <strong>Descrição:</strong>
+      {{ pedido.observacao }}
+    </p>
+    <p>
+      <strong>Status:</strong>
+      {{ pedido.get_status_display }}
+    </p>
+  </div>
+</div>
+{% endfor %}
+</div>
+</div>

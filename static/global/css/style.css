@@ -36,10 +36,9 @@ body {
     line-height: 1.6;
     font-family: var(--font-primary);
     font-weight: 400;
-    height: 100%;
     overflow-x: hidden;
     display: grid;
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto max-content auto;
 }
 
 a {
@@ -53,6 +52,7 @@ ul {
 
 /* header css style */
 header {
+    max-height: 200px;
     width: 100%;
     background: var(--color-primary);
 
@@ -341,13 +341,18 @@ button {
 }
 
 .pedidos-conteiner {
-    padding: 20px;
-    display: flex;
+    display: grid;
     align-items: center;
-    justify-content: space-evenly;
-    flex-flow: row wrap;
+    justify-items: center;
+    gap: 20px;
+    width: 100%;
     max-width: 1200px;
-    gap: 40px;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 0 auto;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 0 0 20px 0;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
 .pedido-conteiner {
@@ -355,6 +360,7 @@ button {
     border-radius: 30px;
     padding: 20px;
     max-width: 300px;
+    height: 100%;
 }
 
 hr {
@@ -367,9 +373,12 @@ hr {
 }
 
 .pedido-conteiner a {
+    top: -6px;
     position: relative;
-    left: 70px;
+    left: 24px;
 }
+
+
 
 .pedido-detail-conteiner {
     display: flex;
@@ -454,6 +463,7 @@ span {
 .blur-back.show {
     display: flex;
 }
+
 .conteiner-buscar.show {
     display: flex;
 }
@@ -463,26 +473,27 @@ span {
     margin-top: 10px;
 }
 
-.conteiner-profile{
+.conteiner-profile {
     display: grid;
     align-items: center;
     justify-items: center;
     gap: 20px;
     width: 100%;
     max-width: 1200px;
-    grid-template-columns: repeat(4, 1fr );
+    grid-template-columns: repeat(4, 1fr);
     margin: 0 auto;
     padding: 20px;
     background: var(--color-white);
-    border-radius: 0 0 20px 20px;
+    border-radius: 0 0 20px 0;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
-.conteiner-profile h1{
-    grid-column: span 4; justify-self: start
+.conteiner-profile h1 {
+    grid-column: span 4;
+    justify-self: start
 }
 
-.card{
+.card {
     width: 100%;
     padding: 20px;
     aspect-ratio: 5/2;
@@ -490,7 +501,8 @@ span {
     border-radius: 20px;
 }
 
-.conteiner-profile .filter{
+.conteiner-profile .filter {
+
     grid-column: 4;
     grid-row: span 2;
     width: 100%;
@@ -500,17 +512,79 @@ span {
     border-radius: 20px;
 }
 
+.conteiner-profile .filter form {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    gap: 10px 5px;
+    align-items: center;
+}
+
+.conteiner-profile .filter form button {
+    width: 50%;
+    justify-self: end;
+    background: var(--color-gray);
+}
+
+.conteiner-profile .filter form .filter-session label {
+    font-size: 0.8rem;
+}
+
 .conteiner-profile .grafico {
     grid-column: 1 / span 3;
     width: 100%;
     height: auto;
-    max-width:100%;
+    max-width: 100%;
     max-height: 400px;
     background: var(--color-quaternary);
     color: #000000;
     padding: 10px;
     border-radius: 20px;
 }
+
+.conteiner.profile {
+    display: flex;
+    align-items: flex-start;
+    flex-flow: row nowrap;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    gap: 0;
+    height: 100%;
+}
+
+.menu-profile {
+    background: var(--color-primary);
+    height: 100%;
+    width: 150px;
+    border-radius: 0 0 0 20px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
+}
+
+.menu-profile nav a {
+    color: var(--color-white);
+}
+
+.menu-profile a::after {
+    content: '';
+    display: block;
+    width: 0%;
+    height: 2px;
+    background: var(--color-secondary);
+    transition: width .3s;
+}
+
+.menu-profile a:hover::after {
+    width: 100%;
+}
+
+.menu-profile nav {
+    display: flex;
+    height: 100%;
+    flex-flow: column nowrap;
+    padding: 10px;
+    gap: 10px 0;
+}
+
 /* footer css style */
 
 footer {
