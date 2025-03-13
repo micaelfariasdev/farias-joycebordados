@@ -15,7 +15,10 @@ def formatar_telefone(telefone):
 
 
 # Configura o locale para o Brasil (para que a vírgula seja usada como separador decimal)
-locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+try:
+    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+except locale.Error:
+    locale.setlocale(locale.LC_ALL, 'C')
 
 
 @register.filter
