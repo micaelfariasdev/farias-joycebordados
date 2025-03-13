@@ -15,16 +15,10 @@ def formatar_telefone(telefone):
 
 
 # Configura o locale para o Brasil (para que a vírgula seja usada como separador decimal)
-try:
-    locale.setlocale(locale.LC_ALL, os.environ.get('LC_ALL'))
-except locale.Error:
-    locale.setlocale(locale.LC_ALL, 'C')
-
 
 @register.filter
 def monetario(valor):
-    return f"R$ {valor:,.2f}".replace()
-
+    return f"R$ {valor:,.2f}"
 
 @register.filter
 def dividir(valor, divisor):
