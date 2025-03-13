@@ -23,9 +23,7 @@ except locale.Error:
 
 @register.filter
 def monetario(valor):
-    valor = float(valor) if valor else 0
-    # Formata o valor como uma string com separadores de milhar
-    return locale.currency(valor, grouping=True)
+    return f"R$ {valor:,.2f}".replace()
 
 
 @register.filter
