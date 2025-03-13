@@ -1,7 +1,7 @@
 # meuapp/templatetags/filtros.py
 import locale
 from django import template
-
+import os
 register = template.Library()
 
 
@@ -16,7 +16,7 @@ def formatar_telefone(telefone):
 
 # Configura o locale para o Brasil (para que a vírgula seja usada como separador decimal)
 try:
-    locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
+    locale.setlocale(locale.LC_ALL, os.environ.get('LC_ALL'))
 except locale.Error:
     locale.setlocale(locale.LC_ALL, 'C')
 
@@ -39,6 +39,7 @@ def dividir(valor, divisor):
 @register.filter
 def range_filter(value):
     return range(1, 5)
+
 
 @register.filter
 def data(data):
