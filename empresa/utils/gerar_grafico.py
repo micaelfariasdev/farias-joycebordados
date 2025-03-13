@@ -89,3 +89,29 @@ def valor_total(request):
     return {'pedidos': pedidos,
             'faturamento': faturamento,
             'ticket_medio': ticket_medio}
+
+
+def pages(pages):
+    lista = []
+    if pages.paginator.num_pages > 4:
+        if float(pages.number) == 1:
+            for i in range(5):
+                lista.append(int(float(pages.number) + i))
+        elif float(pages.number) == 2:
+            for i in range(-1, 4):
+                lista.append(int(float(pages.number) + i))
+        elif float(pages.number) == float(pages.paginator.num_pages):
+            for i in range(-4, 1):
+                lista.append(int(float(pages.number) + i))
+        elif float(pages.number) == float(pages.paginator.num_pages) - 1:
+            for i in range(-3, 2):
+                lista.append(int(float(pages.number) + i))
+        elif float(pages.number) == float(pages.paginator.num_pages) - 2:
+            for i in range(-2, 3):
+                lista.append(int(float(pages.number) + i))
+        else:
+            for i in range(-2, 3):
+                lista.append(int(float(pages.number) + i))
+        return lista
+    else:
+        return [i for i in range(1, pages.paginator.num_pages)]

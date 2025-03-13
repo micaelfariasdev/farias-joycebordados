@@ -31,3 +31,14 @@ def dividir(valor, divisor):
         return valor / divisor
     except ZeroDivisionError:
         return 0  # Retorna 0 se houver divisão por zero
+
+
+@register.filter
+def range_filter(value):
+    return range(1, 5)
+
+@register.filter
+def data(data):
+    data_format = str(data).split('-')
+    data_format = '/'.join(data_format[::-1])
+    return data_format

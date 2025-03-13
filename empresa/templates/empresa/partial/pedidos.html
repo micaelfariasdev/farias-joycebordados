@@ -1,55 +1,76 @@
 {% load filtros %}
 <div class="conteiner profile">
-{% include "empresa/partial/menu.html" %}
-<div class="pedidos-conteiner">
-
-  {% for pedido in pedidos %}
-
-<div class="pedido-conteiner {% if pedido.status.0 == '1' %}
-    red
-
-  {% elif pedido.status.0 == '2' %}
-    gren
-
-  {% elif pedido.status.0 == '3' %}
-    gray
-
-  {% endif %}
-">
-  <div class="cliente">
-    <h2>Cliente</h2>
-    <a href="{% url 'empresa:detail-pedido' pk=pedido.pk %}"><button type="button">Detalhe</button></a>
-    <p>
-      <strong>Nome:</strong> {{ pedido.cliente.nome }}
-    </p>
-    <p>
-      <strong>Telefone:</strong> {{ pedido.cliente.numero|formatar_telefone }}
-    </p>
+  {% include "empresa/partial/menu.html" %}
+  <div class="pedidos-conteiner">
+      <form action="" method="get" class='form-ped'>
+        {{ form.q }}
+        <button type="submit">Buscar</button>
+        <a href="#">
+          <button class='blue'>Novo Pedido</button>
+        </a>
+        <div class='nav-filter blue'>
+          <span>Filtro | </span> <button class='bt-filter gray'>Filtar</button>
+          <div class="filter-session">
+            <hr>
+            {{ form.status.label_tag }}
+            {{ form.status }}
+            <hr>
+            {{ form.pago.label_tag }}
+            {{ form.pago }}
+            <hr>
+            <button type="reset" class='bt-filter gray'>Limpar</button>
+          </div>
+        </div>
+      </form>
+    <div class="pedidos-grid">
+      {% for pedido in pedidos %}
+      
+      <div
+      class="pedido-conteiner {% if pedido.status.0 == '1' %} red {% elif pedido.status.0 == '2' %} gren {% elif pedido.status.0 == '3' %} gray {% endif %}"
+      >
+        <div class="cliente">
+          <h2>Cliente</h2>
+          <a href="{% url 'empresa:detail-pedido' pk=pedido.pk %}"
+            ><button type="button">Detalhe</button></a
+          >
+          <p><strong>Nome:</strong> {{ pedido.cliente.nome }}</p>
+          <p>
+            <strong>Telefone:</strong> {{ pedido.cliente.numero|formatar_telefone }}
+          </p>
+        </div>
+        <hr />
+        <div class="pedido">
+          <h2>Pedido</h2>
+          {% if pedido.pago %}<span class="icon yes">✅</span>{% else %}<span
+            class="icon no"
+            >❌</span
+          >{% endif %}
+          <p class="cod-pedido">
+            <strong>#{{ pedido.codigo }}</strong>
+          </p>
+          <p>
+            <strong>Data de Entrega:</strong>
+            {{ pedido.data_entrega|date:'d/m/Y' }}
+          </p>
+          <p>
+            <strong>{{ pedido.produto }}</strong>
+          </p>
+          <p>
+            <strong>Descrição:</strong>
+            {{ pedido.observacao }}
+          </p>
+          <p>
+            <strong>Status:</strong>
+            {{ pedido.get_status_display }}
+          </p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% if page_obj %}
+    {% include "empresa/partial/paginator.html" %}
+    {% else %}
+    <p>Nenhum pedido encontrado</p>
+    {% endif %}
   </div>
-  <hr />
-  <div class="pedido">
-    <h2>Pedido</h2>
-    {% if pedido.pago %}<span class="icon yes">✅</span>{% else %}<span class="icon no">❌</span>{% endif %}
-    <p class="cod-pedido">
-      <strong>#{{ pedido.codigo }}</strong>
-    </p>
-    <p>
-      <strong>Data de Entrega:</strong>
-      {{ pedido.data_entrega|date:'d/m/Y' }}
-    </p>
-    <p>
-      <strong>{{ pedido.produto }}</strong>
-    </p>
-    <p>
-      <strong>Descrição:</strong>
-      {{ pedido.observacao }}
-    </p>
-    <p>
-      <strong>Status:</strong>
-      {{ pedido.get_status_display }}
-    </p>
-  </div>
-</div>
-{% endfor %}
-</div>
 </div>

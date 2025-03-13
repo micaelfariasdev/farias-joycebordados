@@ -1,0 +1,20 @@
+{% load filtros %}
+<div class="paginacao">
+    {% if 1 not in pages_nav  %}
+        <a href="?page=1{% if query_string %}&{{ query_string }}{% endif %}" class='pag-itens'>1</a>
+        <span class='pag-itens'>...</span>
+    {% endif %}
+    {% for i in pages_nav %} 
+    {% if i == page_obj.number %}
+        <a href="?page={{ i }}{% if query_string %}&{{ query_string }}{% endif %}" class='pag-itens'><strong>{{ i }}</strong></a>
+   {% elif i == page_obj.paginator.num_pages %}
+        <a href="?page={{ i }}{% if query_string %}&{{ query_string }}{% endif %}" class='pag-itens'>{{ i }}</a>
+    {% else %}
+        <a href="?page={{ i }}{% if query_string %}&{{ query_string }}{% endif %}" class='pag-itens'>{{ i }}, </a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.paginator.num_pages not in pages_nav  %}
+        <span class='pag-itens'>...</span>
+        <a href="?page={{ page_obj.paginator.num_pages }}{% if query_string %}&{{ query_string }}{% endif %}" class='pag-itens'>{{ page_obj.paginator.num_pages }}</a>
+    {% endif %}
+</div>

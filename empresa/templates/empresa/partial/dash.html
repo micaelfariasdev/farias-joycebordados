@@ -4,6 +4,14 @@
     
     <div class="conteiner-profile">
       <h1>DashBoard</h1>
+      <div class='card-legenda'>
+        {% if request.GET.data_init %}
+        <p >Dados de {{ request.GET.data_init|data }} à {{ request.GET.data_end|data }}</p>
+        
+        {% else %}
+        <p >Dados do mês</p>
+        {% endif %}
+      </div>
       <div class="card">
         <h3>Vendas</h3>
         <p>{{ pedidos }}</p>
@@ -19,12 +27,12 @@
       <div class="filter">
         <form action="" method="get">
           <p>Intervalo:</p>
-          <button type="submit">Filtrar</button>
-          <div class="filter-session">
+          <button type="submit" class="gray">Filtrar</button>
+          <div class="filter-label">
             <label for="{{ form.data_init.id_for_label }}"><strong>{{ form.data_init.label }}</strong></label>
             {{ form.data_init }}
           </div>
-          <div class="filter-session">
+          <div class="filter-label">
             <label for="{{ form.data_end.id_for_label }}"><strong>{{ form.data_end.label }}</strong></label>
             {{ form.data_end }}
           </div>

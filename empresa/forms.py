@@ -36,3 +36,33 @@ class FilterForm(forms.Form):
         label='Data Final',
         widget=forms.DateInput(attrs={'type': 'date'})
     )
+
+
+class ProcurarForm(forms.Form):
+    q = forms.CharField(
+        required=False,
+        widget=forms.TextInput(
+            attrs={'placeholder': 'Buscar pedido...'}
+        )
+    )
+    status = forms.ChoiceField(
+        required=False,
+        choices=[
+            ('0-pendente', 'Pendente'),
+            ('1-producao', 'Produção'),
+            ('2-pronto', 'Pronto para entrega'),
+            ('3-entregue', 'Finalizado')
+        ],
+        widget=forms.RadioSelect,
+        label='Status:'
+    )
+
+    pago = forms.ChoiceField(
+        required=False,
+        choices=[
+            (True, 'Pago'),
+            (False, 'Falta pagar')
+        ],
+        label='Pago:',
+        widget=forms.RadioSelect,
+    )

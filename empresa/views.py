@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido
-from .forms import PedidosForm, FilterForm
-from .utils import grafico, valor_total
-from django.db.models.functions import TruncDate
-from datetime import timedelta, datetime
+from .forms import PedidosForm, FilterForm, ProcurarForm
+from .utils import grafico, valor_total, pages
+from datetime import datetime
+from django.core.paginator import Paginator
+from django.db.models import Q
 
 
 def ProfileView(request):
@@ -23,9 +24,37 @@ def ProfileView(request):
 
 
 def PedidosListView(request):
+    pesquisa = request.GET.get('q', '').strip()
+    pg = request.GET.get('pago', '').strip()
+    status = request.GET.get('status', '').strip()
+    filtro_q = Q()
+    filtro_pg = Q()
+    filtro_est = Q()
+
+    if pesquisa:
+        filtro_q = Q(codigo__icontains=pesquisa) | Q(cliente__nome__icontains=pesquisa)
+
+    if pg in ["True", "False"]:  # Garantir que é um valor booleano válido
+        filtro_pg = Q(pago=(pg))
+
+    if status:
+        filtro_est = Q(status=status)
+
     dados = Empresa.objects.get(pk=1)
-    pedidos = Pedido.objects.all().order_by('status')
-    return render(request, 'empresa/pedido-profile.html', {'dados': dados, 'pedidos': pedidos})
+    pedidos = Pedido.objects.filter(filtro_q & filtro_pg & filtro_est).order_by('status', '-id')
+
+
+    paginator = Paginator(pedidos, 8)
+    form = ProcurarForm(request.GET or None)
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    pages_nav = pages(page_obj)
+
+    query_params = request.GET.copy()
+    query_params.pop('page', None)  # Remove 'page' para evitar conflitos ao paginar
+    query_string = query_params.urlencode()
+    return render(request, 'empresa/pedido-profile.html', {'query_string':query_string,'form': form, 'dados': dados, 'pedidos': page_obj, 'page_obj': page_obj, 'pages_nav': pages_nav})
 
 
 def PedidodetailView(request, pk):
