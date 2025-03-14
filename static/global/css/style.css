@@ -481,6 +481,34 @@ span {
     transition: all 1s;
 }
 
+.conteiner-pix{
+    background: var(--color-white);
+    padding: 20px;
+    margin: auto;
+    align-self: center;
+    z-index: 100;
+    display: none;
+    align-items: center;
+    border-radius: 20px;
+    transition: all 1s;
+    flex-flow: column;
+}
+
+.conteiner-pix img{
+    width: 300px;
+    height: 300px;
+}
+
+.conteiner-pix textarea{
+    height: 100px;
+    resize: none;
+}
+
+.conteiner-pix.show {
+    display: flex;
+}
+
+
 .blur-back.show {
     display: flex;
 }
@@ -492,6 +520,10 @@ span {
 
 .conteiner-buscar form>* {
     margin-top: 10px;
+}
+
+.link-zap{
+    color: rgb(118, 179, 28);
 }
 
 .conteiner-profile {

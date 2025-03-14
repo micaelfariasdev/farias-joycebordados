@@ -61,12 +61,12 @@ def PedidodetailView(request, pk):
     dados = Empresa.objects.get(pk=1)
     pedido = Pedido.objects.get(pk=pk)
     form = PedidosForm(instance=pedido)
-    return render(request, 'joycebordados/pedido-detail.html', {'dados': dados, 'pedido': pedido, 'form': form})
+
+    return render(request, 'joycebordados/pedido-detail.html', {'dados': dados, 'pedido': pedido, 'form': form,})
 
 
 def PedidoEditView(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
-
     if request.method == "POST":
         form = PedidosForm(request.POST or None, instance=pedido)
         if form.is_valid():
@@ -80,3 +80,5 @@ def PedidoEditView(request, pk):
             return redirect('empresa:pedidos')
 
     return redirect('empresa:pedidos')
+
+

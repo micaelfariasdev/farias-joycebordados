@@ -7,4 +7,6 @@ def PedidoClient(request):
         codigo = codigo[1:]
     pedido = Pedido.objects.get(codigo=codigo)
     empresa = Empresa.objects.get(pk=1)
-    return render(request, 'clientes/pedido-cliente.html', {'pedido': pedido, 'dados': empresa})
+    qr_pix = pedido.gerar_qr_pix()
+
+    return render(request, 'clientes/pedido-cliente.html', {'pedido': pedido, 'dados': empresa, 'qr_pix':qr_pix})

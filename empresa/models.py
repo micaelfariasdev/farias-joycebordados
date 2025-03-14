@@ -1,7 +1,12 @@
+import pywhatkit as kit
 import os
 from django.dispatch import receiver
 from django.db.models.signals import post_delete
 from django.db import models
+import qrcode
+from pixqrcode import GenerateCode, Pix, PixQrCode
+from django.core.files.base import ContentFile
+from io import BytesIO
 
 
 class Empresa(models.Model):
@@ -72,6 +77,7 @@ class Pedido(models.Model):
     codigo = models.CharField(
         max_length=5, unique=True, blank=True, null=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
     data = models.DateTimeField(auto_now_add=True)
     data_update = models.DateTimeField(auto_now=True)
     data_entrega = models.DateField(blank=True, null=True)
@@ -88,6 +94,7 @@ class Pedido(models.Model):
         ('3-entregue', 'Finalizado')), blank=True, null=True, default='0-pendente',
     )
     pago = models.BooleanField(default=False)
+    qr_code = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
 
     def gerar_codigo_unico(self):
         import random
@@ -99,6 +106,24 @@ class Pedido(models.Model):
             if not Pedido.objects.filter(codigo=codigo).exists():
                 return codigo
 
+    def gerar_qr_pix(self):
+        nome = 'Jocileide Fernanda da Silva Farias'
+        numero = self.empresa.telefone
+        pix = f'({numero[:2]}) {numero[2:]}'
+        pix = PixQrCode(nome, pix, "SAO PAULO",
+                        "2", f'{self.cliente.nome}{self.codigo}').generate_code()
+
+        # Gerar o QR Code
+        qr = qrcode.make(pix)
+        buffer = BytesIO()
+        qr.save(buffer, format="PNG")
+
+        # Salvar o QR Code no banco de dados como imagem
+        self.qr_code.save(f'qr_{self.codigo}.png',
+                          ContentFile(buffer.getvalue()), save=False)
+
+        return pix
+
     def save(self, *args, **kwargs):
         if self.codigo is None:
             self.codigo = self.gerar_codigo_unico()
@@ -106,6 +131,7 @@ class Pedido(models.Model):
             self.valor_total = self.valor * self.quantidade
         else:
             self.valor_total = 0
+
         return super().save(*args, **kwargs)
 
     def __str__(self):

@@ -66,9 +66,10 @@
       </div>
       {% if not pedido.pago %}
         <div class="pagamentos">
-          <button>Efetuar pagamento:</button>
+          <button onclick="showPix()">Efetuar pagamento:</button>
           <div class="dados-pagamento"></div>
         </div>
+        {% include "clientes/partial/pix.html" %}
       {% endif %}
     </div>
   </div>

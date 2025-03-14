@@ -115,3 +115,6 @@ def pages(pages):
         return lista
     else:
         return [i for i in range(1, pages.paginator.num_pages)]
+
+
+
