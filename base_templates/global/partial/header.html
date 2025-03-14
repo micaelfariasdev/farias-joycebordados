@@ -9,7 +9,7 @@
   <div class="conteiner-acess">
     <div class="areas">
       <a href="#" onclick="showLog()">Área do Cliente</a>
-      <a href="{% url "empresa:login" %}">Área Administrativa</a>
+      <a href="{% url "empresa:empresa" %}">Área Administrativa</a>
       {% if user.is_authenticated %}
       <form action="{% url 'empresa:logout' %}" method="post">
         {% csrf_token %}
