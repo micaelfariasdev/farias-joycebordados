@@ -1,14 +1,17 @@
+from django.shortcuts import render, redirect
+from .forms import CustomLoginForm
+from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
-from .models import Empresa, Pedido
-from .forms import PedidosForm, FilterForm, ProcurarForm
+from .models import Empresa, Pedido, FotosCarrossel
+from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
 from .utils import grafico, valor_total, pages
 from datetime import datetime
 from django.core.paginator import Paginator
 from django.db.models import Q
 
 
-def ProfileView(request):
+def DashBoardView(request):
     dados = Empresa.objects.get(pk=1)
 
     filter = {
@@ -32,7 +35,8 @@ def PedidosListView(request):
     filtro_est = Q()
 
     if pesquisa:
-        filtro_q = Q(codigo__icontains=pesquisa) | Q(cliente__nome__icontains=pesquisa)
+        filtro_q = Q(codigo__icontains=pesquisa) | Q(
+            cliente__nome__icontains=pesquisa)
 
     if pg in ["True", "False"]:  # Garantir que é um valor booleano válido
         filtro_pg = Q(pago=(pg))
@@ -41,8 +45,8 @@ def PedidosListView(request):
         filtro_est = Q(status=status)
 
     dados = Empresa.objects.get(pk=1)
-    pedidos = Pedido.objects.filter(filtro_q & filtro_pg & filtro_est).order_by('status', '-id')
-
+    pedidos = Pedido.objects.filter(
+        filtro_q & filtro_pg & filtro_est).order_by('status', '-id')
 
     paginator = Paginator(pedidos, 8)
     form = ProcurarForm(request.GET or None)
@@ -52,9 +56,10 @@ def PedidosListView(request):
     pages_nav = pages(page_obj)
 
     query_params = request.GET.copy()
-    query_params.pop('page', None)  # Remove 'page' para evitar conflitos ao paginar
+    # Remove 'page' para evitar conflitos ao paginar
+    query_params.pop('page', None)
     query_string = query_params.urlencode()
-    return render(request, 'empresa/pedido-profile.html', {'query_string':query_string,'form': form, 'dados': dados, 'pedidos': page_obj, 'page_obj': page_obj, 'pages_nav': pages_nav})
+    return render(request, 'empresa/profile-pedidos.html', {'query_string': query_string, 'form': form, 'dados': dados, 'pedidos': page_obj, 'page_obj': page_obj, 'pages_nav': pages_nav})
 
 
 def PedidodetailView(request, pk):
@@ -62,7 +67,7 @@ def PedidodetailView(request, pk):
     pedido = Pedido.objects.get(pk=pk)
     form = PedidosForm(instance=pedido)
 
-    return render(request, 'joycebordados/pedido-detail.html', {'dados': dados, 'pedido': pedido, 'form': form,})
+    return render(request, 'empresa/pedido-detail.html', {'dados': dados, 'pedido': pedido, 'form': form, })
 
 
 def PedidoEditView(request, pk):
@@ -82,3 +87,82 @@ def PedidoEditView(request, pk):
     return redirect('empresa:pedidos')
 
 
+def DadosProfileView(request):
+    dados = Empresa.objects.get(pk=1)
+    form = EmpresaForm(instance=dados)
+
+    return render(request, 'empresa/profile-dados.html', {'dados': dados, 'form': form})
+
+
+def CarrosselProfileView(request):
+    dados = Empresa.objects.get(pk=1)
+    fotos = dados.fotos_carrossel.all()
+    form = FotosCarrosselForm(initial={'empresa': dados})
+    return render(request, 'empresa/profile-carrosel.html', {'dados': dados, 'form': form, 'fotos': fotos})
+
+
+def DelFotoCarroselView(request, pk):
+    foto = get_object_or_404(FotosCarrossel, pk=pk)
+    foto.delete()
+    return redirect('empresa:carrossel')
+
+
+def Login(request):
+    if request.method == 'POST':
+        form = CustomLoginForm(request=request, data=request.POST)
+        if form.is_valid():
+            # Verifica as credenciais e loga o usuário
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                # Redireciona para o dashboard ou página principal
+                return redirect('empresa:empresa')
+            else:
+                # Se as credenciais forem inválidas
+                form.add_error(None, 'Usuário ou senha inválidos')
+        else:
+            # Se o formulário não for válido
+            form.add_error(None, 'Erro no formulário de login')
+    else:
+        form = CustomLoginForm()
+
+    return render(request, 'empresa/profile-login.html', {'form': form})
+
+
+def AddFotoCarroselView(request):
+    if request.method == "POST":
+        form = FotosCarrosselForm(request.POST or None,
+                                  request.FILES or None,)
+        if form.is_valid():
+            form.save()
+            print('salvo')
+            # Redireciona para a lista de pedidos após salvar
+            return redirect('empresa:carrossel')
+        else:
+            # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
+            print(form.errors)  # (Opcional) Para depuração
+            # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
+            return redirect('empresa:carrossel')
+    return redirect('empresa:carrossel')
+
+
+def DadosEditView(request):
+    dados = get_object_or_404(Empresa, pk=1)
+    if request.method == "POST":
+        form = EmpresaForm(request.POST or None,
+                           request.FILES or None, instance=dados)
+        if form.is_valid():
+            form.save()
+            print('salvo')
+            # Redireciona para a lista de pedidos após salvar
+            return redirect('empresa:dados')
+        else:
+            # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
+            print(form.errors)  # (Opcional) Para depuração
+            # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
+            return redirect('empresa:dados')
+
+    return redirect('empresa:dados')

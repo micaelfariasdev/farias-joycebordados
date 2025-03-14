@@ -1,5 +1,6 @@
 from django import forms
 from .models import Pedido, Empresa, FotosCarrossel
+from django.contrib.auth.forms import AuthenticationForm
 
 
 class PedidosForm(forms.ModelForm):
@@ -15,14 +16,21 @@ class EmpresaForm(forms.ModelForm):
 
 
 class FotosCarrosselForm(forms.ModelForm):
-    excluir = forms.BooleanField(
-        required=False, label="Excluir")  # Campo para exclusão
 
     class Meta:
         model = FotosCarrossel
         # Apenas os campos que desejo exibir no formulário
-        fields = ['foto', 'excluir']
+        fields = '__all__'
 
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        widget=forms.TextInput(attrs={'placeholder': 'Usuário'}),
+        max_length=100
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}),
+        max_length=100
+    )
 
 class FilterForm(forms.Form):
     data_init = forms.DateField(

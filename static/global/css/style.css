@@ -96,13 +96,18 @@ header .conteiner {
     background: var(--color-primary);
 }
 
-.areas a {
+.areas a,
+.areas button {
     padding: 10px;
     border: var(--color-quaternary) 3px solid;
     border-radius: 10px;
     font-size: .7rem;
     font-weight: bold;
     color: var(--color-quaternary);
+}
+
+.areas form{
+    display: inline;
 }
 
 .nav {
@@ -297,12 +302,11 @@ main .conteiner {
 
 input[type='checkbox'] {
     position: relative;
-    top:3px;
-    width: 100%;
+    top: 3px;
+    width: 20px;
     margin: 0px;
-    height: 40px;
+    height: 20px;
     border-radius: 10px;
-    border: 2px solid var(--color-secondary);
 }
 
 select[name=cliente] {
@@ -313,6 +317,7 @@ select[name=cliente] {
 input,
 select,
 textarea {
+    resize: none;
     width: 100%;
     height: 40px;
     margin-block: 5px;
@@ -358,7 +363,7 @@ button {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
-.pedidos-grid{
+.pedidos-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -403,6 +408,17 @@ hr {
     background: var(--color-white);
 }
 
+.dados-conteiner {
+    display: flex;
+    justify-self: center;
+    padding: 20px;
+    width: 1200px;
+    justify-content: space-between;
+    flex-flow: column nowrap;
+    gap: 20px;
+    background: var(--color-white);
+}
+
 .pedido-detail-conteiner .pedido,
 .pedido-detail-conteiner .cliente {
     display: flex;
@@ -434,6 +450,11 @@ span {
     gap: 20px;
 }
 
+.valores span {
+    max-width: 25%;
+    min-width: 25%;
+}
+
 .red {
     background: rgb(253, 128, 128);
     border-color: rgb(253, 128, 128);
@@ -450,7 +471,7 @@ span {
     border-color: rgb(185, 185, 185);
 }
 
-.blue{
+.blue {
     background: var(--color-primary);
     border-color: var(--color-primary);
 }
@@ -481,7 +502,7 @@ span {
     transition: all 1s;
 }
 
-.conteiner-pix{
+.conteiner-pix {
     background: var(--color-white);
     padding: 20px;
     margin: auto;
@@ -494,12 +515,12 @@ span {
     flex-flow: column;
 }
 
-.conteiner-pix img{
+.conteiner-pix img {
     width: 300px;
     height: 300px;
 }
 
-.conteiner-pix textarea{
+.conteiner-pix textarea {
     height: 100px;
     resize: none;
 }
@@ -522,7 +543,7 @@ span {
     margin-top: 10px;
 }
 
-.link-zap{
+.link-zap {
     color: rgb(118, 179, 28);
 }
 
@@ -554,7 +575,7 @@ span {
     border-radius: 20px;
 }
 
-.card-legenda{
+.card-legenda {
     grid-column: 1 /span 3;
     width: 100%;
     align-content: center;
@@ -562,7 +583,7 @@ span {
     height: 50px;
     background: var(--color-quaternary);
     border-radius: 20px;
-    font-weight: bolder ;
+    font-weight: bolder;
 }
 
 .conteiner-profile .filter {
@@ -648,23 +669,23 @@ span {
     gap: 10px 0;
 }
 
-.paginacao{
+.paginacao {
     padding: 4px 20px;
     background: var(--color-primary);
     border-radius: 5px;
 }
 
-.paginacao *{
+.paginacao * {
     color: var(--color-white);
 }
 
 .paginacao strong::after,
-.paginacao strong::before{
+.paginacao strong::before {
     content: '|';
     color: var(--color-quaternary);
 }
 
-.form-ped{
+.form-ped {
     justify-content: center;
     display: flex;
     flex-flow: row nowrap;
@@ -674,11 +695,11 @@ span {
     height: 45px;
 }
 
-.form-ped input{
+.form-ped input {
     width: 60%;
 }
 
-.nav-filter{
+.nav-filter {
     position: relative;
     z-index: 9999;
     height: 39px;
@@ -688,36 +709,63 @@ span {
     overflow: hidden;
 }
 
-.nav-filter span{
+.nav-filter span {
     height: 40px;
     margin-top: 5px;
 }
 
-.nav-filter:hover .bt-filter{
+.nav-filter:hover .bt-filter {
     display: inline;
 }
 
 .nav-filter:hover {
-    align-self: flex-start; 
+    align-self: flex-start;
     height: 390px;
 
 }
 
-.filter-session{
+.filter-session {
     width: 130px;
     font-size: .6em;
 }
 
-.filter-session input{
+.filter-session input {
     width: 10%;
     height: 10%;
     display: inline;
 }
 
-.bt-filter{
+.bt-filter {
     display: none;
     transform: scale(.8);
     color: var(--color-black);
+}
+
+.dados-conteiner textarea {
+    height: 80%;
+}
+
+.dados-conteiner img {
+    max-width: 200px;
+    max-height: 200px;
+    
+}
+.dados-conteiner label {
+    font-weight: bolder; 
+}
+.dados-conteiner div {
+    margin-top: 20px;
+}
+.dados-conteiner span {
+    width: 100%;
+}
+
+.dados-conteiner button {
+    color: var(--color-primary);
+    border: var(--color-primary) 2px solid;
+}
+.dados-conteiner hr {
+    margin-block: 15px;
 }
 
 /* footer css style */
@@ -767,4 +815,30 @@ footer .conteiner a {
     gap: 20px;
     width: 100%;
     font-size: .8rem;
+}
+
+/* generics */
+
+.flex {
+    display: flex;
+}
+
+.gap20 {
+    gap: 20px;
+}
+
+.jf-sb {
+    justify-content: space-between;
+}
+
+.cl {
+    flex-direction: column;
+}
+
+.c-p{
+    color: var(--color-tertiary);
+}
+
+.al-end{
+    align-items: end;
 }

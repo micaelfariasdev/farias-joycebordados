@@ -1,7 +1,6 @@
-import pywhatkit as kit
 import os
 from django.dispatch import receiver
-from django.db.models.signals import post_delete
+from django.db.models.signals import post_delete, post_save
 from django.db import models
 import qrcode
 from pixqrcode import GenerateCode, Pix, PixQrCode
@@ -9,15 +8,21 @@ from django.core.files.base import ContentFile
 from io import BytesIO
 
 
+def rename_logo(instance, filename):
+    """ Renomeia a imagem para sempre ser 'logo.png' na pasta 'logo/' """
+    return os.path.join('logo/', 'logo.png')
+
+
 class Empresa(models.Model):
     nome = models.CharField(max_length=100)
-    logo = models.ImageField(upload_to='logo', null=True, blank=True)
+    logo = models.ImageField(upload_to=rename_logo, null=True, blank=True)
     sobre = models.TextField()
     foto_sobre = models.ImageField(
         upload_to='foto_sobre', null=True, blank=True)
     email = models.EmailField(max_length=100)
     telefone = models.CharField(max_length=15)
     endereco = models.CharField(max_length=100)
+    numero = models.CharField(max_length=100)
     bairro = models.CharField(max_length=50)
     cidade = models.CharField(max_length=100)
     estado = models.CharField(max_length=2)
@@ -29,6 +34,14 @@ class Empresa(models.Model):
     def save(self, *args, **kwargs):
         if Empresa.objects.exists() and not self.pk:
             raise ValueError("Só pode existir uma empresa no banco de dados!")
+        if self.pk:  # Se já existe um objeto salvo
+            empresa_antiga = Empresa.objects.get(pk=self.pk)
+            if empresa_antiga.logo and self.logo != empresa_antiga.logo:
+                if os.path.isfile(empresa_antiga.logo.path):
+                    os.remove(empresa_antiga.logo.path)
+            if empresa_antiga.foto_sobre and self.foto_sobre != empresa_antiga.foto_sobre:
+                if os.path.isfile(empresa_antiga.foto_sobre.path):
+                    os.remove(empresa_antiga.foto_sobre.path)
         super().save(*args, **kwargs)
 
 
@@ -44,17 +57,18 @@ class FotosCarrossel(models.Model):
 # Função para excluir imagens ao deletar
 
 
-@receiver(post_delete, sender=Empresa)
-def delete_empresa_images(sender, instance, **kwargs):
-    # Deleta o logo se existir
-    if instance.logo:
-        if os.path.isfile(instance.logo.path):
-            os.remove(instance.logo.path)
+# @receiver([post_save, post_delete], sender=Empresa)
+# def delete_empresa_images(sender, instance, **kwargs):
 
-    # Deleta a foto_sobre se existir
-    if instance.foto_sobre:
-        if os.path.isfile(instance.foto_sobre.path):
-            os.remove(instance.foto_sobre.path)
+#     if not instance.logo:
+#         logo_path = instance.logo.path
+#         if os.path.isfile(logo_path):
+#             os.remove(logo_path)
+
+#     if instance.foto_sobre:
+#         foto_sobre_path = instance.foto_sobre.path
+#         if os.path.isfile(foto_sobre_path):
+#             os.remove(foto_sobre_path)
 
 
 @receiver(post_delete, sender=FotosCarrossel)
@@ -101,8 +115,10 @@ class Pedido(models.Model):
         import string
         """Gera um código único para o pedido"""
         while True:
-            codigo = ''.join(random.choices(
-                string.ascii_uppercase + string.digits, k=5))
+            codigo = random.choices(
+                string.ascii_uppercase + string.digits, k=4)
+            codigo.append(str(random.randint(0, 9)))
+            codigo = ''.join(codigo)
             if not Pedido.objects.filter(codigo=codigo).exists():
                 return codigo
 

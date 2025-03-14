@@ -1,6 +1,6 @@
 {% extends 'global/base.html' %}
 {% block titulo %}
-  Home
+  Pedido #{{ pedido.codigo }} | Edit
 {% endblock %}
 {% block main %}
   {% load filtros %}
@@ -85,7 +85,7 @@
 
           <span>
             <strong>Valor Total:</strong>
-            <p class="valortot">{{ pedido.valor_total }}</p>
+            <p class="valortot">{{ pedido.valor_total|monetario }}</p>
           </span>
           <span>
             <strong>Pago:</strong>
