@@ -1,14 +1,14 @@
 ###############################################################################
 # Replace
-# joyce_bordados to the name of the gunicorn file you want
+# bordado-farias to the name of the gunicorn file you want
 # micaelfarias.dev to your user name
 # app_repo to the folder name of your project
 # project to the folder name where you find a file called wsgi.py
 #
 ###############################################################################
-# Criando o arquivo joyce_bordados.socket
-sudo nano /etc/systemd/system/joyce_bordados.socket
-sudo rm /etc/systemd/system/joyce_bordados.socket
+# Criando o arquivo bordado-farias.socket
+sudo nano /etc/systemd/system/bordado-farias.socket
+sudo rm /etc/systemd/system/bordado-farias.socket
 
 ###############################################################################
 # Conteúdo do arquivo
@@ -16,25 +16,25 @@ sudo rm /etc/systemd/system/joyce_bordados.socket
 Description=gunicorn blog socket
 
 [Socket]
-ListenStream=/run/joyce_bordados.socket
+ListenStream=/run/bordado-farias.socket
 
 [Install]
 WantedBy=sockets.target
 
 ###############################################################################
-# Criando o arquivo joyce_bordados.service
-sudo nano /etc/systemd/system/joyce_bordados.service
-sudo rm /etc/systemd/system/joyce_bordados.service
+# Criando o arquivo bordado-farias.service
+sudo nano /etc/systemd/system/bordado-farias.service
+sudo rm /etc/systemd/system/bordado-farias.service
 
 ###############################################################################
 # Conteúdo do arquivo
 [Unit]
 Description=Gunicorn daemon (You can change if you want)
-Requires=joyce_bordados.socket
+Requires=bordado-farias.socket
 After=network.target
 
 [Service]
-User=micaelfarias.dev.dev
+User=micaelfarias.dev
 Group=www-data
 Restart=on-failure
 EnvironmentFile=/home/micaelfarias.dev/app_repo/.env
@@ -48,7 +48,7 @@ ExecStart=/home/micaelfarias.dev/app_repo/venv/bin/gunicorn \
           --capture-output \
           --access-logfile - \
           --workers 6 \
-          --bind unix:/run/joyce_bordados.socket \
+          --bind unix:/run/bordado-farias.socket \
           project.wsgi:application
 
 [Install]
@@ -56,23 +56,23 @@ WantedBy=multi-user.target
 
 ###############################################################################
 # Ativando
-sudo systemctl start joyce_bordados.socket
-sudo systemctl enable joyce_bordados.socket
+sudo systemctl start bordado-farias.socket &&
+sudo systemctl enable bordado-farias.socket
 
 # Checando
-sudo systemctl status joyce_bordados.socket
-sudo systemctl status joyce_bordados.service
-curl --unix-socket /run/joyce_bordados.socket localhost
-sudo systemctl status joyce_bordados
+sudo systemctl status bordado-farias.socket
+sudo systemctl status bordado-farias.service
+curl --unix-socket /run/bordado-farias.socket localhost
+sudo systemctl status bordado-farias
 
 # Restarting
-sudo systemctl restart joyce_bordados.service
-sudo systemctl restart joyce_bordados.socket
-sudo systemctl restart joyce_bordados
+sudo systemctl restart bordado-farias.service
+sudo systemctl restart bordado-farias.socket
+sudo systemctl restart bordado-farias
 
 # After changing something
 sudo systemctl daemon-reload
 
 # Debugging
-sudo journalctl -u joyce_bordados.service
-sudo journalctl -u joyce_bordados.socket
+sudo journalctl -u bordado-farias.service
+sudo journalctl -u bordado-farias.socket

@@ -27,7 +27,11 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = [
+    "bordado.fariasfardas.com",
+    "www.bordado.fariasfardas.com",
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -147,3 +151,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_URL = '/profile/login/'
 LOGIN_REDIRECT_URL = '/profile/dashboard'  # Redireciona usuários após login
 LOGOUT_REDIRECT_URL = '/'
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://bordado.fariasfardas.com",
+]
+
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "micaelfarias.dev@gmail.com"
+EMAIL_HOST_PASSWORD = "obob bhhj kqdc ilej"
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
