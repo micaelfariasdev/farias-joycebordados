@@ -18,12 +18,14 @@ def formatar_telefone(telefone):
 
 @register.filter
 def monetario(valor):
-    valor = f"R$ {valor:,.2f}"
-    valor = valor.replace(',', '.')
-    valor_list = list(valor)
-    valor_list[-3]=','
-    valor = ''.join(valor_list)
+    if valor != 0:
+        valor = f"R$ {valor:,.2f}"
+        valor = valor.replace(',', '.')
+        valor_list = list(valor)
+        valor_list[-3] = ','
+        valor = ''.join(valor_list)
     return valor
+
 
 @register.filter
 def dividir(valor, divisor):
