@@ -1,3 +1,4 @@
+{% load static %}
 <div class="blur-back back-pix" >
     <div class="conteiner-pix">
         <img src="{{ pedido.qr_code.url }}" alt="QR Code">
@@ -9,3 +10,4 @@
     </div>
   </div>
   
+  <script src="{% static 'global/js/pix.js' %}"></script>

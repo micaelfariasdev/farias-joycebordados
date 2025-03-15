@@ -52,10 +52,20 @@ ul {
 
 /* header css style */
 header {
+    position: sticky;
+    top: 0;
+    z-index: 99;
     max-height: 200px;
+    height: 200px;
+
     width: 100%;
     background: var(--color-primary);
+    transition: all .7s ease;
 
+}
+
+header.scrolled{
+    height: 100px;
 }
 
 header .conteiner {
@@ -64,14 +74,13 @@ header .conteiner {
     justify-content: space-between;
     flex-flow: row nowrap;
     width: 100%;
-    height: 200px;
+    height: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    padding: 40px;
 }
 
 .img-logo {
-    height: 100%;
+    height: 60%;
     justify-content: start;
     display: flex;
     align-items: center;
@@ -79,6 +88,7 @@ header .conteiner {
 
 .img-logo>a {
     height: 100%;
+    min-height: 80px;
 }
 
 .img-logo img {
@@ -87,13 +97,22 @@ header .conteiner {
 }
 
 .conteiner-acess {
-    height: 100%;
+    height: 60%;
     display: flex;
     align-items: end;
     justify-content: space-between;
     flex-flow: column nowrap;
-    width: 100%;
     background: var(--color-primary);
+}
+.areas{
+    overflow: hidden;
+    transition: all .2s ease;
+    height: 100%;
+}
+
+
+.scrolled .areas {
+    height: 0%;
 }
 
 .areas a,
@@ -104,6 +123,7 @@ header .conteiner {
     font-size: .7rem;
     font-weight: bold;
     color: var(--color-quaternary);
+    margin-bottom: 5px;
 }
 
 .areas form{
@@ -496,7 +516,6 @@ span {
     width: 350px;
     height: 200px;
     z-index: 100;
-    display: none;
     align-items: center;
     border-radius: 20px;
     transition: all 1s;
@@ -508,7 +527,6 @@ span {
     margin: auto;
     align-self: center;
     z-index: 100;
-    display: none;
     align-items: center;
     border-radius: 20px;
     transition: all 1s;
@@ -701,7 +719,7 @@ span {
 
 .nav-filter {
     position: relative;
-    z-index: 9999;
+    z-index: 98;
     height: 39px;
     padding: 0 10px;
     border-radius: 10px;

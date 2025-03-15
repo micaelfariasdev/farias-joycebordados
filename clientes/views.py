@@ -36,11 +36,11 @@ Mensagem:
             assunto,
             corpo,
             "micaelfarias.dev@gmail.com",  # Remetente
-            ["contato@fariasfardas.com"],  # Destinatário
+            ["contatoAAAA@fariasfardas.com"],  # Destinatário
             fail_silently=False,
         )
 
         # Crie uma página de sucesso para redirecionamento
-        return redirect("pagina_de_sucesso")
+        return redirect("joycebordados:home")
 
     return render(request, "orcamento.html")  # Substitua pelo seu template

@@ -1,6 +1,6 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
+  {% load static %}
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -15,6 +15,7 @@
     </main>
     <footer>{% include 'global/partial/footer.html' %}</footer>
     <script src="{% static 'global/js/script.js' %}"></script>
+    <script src="{% static 'global/js/scroll.js' %}"></script>
     {% block script %}{% endblock script %}
   </body>
 </html>
