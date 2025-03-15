@@ -1,0 +1,75 @@
+###############################################################################
+# Replace
+# joyce_bordados to the name of the gunicorn file you want
+# micaelfarias to your user name
+# app_repo to the folder name of your project
+# project to the folder name where you find a file called wsgi.py
+#
+###############################################################################
+# Criando o arquivo joyce_bordados.socket
+sudo nano /etc/systemd/system/joyce_bordados.socket
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=gunicorn blog socket
+
+[Socket]
+ListenStream=/run/joyce_bordados.socket
+
+[Install]
+WantedBy=sockets.target
+
+###############################################################################
+# Criando o arquivo joyce_bordados.service
+sudo nano /etc/systemd/system/joyce_bordados.service
+
+###############################################################################
+# Conteúdo do arquivo
+[Unit]
+Description=Gunicorn daemon (You can change if you want)
+Requires=joyce_bordados.socket
+After=network.target
+
+[Service]
+User=micaelfarias
+Group=www-data
+Restart=on-failure
+EnvironmentFile=/home/micaelfarias/app_repo/.env
+WorkingDirectory=/home/micaelfarias/app_repo
+# --error-logfile --enable-stdio-inheritance --log-level and --capture-output
+# are all for debugging purposes.
+ExecStart=/home/micaelfarias/app_repo/venv/bin/gunicorn \
+          --error-logfile /home/micaelfarias/app_repo/gunicorn-error-log \
+          --enable-stdio-inheritance \
+          --log-level "debug" \
+          --capture-output \
+          --access-logfile - \
+          --workers 6 \
+          --bind unix:/run/joyce_bordados.socket \
+          project.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+
+###############################################################################
+# Ativando
+sudo systemctl start joyce_bordados.socket &&
+sudo systemctl enable joyce_bordados.socket
+
+# Checando
+sudo systemctl status joyce_bordados.socket
+curl --unix-socket /run/joyce_bordados.socket localhost
+sudo systemctl status joyce_bordados
+
+# Restarting
+sudo systemctl restart joyce_bordados.service
+sudo systemctl restart joyce_bordados.socket
+sudo systemctl restart joyce_bordados
+
+# After changing something
+sudo systemctl daemon-reload
+
+# Debugging
+sudo journalctl -u joyce_bordados.service
+sudo journalctl -u joyce_bordados.socket
