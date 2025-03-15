@@ -125,9 +125,10 @@ class Pedido(models.Model):
     def gerar_qr_pix(self):
         nome = 'Jocileide Fernanda da Silva Farias'
         numero = self.empresa.telefone
+        valor = str(int(self.valor_total*100))
         pix = f'({numero[:2]}) {numero[2:]}'
         pix = PixQrCode(nome, pix, "SAO PAULO",
-                        "2", f'{self.cliente.nome}{self.codigo}').generate_code()
+                        valor, f'{self.cliente.nome}{self.codigo}').generate_code()
 
         # Gerar o QR Code
         qr = qrcode.make(pix)
