@@ -18,7 +18,9 @@ def formatar_telefone(telefone):
 
 @register.filter
 def monetario(valor):
-    if valor != 0:
+    if valor is None or valor == 0:
+        return 0
+    else:
         valor = f"R$ {valor:,.2f}"
         valor = valor.replace(',', '.')
         valor_list = list(valor)
