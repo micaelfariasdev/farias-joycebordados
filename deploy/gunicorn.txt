@@ -8,6 +8,7 @@
 ###############################################################################
 # Criando o arquivo joyce_bordados.socket
 sudo nano /etc/systemd/system/joyce_bordados.socket
+sudo rm /etc/systemd/system/joyce_bordados.socket
 
 ###############################################################################
 # Conteúdo do arquivo
@@ -23,6 +24,7 @@ WantedBy=sockets.target
 ###############################################################################
 # Criando o arquivo joyce_bordados.service
 sudo nano /etc/systemd/system/joyce_bordados.service
+sudo rm /etc/systemd/system/joyce_bordados.service
 
 ###############################################################################
 # Conteúdo do arquivo
