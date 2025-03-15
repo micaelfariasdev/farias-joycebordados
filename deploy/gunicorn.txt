@@ -1,7 +1,7 @@
 ###############################################################################
 # Replace
 # joyce_bordados to the name of the gunicorn file you want
-# micaelfarias to your user name
+# micaelfarias.dev to your user name
 # app_repo to the folder name of your project
 # project to the folder name where you find a file called wsgi.py
 #
@@ -34,15 +34,15 @@ Requires=joyce_bordados.socket
 After=network.target
 
 [Service]
-User=micaelfarias
+User=micaelfarias.dev.dev
 Group=www-data
 Restart=on-failure
-EnvironmentFile=/home/micaelfarias/app_repo/.env
-WorkingDirectory=/home/micaelfarias/app_repo
+EnvironmentFile=/home/micaelfarias.dev/app_repo/.env
+WorkingDirectory=/home/micaelfarias.dev/app_repo
 # --error-logfile --enable-stdio-inheritance --log-level and --capture-output
 # are all for debugging purposes.
-ExecStart=/home/micaelfarias/app_repo/venv/bin/gunicorn \
-          --error-logfile /home/micaelfarias/app_repo/gunicorn-error-log \
+ExecStart=/home/micaelfarias.dev/app_repo/venv/bin/gunicorn \
+          --error-logfile /home/micaelfarias.dev/app_repo/gunicorn-error-log \
           --enable-stdio-inheritance \
           --log-level "debug" \
           --capture-output \
@@ -61,6 +61,7 @@ sudo systemctl enable joyce_bordados.socket
 
 # Checando
 sudo systemctl status joyce_bordados.socket
+sudo systemctl status joyce_bordados.service
 curl --unix-socket /run/joyce_bordados.socket localhost
 sudo systemctl status joyce_bordados
 
