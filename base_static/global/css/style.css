@@ -108,10 +108,12 @@ header .conteiner {
     overflow: hidden;
     transition: all .2s ease;
     height: 100%;
+    padding-top: 10px;
 }
 
 
 .scrolled .areas {
+    padding-top: 0px;
     height: 0%;
 }
 
