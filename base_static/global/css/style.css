@@ -9,11 +9,11 @@
 }
 
 :root {
-    --color-primary: #278FFF;
-    --color-secondary: #FFCA26;
+    --color-primary: #1B2845;
+    --color-secondary: #EABA6B;
     --color-tertiary: #FF8E26;
-    --color-quaternary: #5bd5fa;
-    --color-quinary: #807553;
+    --color-quaternary: #D2E4F5;
+    --color-quinary: #1B2845;
     --color-black: #000000;
     --color-white: #FFFFFF;
     --color-gray: #808080;
@@ -171,12 +171,13 @@ main .conteiner {
     flex-flow: column nowrap;
     width: 100%;
     max-width: 1200px;
-    margin: 0 auto;
+    margin: 50px auto;
     gap: 40px;
 }
 
 .carrossel-conteiner {
     width: 100%;
+    aspect-ratio: 2/1;
     overflow: hidden;
 }
 
@@ -428,6 +429,7 @@ hr {
     gap: 20px;
     padding: 20px 0;
     background: var(--color-white);
+    border-radius: 0 0 20px 20px;
 }
 
 .dados-conteiner {
@@ -533,6 +535,9 @@ span {
     border-radius: 20px;
     transition: all 1s;
     flex-flow: column;
+    align-content: center;
+    display: flex;
+    gap: 10px;
 }
 
 .conteiner-pix img {

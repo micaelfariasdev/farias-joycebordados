@@ -1,12 +1,14 @@
 {% load static %}
-<div class="blur-back back-pix" >
+<div class="blur-back back-pix" onclick="hiddenPix()">
     <div class="conteiner-pix">
         <img src="{{ pedido.qr_code.url }}" alt="QR Code">
         <textarea name="pix" id="pix" readonly>{{ qr_pix }}</textarea>
         <button onclick="copiarTexto()">Copiar código</button>
-        <p>Após o pagamento, </p><p>Enviar o comprovante para </p>
-            <a target="_blank" class="link-zap" href="https://wa.me/5586988589902?text=Comprovante%20de%20pagamento%20do%20*pedido%20%23{{ pedido.codigo }}*">Whatsapp da Empresa</a>
-        </p>
+        <div style="text-align: center;">
+            <p>Após o pagamento, </p><p>Enviar o comprovante para </p>
+                <a target="_blank" class="link-zap" href="https://wa.me/5586988589902?text=Comprovante%20de%20pagamento%20do%20*pedido%20%23{{ pedido.codigo }}*">Whatsapp da Empresa</a>
+            </p>
+        </div>
     </div>
   </div>
   

@@ -11,7 +11,8 @@
   <body>
     <header>{% include 'global/partial/header.html' %}</header>
     <main>
-      {% block main %} {% endblock %} {% include 'clientes/partial/login.html' %}
+      {% block main %} {% endblock %} 
+      {% include 'clientes/partial/login.html' %}
     </main>
     <footer>{% include 'global/partial/footer.html' %}</footer>
     <script src="{% static 'global/js/script.js' %}"></script>
