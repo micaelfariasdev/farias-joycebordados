@@ -36,7 +36,7 @@ Mensagem:
             assunto,
             corpo,
             "micaelfarias.dev@gmail.com",  # Remetente
-            ["contatoAAAA@fariasfardas.com"],  # Destinatário
+            ["contato@fariasfardas.com"],  # Destinatário
             fail_silently=False,
         )
 

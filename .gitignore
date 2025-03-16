@@ -9,3 +9,6 @@ staticfiles/
 db.sqlite3
 
 deploy/
+
+media/*
+upserver.sh
