@@ -75,7 +75,7 @@ header .conteiner {
     flex-flow: row nowrap;
     width: 100%;
     height: 100%;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
 }
 
@@ -170,7 +170,7 @@ main .conteiner {
     justify-content: center;
     flex-flow: column nowrap;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 50px auto;
     gap: 40px;
 }
@@ -371,19 +371,23 @@ button {
     cursor: pointer;
 }
 
+.gridjs-pagination button {
+    color: var(--color-black);
+}
+
+
 .pedidos-conteiner {
     display: flex;
     align-items: center;
     justify-items: center;
     gap: 20px;
     width: 100%;
-    max-width: 1200px;
+    height: 100%;
+    max-width: 1440px;
     flex-flow: column;
     margin: 0 auto;
     padding: 20px;
     background: var(--color-white);
-    border-radius: 0 0 20px 0;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
 .pedidos-grid {
@@ -408,6 +412,26 @@ hr {
     border: 1px solid var(--color-secondary);
 }
 
+table{
+    width: 90%;
+    text-align: center;
+    border-collapse: collapse;
+}
+th{
+    background: var(--color-primary);
+    color: #D2E4F5;
+}
+
+tr{
+    background: var(--color-quaternary);
+}
+
+td,
+th{
+    border: var(--color-black) 2px solid;
+
+}
+
 .pedido-conteiner h2 {
     display: inline-block;
 }
@@ -423,7 +447,7 @@ hr {
 .pedido-detail-conteiner {
     display: flex;
     justify-self: center;
-    max-width: 1200px;
+    max-width: 1440px;
     justify-content: space-between;
     flex-flow: column nowrap;
     gap: 20px;
@@ -432,11 +456,11 @@ hr {
     border-radius: 0 0 20px 20px;
 }
 
-.dados-conteiner {
+.conteiner-profile {
     display: flex;
     justify-self: center;
     padding: 20px;
-    width: 1200px;
+    width: 1440px;
     justify-content: space-between;
     flex-flow: column nowrap;
     gap: 20px;
@@ -576,15 +600,13 @@ span {
     display: grid;
     align-items: center;
     justify-items: center;
+    align-self: flex-start;
     gap: 20px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1440px;
     grid-template-columns: repeat(4, 1fr);
     margin: 0 auto;
     padding: 20px;
-    background: var(--color-white);
-    border-radius: 0 0 20px 0;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
 .conteiner-profile h1 {
@@ -601,7 +623,7 @@ span {
 }
 
 .card-legenda {
-    grid-column: 1 /span 3;
+    grid-column: 1 /span 4;
     width: 100%;
     align-content: center;
     text-align: center;
@@ -613,7 +635,7 @@ span {
 
 .conteiner-profile .filter {
     grid-column: 4;
-    grid-row: 2 / span 3;
+    grid-row: span 2;
     width: 100%;
     height: 100%;
     padding: 20px;
@@ -652,21 +674,19 @@ span {
 
 .conteiner.profile {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     flex-flow: row nowrap;
-    width: 100%;
-    max-width: 1200px;
+    width: 100vw;
     margin: 0 auto;
+    min-height: 100vh;
     gap: 0;
-    height: 100%;
+    background: var(--color-white);
 }
 
 .menu-profile {
+    padding-top: 30px;
     background: var(--color-primary);
-    height: 100%;
     width: 150px;
-    border-radius: 0 0 0 20px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
 .menu-profile nav a {
@@ -711,13 +731,12 @@ span {
 }
 
 .form-ped {
-    justify-content: center;
     display: flex;
-    flex-flow: row nowrap;
+    flex-flow: column nowrap;
     gap: 20px;
     width: 100%;
-    align-items: center;
-    height: 45px;
+    margin-top: 12px;
+
 }
 
 .form-ped input {
@@ -725,33 +744,26 @@ span {
 }
 
 .nav-filter {
-    position: relative;
-    z-index: 98;
-    height: 39px;
     padding: 0 10px;
     border-radius: 10px;
     color: var(--color-white);
-    overflow: hidden;
 }
 
-.nav-filter span {
-    height: 40px;
-    margin-top: 5px;
+
+
+.pedidos-filtro{
+    display: flex;
+    gap: 20px;
+    flex-flow: row nowrap;
+    align-items: stretch;
 }
 
-.nav-filter:hover .bt-filter {
-    display: inline;
-}
-
-.nav-filter:hover {
-    align-self: flex-start;
-    height: 390px;
-
+.pedidos-filtro button{
+    display: inline-block;
 }
 
 .filter-session {
     width: 130px;
-    font-size: .6em;
 }
 
 .filter-session input {
@@ -761,35 +773,43 @@ span {
 }
 
 .bt-filter {
-    display: none;
-    transform: scale(.8);
+    background: none;
+    border: none;
     color: var(--color-black);
+    font-size: 1rem;
+    font-weight: bold;
 }
 
-.dados-conteiner textarea {
+
+.dados-grid{
+    grid-column: span 4;
+    width: 100%;
+}
+
+.conteiner-profile textarea {
     height: 80%;
 }
 
-.dados-conteiner img {
+.conteiner-profile img {
     max-width: 200px;
     max-height: 200px;
     
 }
-.dados-conteiner label {
+.conteiner-profile label {
     font-weight: bolder; 
 }
-.dados-conteiner div {
+.conteiner-profile div {
     margin-top: 20px;
 }
-.dados-conteiner span {
+.conteiner-profile span {
     width: 100%;
 }
 
-.dados-conteiner button {
+.conteiner-profile button {
     color: var(--color-primary);
     border: var(--color-primary) 2px solid;
 }
-.dados-conteiner hr {
+.conteiner-profile hr {
     margin-block: 15px;
 }
 
@@ -807,7 +827,7 @@ footer .conteiner {
     justify-content: space-between;
     flex-flow: column nowrap;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1440px;
     margin: 0 auto;
     padding: 20px;
     gap: 40px;

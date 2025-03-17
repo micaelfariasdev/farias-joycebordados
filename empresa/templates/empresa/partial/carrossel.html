@@ -1,7 +1,8 @@
 {% load static %}
 <div class="conteiner profile">
     {% include "empresa/partial/menu.html" %}
-    <div class="dados-conteiner">
+    <div class="conteiner-profile">
+        <div class="dados-grid">
         <form action="{% url "empresa:foto-new" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class='flex jf-sb gap20'>
@@ -22,5 +23,6 @@
                 </div>
             </form>
     </div>   
+</div>
 </div>
 <script src="{% static "global/js/excluir.js" %}"></script>

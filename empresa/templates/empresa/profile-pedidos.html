@@ -1,11 +1,46 @@
-{% extends 'global/base.html' %} {% load static %} {% load filtros %}
+{% extends 'global/base-admin.html' %} {% load static %} {% load filtros %}
 {% block titulo %}
   {{ dados.nome }}
 {% endblock %} {% block main %}
 {% include "empresa/partial/pedidos.html" %}
 {% endblock %}
 {% block script %}
-{% include "empresa/js.html" %}
+<script>
+  var grid = new gridjs.Grid({
+    columns: [
+      "Código",
+      "Nome",
+      "Telefone",
+      "Data de Entrega",
+      "Pedido",
+      "Status",
+      "Pagamento",
+    ],
+    data: [
+      {% for pedido in pedidos %}
+        [
+          '#{{ pedido.codigo }}', 
+          '{{ pedido.cliente.nome }}', 
+          '{{ pedido.cliente.numero|formatar_telefone }}',
+          '{{ pedido.data_entrega|date:"d/m/Y" }}',
+          '{{ pedido.produto }}',
+          '{{ pedido.get_status_display }}',
+          {% if pedido.pago %}
+            '✅'
+          {% else %}
+            '❌'
+          {% endif %}
+        ],
+      {% endfor %}
+    ],
+
+    search: true,
+    sort: true,
+    pagination: {
+      limit: 20
+    }
+  }).render(document.getElementById("tabela2"));
+</script>
 
 
-{% endblock %}
+{% endblock script %}

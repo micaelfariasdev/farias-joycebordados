@@ -48,18 +48,9 @@ def PedidosListView(request):
     pedidos = Pedido.objects.filter(
         filtro_q & filtro_pg & filtro_est).order_by('status', '-id')
 
-    paginator = Paginator(pedidos, 8)
     form = ProcurarForm(request.GET or None)
 
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    pages_nav = pages(page_obj)
-
-    query_params = request.GET.copy()
-    # Remove 'page' para evitar conflitos ao paginar
-    query_params.pop('page', None)
-    query_string = query_params.urlencode()
-    return render(request, 'empresa/profile-pedidos.html', {'query_string': query_string, 'form': form, 'dados': dados, 'pedidos': page_obj, 'page_obj': page_obj, 'pages_nav': pages_nav})
+    return render(request, 'empresa/profile-pedidos.html', { 'form': form, 'dados': dados, 'pedidos': pedidos,})
 
 
 def PedidodetailView(request, pk):
@@ -108,6 +99,7 @@ def DelFotoCarroselView(request, pk):
 
 
 def Login(request):
+    dados = Empresa.objects.get(pk=1)
     if request.method == 'POST':
         form = CustomLoginForm(request=request, data=request.POST)
         if form.is_valid():
@@ -129,7 +121,7 @@ def Login(request):
     else:
         form = CustomLoginForm()
 
-    return render(request, 'empresa/profile-login.html', {'form': form})
+    return render(request, 'empresa/profile-login.html', {'form': form, 'dados': dados})
 
 
 def AddFotoCarroselView(request):
