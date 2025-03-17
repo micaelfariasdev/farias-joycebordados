@@ -96,4 +96,15 @@
       </div>
     </div>
   </form>
+  <script>
+    document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
+  
+      // Define um atraso de 2 segundos (2000ms)
+      setTimeout(function() {
+          window.alert('Pedido Salvo!');
+          window.close(); // Fecha a janela após 2 segundos
+      }, 900);
+  });
+  </script>
 {% endblock %}
+

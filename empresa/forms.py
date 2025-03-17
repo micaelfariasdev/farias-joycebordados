@@ -1,12 +1,23 @@
 from django import forms
 from .models import Pedido, Empresa, FotosCarrossel
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
+from django.contrib import admin
 
 class PedidosForm(forms.ModelForm):
     class Meta:
         model = Pedido
         fields = '__all__'
+    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), initial=Empresa.objects.get(pk=1))
+    quantidade = forms.IntegerField(required=True)
+    codigo = forms.CharField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        rel_field = Pedido._meta.get_field('cliente')  # Campo relacionado
+        self.fields['cliente'].widget = RelatedFieldWidgetWrapper(
+            self.fields['cliente'].widget, rel_field.remote_field, admin.site
+        )
 
 
 class EmpresaForm(forms.ModelForm):

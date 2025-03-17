@@ -1,27 +1,22 @@
 {% extends 'global/base-admin.html' %} {% load static %} {% load filtros %}
-{% block titulo %}
-  {{ dados.nome }}
-{% endblock %} {% block main %}
-{% include "empresa/partial/pedidos.html" %}
-{% endblock %}
-{% block script %}
+{% block titulo %} {{ dados.nome }} {% endblock %} {% block main %} 
+{% include "empresa/partial/pedidos.html" %} {% endblock %} {% block script %}
 <script>
   var grid = new gridjs.Grid({
     columns: [
       "Código",
       "Nome",
-      "Telefone",
       "Data de Entrega",
       "Pedido",
       "Status",
       "Pagamento",
+      "Detalhes"
     ],
     data: [
       {% for pedido in pedidos %}
         [
-          '#{{ pedido.codigo }}', 
-          '{{ pedido.cliente.nome }}', 
-          '{{ pedido.cliente.numero|formatar_telefone }}',
+          '#{{ pedido.codigo }}',
+          '{{ pedido.cliente.nome }}',
           '{{ pedido.data_entrega|date:"d/m/Y" }}',
           '{{ pedido.produto }}',
           '{{ pedido.get_status_display }}',
@@ -29,7 +24,8 @@
             '✅'
           {% else %}
             '❌'
-          {% endif %}
+          {% endif %},
+          gridjs.html('<button onclick="popup({{pedido.pk}})">Editar</button>')
         ],
       {% endfor %}
     ],
@@ -39,8 +35,28 @@
     pagination: {
       limit: 20
     }
-  }).render(document.getElementById("tabela2"));
-</script>
+  }).render(document.getElementById("tabela2"))
 
+  var popup2 ;
+  var add = document.querySelector('.button-style')
+  add.addEventListener('click', event =>{
+    event.preventDefault();
+    popup2 = window.open(add.href , "popup2", "width=600,height=750");})
+
+  function popup(pk, event) {
+      var url = `${window.location.origin}/${window.location.pathname}`
+      var pknum = pk
+      popup2 = window.open(url + pknum, "popup2", "width=600,height=650");
+  }
+  var intervalo = setInterval(function() {
+    if (popup2.closed) {
+        clearInterval(intervalo); // Limpa o intervalo quando o pop-up for fechado
+        location.reload(); // Recarrega a página atual
+    }
+}, 1000);
+
+
+
+</script>
 
 {% endblock script %}

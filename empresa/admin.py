@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import Empresa, FotosCarrossel, Cliente, Pedido
+from empresa.forms import PedidosForm
 
 
 class ImagemProdutoInline(admin.TabularInline):
@@ -35,3 +36,4 @@ class PedidoAdmin(admin.ModelAdmin):
     search_fields = ('cliente', 'produto', 'data')
     ordering = ('status', 'pago')
     list_editable = ('status', 'pago',)
+    form = PedidosForm

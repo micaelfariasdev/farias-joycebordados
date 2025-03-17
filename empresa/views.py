@@ -77,6 +77,42 @@ def PedidoEditView(request, pk):
 
     return redirect('empresa:pedidos')
 
+def PedidoNewView(request):
+    dados = Empresa.objects.get(pk=1)
+    form = PedidosForm()
+
+    if request.method == "POST":
+        if form.is_valid():
+            form.save()
+            # Redireciona para a lista de pedidos após salvar
+            return redirect('empresa:pedidos')
+        else:
+            # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
+            print(form.errors)  # (Opcional) Para depuração
+            # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
+            return redirect('empresa:pedidos')
+
+    return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
+
+def PedidoNewSaveView(request):
+    form = PedidosForm()
+
+    if request.method == "POST":
+        if request.method == 'POST':
+            form = PedidosForm(request.POST)
+
+            if form.is_valid():  # ✅ Verifica se o formulário é válido
+                pedido = form.save(commit=False)  # Salva sem enviar ao banco ainda
+                pedido.save()  # Agora salva no banco
+            else:
+                print('aq')
+                # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
+                print(form.errors)  # (Opcional) Para depuração
+                # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
+                return redirect('empresa:pedidos')
+
+    return redirect('empresa:pedidos')
+
 
 def DadosProfileView(request):
     dados = Empresa.objects.get(pk=1)

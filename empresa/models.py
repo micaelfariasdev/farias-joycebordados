@@ -90,14 +90,14 @@ class Cliente(models.Model):
 class Pedido(models.Model):
     codigo = models.CharField(
         max_length=5, unique=True, blank=True, null=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE)
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
     data = models.DateTimeField(auto_now_add=True)
     data_update = models.DateTimeField(auto_now=True)
     data_entrega = models.DateField(blank=True, null=True)
     produto = models.CharField(max_length=100)
-    quantidade = models.IntegerField()
-    valor = models.DecimalField(max_digits=10, decimal_places=2)
+    quantidade = models.IntegerField(null=True, blank=True)
+    valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
     valor_total = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
@@ -142,7 +142,7 @@ class Pedido(models.Model):
         return pix
 
     def save(self, *args, **kwargs):
-        if self.codigo is None:
+        if self.codigo is '':
             self.codigo = self.gerar_codigo_unico()
         if self.valor is not None and self.quantidade is not None:
             self.valor_total = self.valor * self.quantidade

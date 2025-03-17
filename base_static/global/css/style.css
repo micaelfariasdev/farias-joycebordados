@@ -76,6 +76,7 @@ header .conteiner {
     width: 100%;
     height: 100%;
     max-width: 1440px;
+    padding-inline: 30px;
     margin: 0 auto;
 }
 
@@ -360,7 +361,7 @@ textarea {
     border-radius: 10px;
     border: 2px solid var(--color-secondary);
 }
-
+.button-style,
 button {
     padding: 10px;
     border-radius: 10px;
@@ -447,7 +448,7 @@ th{
 .pedido-detail-conteiner {
     display: flex;
     justify-self: center;
-    max-width: 1440px;
+    width: 800px;
     justify-content: space-between;
     flex-flow: column nowrap;
     gap: 20px;
@@ -455,6 +456,38 @@ th{
     background: var(--color-white);
     border-radius: 0 0 20px 20px;
 }
+
+.pedido-detail-conteiner .add-related{
+    position: relative;
+    top: 5px;
+    left: 15px;
+    transform: scale(1.5);
+}
+
+.pedido-detail-conteiner input[type='checkbox']{
+    appearance: none;
+    width: 40px !important;
+    height: 40px !important;
+    margin-block: 5px !important;
+    padding: 10px !important;
+    border-radius: 10px !important;
+    border: 2px solid var(--color-secondary) !important;
+    display: block;
+}
+
+.pedido-detail-conteiner input[type="checkbox"]:checked {
+    background-color: #ff5733; /* Cor de fundo ao marcar */
+    border-color: #ff5733;
+}
+
+.pedido-detail-conteiner input[type="checkbox"]:checked::after {
+    content: "✔";
+    font-size: 24px;
+    color: white;
+    position: absolute;
+    top: 2px;
+}
+
 
 .conteiner-profile {
     display: flex;
