@@ -1,21 +1,26 @@
-let currentIndex = 0;
-const slides = document.querySelectorAll('.carrossel img');
-const dots = document.querySelectorAll('.dot');
-
-function updateSlide(index) {
-    document.querySelector('.carrossel').style.transform = `translateX(-${index * 100}%)`;
-    dots.forEach(dot => dot.classList.remove('active'));
-    dots[index].classList.add('active');
-}
-
-function changeSlide(index) {
-    currentIndex = index;
-    updateSlide(currentIndex);
-}
-
-function autoSlide() {
-    currentIndex = (currentIndex + 1) % slides.length;
-    updateSlide(currentIndex);
-}
-
-setInterval(autoSlide, 5000);
+const swiper = new Swiper('.swiper', {
+    // Optional parameters
+    direction: 'horizontal',
+    autoplay: {
+        delay: 5000, // Tempo entre slides (em ms)
+        disableOnInteraction: false, // Continua rodando mesmo após interação
+    },
+    loop: true,
+  
+    // If we need pagination
+    pagination: {
+      el: '.swiper-pagination',
+    },
+  
+    // Navigation arrows
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+  
+    // And if we need scrollbar
+    scrollbar: {
+      el: '.swiper-scrollbar',
+    },
+    effect: 'slide',
+  });

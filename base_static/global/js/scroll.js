@@ -8,8 +8,10 @@ function onScroll() {
   let newHeight = Math.max(100, 200 - scrollY); // Garantindo que a altura não fique menor que 100px
 
   // Aplicando a nova altura com estilo inline
-  if (newHeight > 170){
+  if (newHeight > 100){
     newHeight = 200
+  }else{
+    
   }
   // Adicionando ou removendo a classe 'scrolled'
   header.style.height = `${newHeight}px`;

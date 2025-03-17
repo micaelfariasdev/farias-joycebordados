@@ -1,20 +1,23 @@
 {% load static %}
-
-<div class="carrossel-conteiner">
-  <div class="carrossel">
+<div class="swiper">
+  <!-- Additional required wrapper -->
+  <div class="swiper-wrapper">
+    <!-- Slides -->
     {% for foto in fotos %}
-      <img src="{{ foto.foto.url }}" alt="" />
+    <div class="swiper-slide">
+     <img src="{{ foto.foto.url }}" alt="" />
+    </div>
     {% endfor %}
   </div>
-  <div class="dots-carrossel">
-    {% for i in fotos %}
-      {% if forloop.counter0 == 0 %}
-        <div class="dot active" onclick="changeSlide({{ forloop.counter0 }})"></div>
-      {% else %}
-        <div class="dot" onclick="changeSlide({{ forloop.counter0 }})"></div>
-      {% endif %}
-    {% endfor %}
-  </div>
+  <!-- If we need pagination -->
+  <div class="swiper-pagination"></div>
+
+  <!-- If we need navigation buttons -->
+  <div class="swiper-button-prev"></div>
+  <div class="swiper-button-next"></div>
+
+  <!-- If we need scrollbar -->
+  <div class="swiper-scrollbar"></div>
 </div>
 
 <script src="{% static 'global/js/carrossel.js' %}"></script>
