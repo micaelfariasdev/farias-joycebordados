@@ -1,3 +1,6 @@
+from django.db.models import Sum
+from collections import defaultdict
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from .forms import CustomLoginForm
 from django.contrib.auth import authenticate, login
@@ -5,10 +8,12 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido, FotosCarrossel
 from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
-from .utils import grafico, valor_total, pages
-from datetime import datetime
-from django.core.paginator import Paginator
+from .utils import grafico, valor_total
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
+
 from django.db.models import Q
+from django.http import JsonResponse
 
 
 def DashBoardView(request):
@@ -18,7 +23,22 @@ def DashBoardView(request):
         'data_init': request.GET.get('data_init') or (datetime(now().year, now().month, 1)).strftime('%Y-%m-%d'),
         'data_end': request.GET.get('data_end') or (datetime.now()).strftime('%Y-%m-%d')
     }
-    contexto = {'dados': dados}
+
+    # Se os valores vindos do GET forem strings, converter para datetime
+    if isinstance(filter['data_init'], str):
+        filter['data_init'] = datetime.strptime(
+            filter['data_init'], '%Y-%m-%d')
+    if isinstance(filter['data_end'], str):
+        filter['data_end'] = datetime.strptime(filter['data_end'], '%Y-%m-%d')
+
+    # Comparação de datas, subtraindo um mês
+    compare = {
+        'data_init': (filter['data_init'] - relativedelta(months=1)).strftime('%Y-%m-%d'),
+        'data_end': (filter['data_end'] - relativedelta(months=1)).strftime('%Y-%m-%d')
+    }
+    filter['data_init'] = filter['data_init'].strftime('%Y-%m-%d')
+    filter['data_end'] = filter['data_end'].strftime('%Y-%m-%d')
+    contexto = {'dados': dados, 'compare': compare, 'filter': filter}
     contexto.update(valor_total(request))
     contexto.update(grafico(request))
     form = FilterForm(initial=filter)
@@ -50,7 +70,7 @@ def PedidosListView(request):
 
     form = ProcurarForm(request.GET or None)
 
-    return render(request, 'empresa/profile-pedidos.html', { 'form': form, 'dados': dados, 'pedidos': pedidos,})
+    return render(request, 'empresa/profile-pedidos.html', {'form': form, 'dados': dados, 'pedidos': pedidos, })
 
 
 def PedidodetailView(request, pk):
@@ -77,6 +97,7 @@ def PedidoEditView(request, pk):
 
     return redirect('empresa:pedidos')
 
+
 def PedidoNewView(request):
     dados = Empresa.objects.get(pk=1)
     form = PedidosForm()
@@ -94,6 +115,7 @@ def PedidoNewView(request):
 
     return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
 
+
 def PedidoNewSaveView(request):
     form = PedidosForm()
 
@@ -102,7 +124,8 @@ def PedidoNewSaveView(request):
             form = PedidosForm(request.POST)
 
             if form.is_valid():  # ✅ Verifica se o formulário é válido
-                pedido = form.save(commit=False)  # Salva sem enviar ao banco ainda
+                # Salva sem enviar ao banco ainda
+                pedido = form.save(commit=False)
                 pedido.save()  # Agora salva no banco
             else:
                 print('aq')
@@ -194,3 +217,17 @@ def DadosEditView(request):
             return redirect('empresa:dados')
 
     return redirect('empresa:dados')
+
+
+def pedidos_json(request):
+    pedidos = (Pedido.objects
+               .values('data')
+               # Soma das quantidades por data
+               .annotate(quantidade=Sum('quantidade'))
+               .order_by('data'))
+
+    # Organize os dados para facilitar no frontend
+    data = [{"data": pedido['data'], "quantidade": pedido['quantidade']}
+            for pedido in pedidos]
+    # Retorna uma lista de dicionários
+    return JsonResponse(data, safe=False)

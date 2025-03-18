@@ -25,4 +25,6 @@ urlpatterns = [
     path('carrossel/new/', login_required(views.AddFotoCarroselView), name='foto-new'),
     path('pedidos/<int:pk>/edit/',
          login_required(views.PedidoEditView), name='pedido-edit'),
+    path('pedidos/api/',
+         login_required(views.pedidos_json), name='pedido-api'),
 ]
