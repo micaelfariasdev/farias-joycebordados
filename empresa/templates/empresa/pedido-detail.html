@@ -4,8 +4,8 @@
 {% endblock %}
 {% block main %}
   {% load filtros %}
-  <form method="post" action="{% url 'empresa:pedido-edit' pk=pedido.pk %}">
-    <div class="pedido-detail-conteiner">
+  <div class="pedido-detail-conteiner">
+  <form method="post" action="{% url 'empresa:pedido-edit' pk=pedido.pk %}" style='justify-items: center;'>
       <div class="cliente">
         <h2>Cliente</h2>
 
@@ -94,8 +94,14 @@
         </div>
         <button type="submit">Editar</button>
       </div>
-    </div>
-  </form>
+    </form>
+    <form action="{% url "empresa:pedido-del" pedido.pk %}" method="post" style='justify-items: center;'>
+      {% csrf_token %}
+        <div class='pedido'>
+          <button type="submit" class='red'>Deletar</button>
+        </div>
+    </form>
+  </div>
   <script>
     document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
   
@@ -104,6 +110,26 @@
           window.alert('Pedido Salvo!');
           window.close(); // Fecha a janela após 2 segundos
       }, 900);
+  });
+    document.getElementsByTagName('form')[1].addEventListener('submit', function(event) {
+      event.preventDefault()
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Deseja excluir do pedido #{{ pedido.codigo }}?. Esta ação não pode ser desfeita!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não"
+    }).then((result) => {
+        if (result.isConfirmed) {
+          this.submit()
+          setTimeout(function() {
+            Swal.fire("Excluído!", "O item foi removido.", "success");
+            window.close();
+        }, 900);
+        }
+    });
+    
   });
   </script>
 {% endblock %}

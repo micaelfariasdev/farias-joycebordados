@@ -94,7 +94,14 @@ def PedidoEditView(request, pk):
             print(form.errors)  # (Opcional) Para depuração
             # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
             return redirect('empresa:pedidos')
+    return redirect('empresa:pedidos')
 
+
+def PedidoDelView(request, pk):
+    pedido = get_object_or_404(Pedido, pk=pk)
+    if request.method == "POST":
+        pedido.delete()
+        return redirect('empresa:pedidos')
     return redirect('empresa:pedidos')
 
 
