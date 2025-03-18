@@ -2,7 +2,7 @@
 <div class="conteiner profile">
 {% include "empresa/partial/menu.html" %}
     
-    <div class="conteiner-profile">
+    <div class="conteiner-profile" onload="filtrarDados()">
       <h1>DashBoard</h1>
       <div class='card-legenda'>
         {% if request.GET.data_init %}
@@ -12,19 +12,19 @@
         <p >Dados do mês</p>
         {% endif %}
       </div>
-      <div class="card">
+      <div class="card vendas">
         <h3>Vendas</h3>
         <p>{{ pedidos }}</p>
       </div>
-      <div class="card">
+      <div class="card fat">
         <h3>Faturamento</h3>
         <p>{{ faturamento|monetario }}</p>
       </div>
-      <div class="card">
+      <div class="card ticket">
         <h3>Ticket Médio</h3>
         <p>{{ ticket_medio|monetario}}</p>
       </div>
-      <div class="filter">
+      <div class="filter" >
         <form action="" method="get">
           <p>Intervalo:</p>
           <button type="submit" class="gray">Filtrar</button>

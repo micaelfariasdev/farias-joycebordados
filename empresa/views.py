@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido, FotosCarrossel
 from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
-from .utils import grafico, valor_total
+from .utils import grafico, valor_total, gerar_json
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
@@ -220,15 +220,7 @@ def DadosEditView(request):
 
 
 def pedidos_json(request):
-    pedidos = Pedido.objects.all()
-    for i in pedidos:
-        i.data = i.data.strftime('%Y-%m-%d')
 
-    pedidos = (Pedido.objects.values('data').annotate(
-        quantidade=Sum('quantidade')).order_by('data'))
-
-    data = [{"data": pedido['data'], "quantidade": pedido['quantidade']}
-            for pedido in pedidos]
-
+    data = gerar_json()
     # Retorna a resposta JSON
     return JsonResponse(data, safe=False)

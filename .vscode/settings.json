@@ -60,6 +60,8 @@
         "clientes": "app",
         "base_templates": "template",
         "templatetags": "utils",
+        "deploy": "command",
+        "base_static": "resource",
         
     },
     "workbench.iconTheme": "material-icon-theme",
