@@ -80,70 +80,91 @@
         // Aumenta a resolução, dependendo da tela (Retina)
   }); {% endcomment %}
 
+  let chartInstance = null;  // Variável para armazenar a instância do gráfico
+
   fetch('/profile/pedidos/api/')
-  .then(response => response.json())
-  .then(data => {
-      const dataInicio = new Date('{{ filter.data_init }}');
-      const dataFim = new Date('{{ filter.data_end }}');
-      dataFim.setDate(dataFim.getDate() + 1);  // Soma 1 dia à data final para incluir o último dia
-
-      // Filtra os dados dentro do intervalo de datas
-      const dadosFiltrados = data.filter(item => {
-          const dataPedido = new Date(item.data);  
-          return dataPedido >= dataInicio && dataPedido <= dataFim;
-      });
-
-      // Se houver dados filtrados, mapeia para labels e valores
-      const labels = dadosFiltrados.map(item => {
-          const dataPedido = new Date(item.data);  
-          return dataPedido.toLocaleDateString('pt-BR');  // Formata a data para 'dd/mm/yyyy'
-      });  
-
-      const valores = dadosFiltrados.map(item => item.quantidade);
-
-      // Calcula o valor máximo para o eixo Y, com um valor de segurança de +10
-      const maxY = valores.length > 0 ? Math.max(...valores) + 10 : 10;
-
-      // Cria o gráfico
-      const ctx = document.getElementById('graficoPedidos').getContext('2d');
-      new Chart(ctx, {
-          type: 'line',  // Tipo de gráfico (linha)
-          data: {
-              labels: labels,
-              datasets: [
-              {
-                  label: 'Quantidade de Pedidos',
-                  data: valores,
-                  borderColor: 'blue',
-                  backgroundColor: 'rgb(194, 237, 141)',
-                  borderWidth: 1,
-                  yAxisID: 'y'
-              }
-              ]
-          },
-          options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              devicePixelRatio: window.devicePixelRatio || 4,  // Melhora a renderização em telas de alta resolução
-              scales: {
-                  x: {
-                      ticks: {
-                          color: 'black'  // Cor dos rótulos do eixo X
-                      }
-                  },
-                  y: {
-                      min: 0,  // Valor mínimo do eixo Y
-                      max: maxY,  // Valor máximo do eixo Y
-                      ticks: {
-                          color: 'blue',
-                          stepSize: 1  // Passo entre os ticks
-                      },
-                      position: 'left'  // Posição do eixo Y à esquerda
-                  },
-              }
-          }
-      });
-  })
-  .catch(error => console.error('Erro ao carregar JSON:', error));
-
+    .then(response => response.json())
+    .then(data => {
+  
+      var init = document.getElementsByName('data_init')[0];
+      var end = document.getElementsByName('data_end')[0];
+  
+      // Função para filtrar dados baseado nas datas selecionadas
+      function filtrarDados() {
+        const dataInicio = new Date(init.value);  // Pega o valor da data de início
+        const dataFim = new Date(end.value);     // Pega o valor da data de fim
+  
+        // Ajusta a data final para incluir o último dia
+        dataFim.setDate(dataFim.getDate() + 1);
+  
+        // Filtra os dados dentro do intervalo de datas
+        const dadosFiltrados = data.filter(item => {
+            const dataPedido = new Date(item.data);  
+            return dataPedido >= dataInicio && dataPedido <= dataFim;
+        });
+  
+        // Se houver dados filtrados, mapeia para labels e valores
+        const labels = dadosFiltrados.map(item => {
+            const dataPedido = new Date(item.data);  
+            return dataPedido.toLocaleDateString('pt-BR');  // Formata a data para 'dd/mm/yyyy'
+        });
+  
+        const valores = dadosFiltrados.map(item => item.quantidade);
+  
+        // Calcula o valor máximo para o eixo Y, com um valor de segurança de +10
+        const maxY = valores.length > 0 ? Math.max(...valores) + 10 : 10;
+  
+        // Se já existe um gráfico, destrói-o
+        if (chartInstance) {
+          chartInstance.destroy();
+        }
+  
+        // Cria o gráfico novamente
+        const ctx = document.getElementById('graficoPedidos').getContext('2d');
+        chartInstance = new Chart(ctx, {
+            type: 'line',  // Tipo de gráfico (linha)
+            data: {
+                labels: labels,
+                datasets: [
+                {
+                    label: 'Quantidade de Pedidos',
+                    data: valores,
+                    borderColor: 'blue',
+                    backgroundColor: 'rgb(194, 237, 141)',
+                    borderWidth: 1,
+                    yAxisID: 'y'
+                }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                devicePixelRatio: window.devicePixelRatio || 4,  // Melhora a renderização em telas de alta resolução
+                scales: {
+                    x: {
+                        ticks: {
+                            color: 'black'  // Cor dos rótulos do eixo X
+                        }
+                    },
+                    y: {
+                        min: 0,  // Valor mínimo do eixo Y
+                        max: maxY,  // Valor máximo do eixo Y
+                        ticks: {
+                            color: 'blue',
+                            stepSize: 1  // Passo entre os ticks
+                        },
+                        position: 'left'  // Posição do eixo Y à esquerda
+                    },
+                }
+            }
+        });
+      }
+  
+      // Adiciona os event listeners
+      init.addEventListener('change', filtrarDados);
+      end.addEventListener('change', filtrarDados);
+  
+    })
+    .catch(error => console.error('Erro ao carregar JSON:', error));
+  
 </script>

@@ -40,7 +40,7 @@ def DashBoardView(request):
     filter['data_end'] = filter['data_end'].strftime('%Y-%m-%d')
     contexto = {'dados': dados, 'compare': compare, 'filter': filter}
     contexto.update(valor_total(request))
-    contexto.update(grafico(request))
+
     form = FilterForm(initial=filter)
     contexto.update({'form': form})
     return render(request, 'empresa/profile-detail.html', context=contexto)
@@ -220,14 +220,15 @@ def DadosEditView(request):
 
 
 def pedidos_json(request):
-    pedidos = (Pedido.objects
-               .values('data')
-               # Soma das quantidades por data
-               .annotate(quantidade=Sum('quantidade'))
-               .order_by('data'))
+    pedidos = Pedido.objects.all()
+    for i in pedidos:
+        i.data = i.data.strftime('%Y-%m-%d')
 
-    # Organize os dados para facilitar no frontend
+    pedidos = (Pedido.objects.values('data').annotate(
+        quantidade=Sum('quantidade')).order_by('data'))
+
     data = [{"data": pedido['data'], "quantidade": pedido['quantidade']}
             for pedido in pedidos]
-    # Retorna uma lista de dicionários
+
+    # Retorna a resposta JSON
     return JsonResponse(data, safe=False)
