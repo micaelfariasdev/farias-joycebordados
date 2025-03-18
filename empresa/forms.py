@@ -11,6 +11,7 @@ class PedidosForm(forms.ModelForm):
     empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), initial=Empresa.objects.get(pk=1))
     quantidade = forms.IntegerField(required=True)
     codigo = forms.CharField(required=False)
+    data_entrega = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
