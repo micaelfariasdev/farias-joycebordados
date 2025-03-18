@@ -6,7 +6,7 @@ function admin_area(event) {
     event.preventDefault();
 
 
-    popup1 = window.open(detail.href, "popup", "width=1080,height=650");
+    popup1 = window.open(detail.href, "popup", "width=1440,height=650");
 
 
 }

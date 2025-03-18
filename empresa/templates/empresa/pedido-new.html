@@ -47,26 +47,48 @@
   </div>
 </form>
 <script>
+// Seleciona o botão que abre o popup
+var add = document.querySelector('.add-related');
 
-   
-    var add = document.querySelector('.add-related')
-    add.addEventListener('click', event =>{
-      event.preventDefault();
-      popup2 = window.open(add.href , "popup2", "width=600,height=650");})
-      var intervalo = setInterval(function() {
-        if (popup2.closed) {
-            clearInterval(intervalo); // Limpa o intervalo quando o pop-up for fechado
-            location.reload(); // Recarrega a página atual
+add.addEventListener('click', function (event) {
+    event.preventDefault();
+    
+    var popup3 = window.open(add.href, "popup3", "width=600,height=650");
+
+    // Espera o pop-up carregar
+    popup3.onload = function () {
+        var cliente = popup3.document.querySelector('input[type="submit"]');
+        
+        if (cliente) {
+            cliente.addEventListener('click', function (event) {
+                setTimeout(function () {
+                    popup3.alert('Pedido Salvo!');
+                    popup3.close();
+                }, 900);
+            });
+        }
+    };
+
+    // Verifica se o popup foi fechado e recarrega a página principal
+    var intervalo = setInterval(function () {
+        if (popup3.closed) {
+            clearInterval(intervalo);
+            location.reload();
         }
     }, 1000);
-    document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
-  
-      // Define um atraso de 2 segundos (2000ms)
-      setTimeout(function() {
-          window.alert('Pedido Salvo!');
-          window.close(); // Fecha a janela após 2 segundos
-      }, 900);
-  });
+});
+
+// Manipula o envio do formulário na página principal
+var form = document.querySelector('form');
+if (form) {
+    form.addEventListener('submit', function (event) {
+        setTimeout(function () {
+            window.alert('Pedido Salvo!');
+            window.close();
+        }, 900);
+    });
+}
+
 </script>
 
 {% endblock %}

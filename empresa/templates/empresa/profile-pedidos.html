@@ -41,12 +41,12 @@
   var add = document.querySelector('.button-style')
   add.addEventListener('click', event =>{
     event.preventDefault();
-    popup2 = window.open(add.href , "popup2", "width=600,height=750");})
+    popup2 = window.open(add.href , "popup2", "width=820,height=920");})
 
   function popup(pk, event) {
       var url = `${window.location.origin}/${window.location.pathname}`
       var pknum = pk
-      popup2 = window.open(url + pknum, "popup2", "width=600,height=650");
+      popup2 = window.open(url + pknum, "popup2", "width=820,height=850");
   }
   var intervalo = setInterval(function() {
     if (popup2.closed) {
