@@ -90,14 +90,17 @@ class Cliente(models.Model):
 class Pedido(models.Model):
     codigo = models.CharField(
         max_length=5, unique=True, blank=True, null=True)
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE, null=True, blank=True)
-    empresa = models.ForeignKey(Empresa, on_delete=models.CASCADE, null=True, blank=True)
+    cliente = models.ForeignKey(
+        Cliente, on_delete=models.CASCADE, null=True, blank=True)
+    empresa = models.ForeignKey(
+        Empresa, on_delete=models.CASCADE, null=True, blank=True)
     data = models.DateTimeField(auto_now_add=True)
     data_update = models.DateTimeField(auto_now=True)
     data_entrega = models.DateField(blank=True, null=True)
     produto = models.CharField(max_length=100)
     quantidade = models.IntegerField(null=True, blank=True)
-    valor = models.DecimalField(max_digits=10, decimal_places=2, null=True, blank=True)
+    valor = models.DecimalField(
+        max_digits=10, decimal_places=2, null=True, blank=True)
     valor_total = models.DecimalField(
         max_digits=10, decimal_places=2, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
@@ -124,7 +127,7 @@ class Pedido(models.Model):
 
     def gerar_qr_pix(self):
         nome = 'Jocileide Fernanda da Silva Farias'
-        numero = self.empresa.telefone
+        numero = '86988589907'
         valor = str(int(self.valor_total*100))
         pix = f'({numero[:2]}) {numero[2:]}'
         pix = PixQrCode(nome, pix, "SAO PAULO",
