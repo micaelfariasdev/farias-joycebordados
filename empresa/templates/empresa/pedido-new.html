@@ -82,10 +82,28 @@ add.addEventListener('click', function (event) {
 var form = document.querySelector('form');
 if (form) {
     form.addEventListener('submit', function (event) {
-        setTimeout(function () {
-            window.alert('Pedido Salvo!');
+      event.preventDefault()
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Deseja Criar um pedido?.",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não"
+    }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Pedido feito",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "ok"
+          }).then((result) => {
+            this.submit()
+            setTimeout(function () {
             window.close();
-        }, 900);
+        }, 900);})
+        }
+    });
     });
 }
 

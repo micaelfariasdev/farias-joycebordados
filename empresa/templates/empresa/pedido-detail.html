@@ -105,32 +105,38 @@
   <script>
     document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
   
-      // Define um atraso de 2 segundos (2000ms)
       setTimeout(function() {
           window.alert('Pedido Salvo!');
-          window.close(); // Fecha a janela após 2 segundos
+          window.close(); 
       }, 900);
   });
     document.getElementsByTagName('form')[1].addEventListener('submit', function(event) {
       event.preventDefault()
       Swal.fire({
         title: "Tem certeza?",
-        text: "Deseja excluir do pedido #{{ pedido.codigo }}?. Esta ação não pode ser desfeita!",
+        text: "Deseja excluir o pedido #{{ pedido.codigo }}?.",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Sim",
         cancelButtonText: "Não"
     }).then((result) => {
         if (result.isConfirmed) {
-          this.submit()
-          setTimeout(function() {
-            Swal.fire("Excluído!", "O item foi removido.", "success");
+          Swal.fire({
+            title: "Pedido excluir",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "ok"
+          }).then((result) => {
+            this.submit()
+            setTimeout(function () {
             window.close();
-        }, 900);
+        }, 900);})
         }
     });
+  
     
   });
+
   </script>
 {% endblock %}
 
