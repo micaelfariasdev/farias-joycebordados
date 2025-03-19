@@ -94,8 +94,8 @@ if (form) {
         if (result.isConfirmed) {
           this.submit()
           setTimeout(function() {
-            alert('Pedido criado com sucesso')
-            window.close();
+            var resp = confirm('Pedido criado com sucesso')
+            if (resp ){window.close();}
         }, 500);
         }
     });

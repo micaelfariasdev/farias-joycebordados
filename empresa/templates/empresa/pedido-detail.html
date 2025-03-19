@@ -117,8 +117,8 @@
       if (result.isConfirmed) {
         this.submit()
         setTimeout(function() {
-          alert('Pedido editado com sucesso')
-          window.close();
+          var resp = confirm('Pedido editado com sucesso')
+          if (resp ){window.close();}
       }, 500);
       }
   });
@@ -136,8 +136,8 @@
       if (result.isConfirmed) {
         this.submit()
         setTimeout(function() {
-          alert('Pedido criado com sucesso')
-          window.close();
+          var resp = confirm('Pedido excluido com sucesso')
+          if (resp ){window.close();}
       }, 500);
       }
   });
