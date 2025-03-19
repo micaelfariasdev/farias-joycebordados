@@ -103,12 +103,25 @@
     </form>
   </div>
   <script>
+    
     document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
-  
-      setTimeout(function() {
-          window.alert('Pedido Salvo!');
-          window.close(); 
-      }, 900);
+      event.preventDefault()
+      Swal.fire({
+        title: "Tem certeza?",
+        text: "Deseja editar o pedido #{{ pedido.codigo }}?.",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonText: "Sim",
+        cancelButtonText: "Não"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.submit()
+        setTimeout(function() {
+          alert('Pedido editado com sucesso')
+          window.close();
+      }, 500);
+      }
+  });
   });
     document.getElementsByTagName('form')[1].addEventListener('submit', function(event) {
       event.preventDefault()
@@ -120,21 +133,14 @@
         confirmButtonText: "Sim",
         cancelButtonText: "Não"
     }).then((result) => {
-        if (result.isConfirmed) {
-          Swal.fire({
-            title: "Pedido excluir",
-            icon: "success",
-            showCancelButton: false,
-            confirmButtonText: "ok"
-          }).then((result) => {
-            this.submit()
-            setTimeout(function () {
-            window.close();
-        }, 900);})
-        }
-    });
-  
-    
+      if (result.isConfirmed) {
+        this.submit()
+        setTimeout(function() {
+          alert('Pedido criado com sucesso')
+          window.close();
+      }, 500);
+      }
+  });
   });
 
   </script>

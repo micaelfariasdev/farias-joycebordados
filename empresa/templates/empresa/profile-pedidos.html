@@ -37,30 +37,21 @@
     }
   }).render(document.getElementById("tabela2"))
 
-  var popup2 ;
-  var add = document.querySelector('.button-style')
-  add.addEventListener('click', event =>{
-    event.preventDefault();
-    popup2 = window.open(add.href , "popup2", "width=820,height=920");
-    var inte = setInterval(function() {
-      if (popup2.closed) {
-          clearInterval(inte); 
-          window.location.reload(); 
-      }
-    }, 1000);
-  })
-    popup2.onload = function () {
-      var cliente = popup2.document.querySelector('input[type="submit"]');
+  var popup2;
+  var add = document.querySelector('.button-style');
+  
+  add.addEventListener('click', event => {
+      event.preventDefault();
+      popup2 = window.open(add.href, "popup2", "width=820,height=920");
+      var interval02 = setInterval(function() {
+        if (popup2.closed) {
+            clearInterval(interval02); 
+            window.location.reload(); 
+        }
+      }, 1000);
       
-      if (cliente) {
-          cliente.addEventListener('click', function (event) {
-              setTimeout(function () {
-                  popup2.alert('Pedido Salvo!');
-                  popup2.close();
-              }, 900);
-          });
-      }
-    }
+  });
+  
   function popup(pk, event) {
       var url = `${window.location.origin}${window.location.pathname}`
       var pknum = pk

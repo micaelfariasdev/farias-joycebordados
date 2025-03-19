@@ -92,20 +92,17 @@ if (form) {
         cancelButtonText: "Não"
     }).then((result) => {
         if (result.isConfirmed) {
-          Swal.fire({
-            title: "Pedido feito",
-            icon: "success",
-            showCancelButton: false,
-            confirmButtonText: "ok"
-          }).then((result) => {
-            this.submit()
-            setTimeout(function () {
+          this.submit()
+          setTimeout(function() {
+            alert('Pedido criado com sucesso')
             window.close();
-        }, 900);})
+        }, 500);
         }
     });
     });
 }
+
+
 
 </script>
 
