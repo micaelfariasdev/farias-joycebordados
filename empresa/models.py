@@ -145,9 +145,14 @@ class Pedido(models.Model):
         return pix
 
     def save(self, *args, **kwargs):
+        if self.valor is None:
+            self.valor = 0
+        if self.quantidade is None:
+            self.quantidade = 0
         if self.codigo is '':
             self.codigo = self.gerar_codigo_unico()
         if self.valor is not None and self.quantidade is not None:
+
             self.valor_total = self.valor * self.quantidade
         else:
             self.valor_total = 0

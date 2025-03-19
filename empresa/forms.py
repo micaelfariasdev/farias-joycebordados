@@ -9,7 +9,8 @@ class PedidosForm(forms.ModelForm):
         model = Pedido
         fields = '__all__'
     empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), initial=Empresa.objects.get(pk=1))
-    quantidade = forms.IntegerField(required=True)
+    quantidade = forms.IntegerField(required=False)
+    valor = forms.IntegerField(required=False)
     codigo = forms.CharField(required=False)
     data_entrega = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
 
