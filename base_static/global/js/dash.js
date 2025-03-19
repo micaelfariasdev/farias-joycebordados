@@ -11,6 +11,8 @@
       var PedidosData = document.querySelector('.vendas > p')
       var fatData = document.querySelector('.fat > p')
       var ticketData = document.querySelector('.ticket > p')
+      var spaninit = document.querySelector('#init')
+      var spanend = document.querySelector('#end')
 
       function filtrarDados() {
 
@@ -26,6 +28,10 @@
             const dataPedido = new Date(partes[0], partes[1] - 1, partes[2]);  
             return dataPedido >= dataInicio && dataPedido <= dataFim;
         });
+        spaninit.innerHTML = dataInicio
+        spaninit.innerHTML = `${dataInicio.toLocaleString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}`
+        spanend.innerHTML = dataFim
+        spanend.innerHTML = `${dataFim.toLocaleString('pt-BR', { day: '2-digit', month: 'long', year: 'numeric' })}`
   
         // Se houver dados filtrados, mapeia para labels e valores
         const labels = dadosFiltrados.map(item => {

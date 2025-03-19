@@ -64,7 +64,7 @@ header {
 
 }
 
-header.scrolled{
+header.scrolled {
     height: 100px;
 }
 
@@ -105,7 +105,8 @@ header .conteiner {
     flex-flow: column nowrap;
     background: var(--color-primary);
 }
-.areas{
+
+.areas {
     overflow: hidden;
     transition: all .2s ease;
     height: 100%;
@@ -129,7 +130,7 @@ header .conteiner {
     margin-bottom: 5px;
 }
 
-.areas form{
+.areas form {
     display: inline;
 }
 
@@ -190,13 +191,14 @@ main .conteiner {
     height: 100%;
     transition: 1s;
 }
+
 .swiper {
     width: 100vw;
     height: auto;
     aspect-ratio: 3/1;
-  }
+}
 
-  .swiper-slide img {
+.swiper-slide img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -370,6 +372,7 @@ textarea {
     border-radius: 10px;
     border: 2px solid var(--color-secondary);
 }
+
 .button-style,
 button {
     padding: 10px;
@@ -422,22 +425,23 @@ hr {
     border: 1px solid var(--color-secondary);
 }
 
-table{
+table {
     width: 90%;
     text-align: center;
     border-collapse: collapse;
 }
-th{
+
+th {
     background: var(--color-primary);
     color: #D2E4F5;
 }
 
-tr{
+tr {
     background: var(--color-quaternary);
 }
 
 td,
-th{
+th {
     border: var(--color-black) 2px solid;
 
 }
@@ -466,14 +470,14 @@ th{
     border-radius: 0 0 20px 20px;
 }
 
-.pedido-detail-conteiner .add-related{
+.pedido-detail-conteiner .add-related {
     position: relative;
     top: 5px;
     left: 15px;
     transform: scale(1.5);
 }
 
-.pedido-detail-conteiner input[type='checkbox']{
+.pedido-detail-conteiner input[type='checkbox'] {
     appearance: none;
     width: 40px !important;
     height: 40px !important;
@@ -485,7 +489,8 @@ th{
 }
 
 .pedido-detail-conteiner input[type="checkbox"]:checked {
-    background-color: #ff5733; /* Cor de fundo ao marcar */
+    background-color: #ff5733;
+    /* Cor de fundo ao marcar */
     border-color: #ff5733;
 }
 
@@ -675,6 +680,8 @@ span {
     font-weight: bolder;
 }
 
+
+
 .conteiner-profile .filter {
     grid-column: 4;
     grid-row: span 2;
@@ -793,14 +800,14 @@ span {
 
 
 
-.pedidos-filtro{
+.pedidos-filtro {
     display: flex;
     gap: 20px;
     flex-flow: row nowrap;
     align-items: stretch;
 }
 
-.pedidos-filtro button{
+.pedidos-filtro button {
     display: inline-block;
 }
 
@@ -823,7 +830,7 @@ span {
 }
 
 
-.dados-grid{
+.dados-grid {
     grid-column: span 4;
     width: 100%;
 }
@@ -835,14 +842,15 @@ span {
 .conteiner-profile img {
     max-width: 200px;
     max-height: 200px;
-    
+
 }
+
 .conteiner-profile label {
-    font-weight: bolder; 
+    font-weight: bolder;
 }
-.conteiner-profile div {
-    margin-top: 20px;
-}
+
+
+
 .conteiner-profile span {
     width: 100%;
 }
@@ -851,9 +859,12 @@ span {
     color: var(--color-primary);
     border: var(--color-primary) 2px solid;
 }
+
 .conteiner-profile hr {
     margin-block: 15px;
 }
+
+
 
 /* footer css style */
 
@@ -922,10 +933,10 @@ footer .conteiner a {
     flex-direction: column;
 }
 
-.c-p{
+.c-p {
     color: var(--color-tertiary);
 }
 
-.al-end{
+.al-end {
     align-items: end;
 }

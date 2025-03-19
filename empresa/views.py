@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido, FotosCarrossel
 from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
-from .utils import grafico, valor_total, gerar_json
+from .utils import gerar_json
 from datetime import datetime, timedelta
 from dateutil.relativedelta import relativedelta
 
@@ -35,16 +35,12 @@ def DashBoardView(request):
     if isinstance(filter['data_end'], str):
         filter['data_end'] = datetime.strptime(filter['data_end'], '%Y-%m-%d')
 
-    # Comparação de datas, subtraindo um mês
-    compare = {
-        'data_init': (filter['data_init'] - relativedelta(months=1)).strftime('%Y-%m-%d'),
-        'data_end': (filter['data_end'] - relativedelta(months=1)).strftime('%Y-%m-%d')
-    }
+
     filter['data_init'] = filter['data_init'].strftime('%Y-%m-%d')
     filter['data_end'] = filter['data_end'].strftime('%Y-%m-%d')
-    contexto = {'dados': dados, 'compare': compare, 'filter': filter}
-    contexto.update(valor_total(request))
+    
 
+    contexto = {'dados': dados, 'filter': filter}
     form = FilterForm(initial=filter)
     contexto.update({'form': form})
     return render(request, 'empresa/profile-detail.html', context=contexto)
@@ -126,7 +122,8 @@ def PedidoNewSaveView(request):
                 # Salva sem enviar ao banco ainda
                 pedido = form.save(commit=False)
                 pedido.save()
-                return redirect('empresa:fechar_pagina')  # Agora salva no banco
+                # Agora salva no banco
+                return redirect('empresa:fechar_pagina')
             else:
                 # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
                 print(form.errors)  # (Opcional) Para depuração

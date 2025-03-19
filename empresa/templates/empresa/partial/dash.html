@@ -1,46 +1,43 @@
 {% load filtros %}
 <div class="conteiner profile">
-{% include "empresa/partial/menu.html" %}
-    
-    <div class="conteiner-profile" onload="filtrarDados()">
-      <h1>DashBoard</h1>
-      <div class='card-legenda'>
-        {% if request.GET.data_init %}
-        <p >Dados de {{ request.GET.data_init|data }} à {{ request.GET.data_end|data }}</p>
-        
-        {% else %}
-        <p >Dados do mês</p>
-        {% endif %}
-      </div>
-      <div class="card vendas">
-        <h3>Vendas</h3>
-        <p>{{ pedidos }}</p>
-      </div>
-      <div class="card fat">
-        <h3>Faturamento</h3>
-        <p>{{ faturamento|monetario }}</p>
-      </div>
-      <div class="card ticket">
-        <h3>Ticket Médio</h3>
-        <p>{{ ticket_medio|monetario}}</p>
-      </div>
-      <div class="filter" >
-        <form action="" method="get">
-          <p>Intervalo:</p>
-          <button type="submit" class="gray">Filtrar</button>
-          <div class="filter-label">
-            <label for="{{ form.data_init.id_for_label }}"><strong>{{ form.data_init.label }}</strong></label>
-            {{ form.data_init }}
-          </div>
-          <div class="filter-label">
-            <label for="{{ form.data_end.id_for_label }}"><strong>{{ form.data_end.label }}</strong></label>
-            {{ form.data_end }}
-          </div>
-        </form>
-      </div>
-      <div class="grafico">
+  {% include "empresa/partial/menu.html" %}
 
-        <canvas id="graficoPedidos" width="100" height="300"></canvas>
+  <div class="conteiner-profile" onload="filtrarDados()">
+    <h1>DashBoard</h1>
+    <div class="card-legenda">
+      <i>Dados de </i><i id="init"></i> à <i id="end"></i>
+    </div>
+    <div class="card vendas">
+      <h3>Vendas</h3>
+      <p></p>
+    </div>
+    <div class="card fat">
+      <h3>Faturamento</h3>
+      <p></p>
+    </div>
+    <div class="card ticket">
+      <h3>Ticket Médio</h3>
+      <p></p>
+    </div>
+    <div class="filter">
+      <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr;">
+        <span style='grid-column: span 2'>Intervalo:</span>
+        <div class="filter-label">
+          <label for="{{ form.data_init.id_for_label }}"
+            ><strong>{{ form.data_init.label }}</strong></label
+          >
+          {{ form.data_init }}
+        </div>
+        <div class="filter-label">
+          <label for="{{ form.data_end.id_for_label }}"
+            ><strong>{{ form.data_end.label }}</strong></label
+          >
+          {{ form.data_end }}
+        </div>
       </div>
     </div>
+    <div class="grafico">
+      <canvas id="graficoPedidos" width="100" height="300"></canvas>
+    </div>
   </div>
+</div>
