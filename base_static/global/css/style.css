@@ -673,6 +673,9 @@ span {
     display: inline-block;
     font-size: 2rem;
 }
+.card .comparation{
+    width: fit-content;
+}
 
 .card .comparation span {
     padding: 1px 5px;

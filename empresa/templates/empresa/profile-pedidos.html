@@ -9,8 +9,8 @@
       "Data de Entrega",
       "Pedido",
       "Status",
-      "Pagamento",
-      "Detalhes"
+      "Pg",
+      "Aço"
     ],
     data: [
       {% for pedido in pedidos %}
@@ -25,7 +25,8 @@
           {% else %}
             '❌'
           {% endif %},
-          gridjs.html('<button onclick="popup({{pedido.pk}})">Editar</button>')
+          gridjs.html(
+            '<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> <a href="{% url 'empresa:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>'),
         ],
       {% endfor %}
     ],
@@ -38,7 +39,7 @@
   }).render(document.getElementById("tabela2"))
 
   var popup2;
-  var add = document.querySelector('.button-style');
+  var add = document.querySelector('form .button-style');
   
   add.addEventListener('click', event => {
       event.preventDefault();
@@ -51,18 +52,35 @@
       }, 1000);
       
   });
+
+  function popupzap(event, url) {
+    event.preventDefault(); // Evita que o link seja seguido diretamente
+
+    // Abre o WhatsApp em uma nova janela
+    let popup2 = window.open(url, "popup2", "width=820,height=850");
+
+    // Verifica constantemente se a janela foi fechada
+    let intervalo = setInterval(function() {
+        if (popup2 && popup2.closed) {
+            clearInterval(intervalo); 
+            window.location.reload(); // Recarrega a página ao fechar o popup
+        }
+    }, 1000);
+}
   
   function popup(pk, event) {
-      var url = `${window.location.origin}${window.location.pathname}`
-      var pknum = pk
-      popup2 = window.open(url + pknum, "popup2", "width=820,height=850");
- 
-  var intervalo = setInterval(function() {
-    if (popup2.closed) {
-        clearInterval(intervalo); 
-        window.location.reload(); 
-    }
-  }, 1000); }
+    var url = `${window.location.origin}${window.location.pathname}`
+    var pknum = pk
+    popup2 = window.open(url + pknum, "popup2", "width=820,height=850");
+
+var intervalo = setInterval(function() {
+  if (popup2.closed) {
+      clearInterval(intervalo); 
+      window.location.reload(); 
+  }
+}, 1000); }
+
+
 </script>
 
 {% endblock script %}

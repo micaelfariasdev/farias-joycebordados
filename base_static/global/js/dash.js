@@ -171,8 +171,8 @@ function dif(valor, comparativo, real=false) {
 
 function style_comp(card, valor, comparativo, real=false) {
     const divc = card.querySelector('.comparation')
-    divc.addEventListener('mouseenter', infomouse)
     const divi = card.querySelector('.info')
+    divc.addEventListener('mouseenter', infomouse)
     const comp = divc.querySelector('span')
     const info = divi.querySelector('span')
     const text = compare(valor, comparativo)
@@ -192,7 +192,6 @@ function style_comp(card, valor, comparativo, real=false) {
     comp.innerHTML = text
     info.innerHTML = infotext   
 }
-var comp = document.querySelector(".comparation")
 
 function infomouse() {
     const info = document.querySelectorAll('.info');

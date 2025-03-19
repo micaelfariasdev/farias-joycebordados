@@ -5,8 +5,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido, FotosCarrossel
 from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
-from .utils import gerar_json, ultimo_dia_mes
-from datetime import datetime, timedelta
+from .utils import gerar_json, enviar_msg
+from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Q
@@ -227,3 +227,11 @@ def pedidos_json(request):
     data = gerar_json()
     # Retorna a resposta JSON
     return JsonResponse(data, safe=False)
+
+
+def whastapp(request, pk):
+    pedido = Pedido.objects.get(pk=pk)
+    num = pedido.cliente.numero
+    dado = dict()
+    dado.update(enviar_msg(num, pedido))
+    return render(request, 'global/whats.html', dado)

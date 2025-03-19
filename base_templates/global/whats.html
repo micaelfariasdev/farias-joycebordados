@@ -1,0 +1,19 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+  
+</head>
+<body>
+    <p>Você será redirecionado...</p>
+    <script>
+      var num = '{{ numero }}'
+      var msg = encodeURIComponent(`{{ mensagem }}`)
+      setTimeout(() => {
+        window.location.href = `https://wa.me/${num}?text=${msg}`;
+    }, 1000);
+      window.onload = function () {
+      }
+    </script>
+</body>
+</html>
