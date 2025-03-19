@@ -91,14 +91,17 @@ if (form) {
         confirmButtonText: "Sim",
         cancelButtonText: "Não"
     }).then((result) => {
-        if (result.isConfirmed) {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Pedido criado",
+          icon: "success",
+          showCancelButton: false,
+          confirmButtonText: "ok"
+        }).then((result) => {
           this.submit()
-          setTimeout(function() {
-            var resp = confirm('Pedido criado com sucesso')
-            if (resp ){window.close();}
-        }, 500);
-        }
-    });
+    })
+      }
+  });
     });
 }
 

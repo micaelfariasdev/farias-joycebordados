@@ -16,6 +16,10 @@ from django.db.models import Q
 from django.http import JsonResponse
 
 
+def fechar_pagina(request):
+    return render(request, 'global/fechar.html')
+
+
 def DashBoardView(request):
     dados = Empresa.objects.get(pk=1)
 
@@ -88,7 +92,7 @@ def PedidoEditView(request, pk):
         if form.is_valid():
             form.save()
             # Redireciona para a lista de pedidos após salvar
-            return redirect('empresa:pedidos')
+            return redirect('empresa:fechar_pagina')
         else:
             # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
             print(form.errors)  # (Opcional) Para depuração
@@ -101,31 +105,19 @@ def PedidoDelView(request, pk):
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == "POST":
         pedido.delete()
-        return redirect('empresa:pedidos')
+        return redirect('empresa:fechar_pagina')
     return redirect('empresa:pedidos')
 
 
 def PedidoNewView(request):
     dados = Empresa.objects.get(pk=1)
     form = PedidosForm()
-
-    if request.method == "POST":
-        if form.is_valid():
-            form.save()
-            # Redireciona para a lista de pedidos após salvar
-            return redirect('empresa:pedidos')
-        else:
-            # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
-            print(form.errors)  # (Opcional) Para depuração
-            # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-            return redirect('empresa:pedidos')
-
     return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
 
 
 def PedidoNewSaveView(request):
     form = PedidosForm()
-
+    print('aq')
     if request.method == "POST":
         if request.method == 'POST':
             form = PedidosForm(request.POST)
@@ -133,9 +125,9 @@ def PedidoNewSaveView(request):
             if form.is_valid():  # ✅ Verifica se o formulário é válido
                 # Salva sem enviar ao banco ainda
                 pedido = form.save(commit=False)
-                pedido.save()  # Agora salva no banco
+                pedido.save()
+                return redirect('empresa:fechar_pagina')  # Agora salva no banco
             else:
-                print('aq')
                 # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
                 print(form.errors)  # (Opcional) Para depuração
                 # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.

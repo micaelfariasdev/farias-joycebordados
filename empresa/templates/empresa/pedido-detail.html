@@ -25,6 +25,7 @@
           <strong>#{{ pedido.codigo }}</strong>
           <span style="display: none;">{{ form.codigo }}</span>
           <span style="display: none;">{{ form.empresa }}</span>
+          <span style="display: none;">{{ form.data_entrega }}</span>
         </p>
         <p>
           <strong>Data de Entrega:</strong>
@@ -103,25 +104,28 @@
     </form>
   </div>
   <script>
-    
+
     document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
       event.preventDefault()
       Swal.fire({
         title: "Tem certeza?",
         text: "Deseja editar o pedido #{{ pedido.codigo }}?.",
-        icon: "warning",
+        icon: "question",
         showCancelButton: true,
         confirmButtonText: "Sim",
         cancelButtonText: "Não"
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.submit()
-        setTimeout(function() {
-          var resp = confirm('Pedido editado com sucesso')
-          if (resp ){window.close();}
-      }, 500);
-      }
-  });
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Pedido editado",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "ok"
+          }).then((result) => {
+            this.submit()
+      })
+        }
+    });
   });
     document.getElementsByTagName('form')[1].addEventListener('submit', function(event) {
       event.preventDefault()
@@ -133,15 +137,23 @@
         confirmButtonText: "Sim",
         cancelButtonText: "Não"
     }).then((result) => {
-      if (result.isConfirmed) {
-        this.submit()
-        setTimeout(function() {
-          var resp = confirm('Pedido excluido com sucesso')
-          if (resp ){window.close();}
-      }, 500);
-      }
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Pedido excluir",
+            icon: "success",
+            showCancelButton: false,
+            confirmButtonText: "ok"
+          }).then((result) => {
+            this.submit()
+      })
+        }
+    });
   });
-  });
+
+  document.addEventListener("DOMContentLoaded", function() {
+    let dataInput = document.querySelector("#id_data_entrega");
+    dataInput.value = "{{ pedido.data_entrega|date:'Y-m-d' }}";
+});
 
   </script>
 {% endblock %}

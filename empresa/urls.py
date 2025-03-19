@@ -29,4 +29,5 @@ urlpatterns = [
          login_required(views.PedidoDelView), name='pedido-del'),
     path('pedidos/api/',
          login_required(views.pedidos_json), name='pedido-api'),
+     path('fechar/', login_required(views.fechar_pagina), name='fechar_pagina'),
 ]
