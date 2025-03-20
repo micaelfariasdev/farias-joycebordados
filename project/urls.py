@@ -25,15 +25,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('<str:cod>/', views.red, name='pedido-cliente'),
     path('', include('joycebordados.urls')),
-    path('profile/', include('empresa.urls')),
     path('cliente/', include('clientes.urls')),
 ]
 
-host_patterns = patterns('',
-    host(r'bordado', 'clientes.urls', name='bordado-client'),
-    host(r'bordado', 'joycebordados.urls', name='bordado'),
-    host(r'adm', 'empresa.urls', name='adm'),
-)
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
