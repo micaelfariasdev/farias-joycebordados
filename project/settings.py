@@ -28,6 +28,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 
 ALLOWED_HOSTS = [
+    ".fariasfardas.com",
     "bordado.fariasfardas.com",
     "www.bordado.fariasfardas.com",
     "adm.fariasfardas.com",
