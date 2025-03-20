@@ -1,3 +1,4 @@
+{% load hosts %}
 <div class="conteiner">
   <div class="img-logo">
       <a href="{% url 'joycebordados:home' %}">
@@ -9,9 +10,9 @@
   <div class="conteiner-acess">
     <div class="areas">
       <a href="#" onclick="showLog()">Buscar pedido</a>
-      <a href="{% url "empresa:empresa" %}" class='popup-adm' onclick='admin_area()'>Área Administrativa</a>
+      <a href="{% url "adm:empresa" %}" class='popup-adm' onclick='admin_area()'>Área Administrativa</a>
       {% if user.is_authenticated %}
-      <form action="{% url 'empresa:logout' %}" method="post">
+      <form action="{% url 'adm:logout' %}" method="post">
         {% csrf_token %}
         <button type="submit" class="red">Sair</button>
       </form>

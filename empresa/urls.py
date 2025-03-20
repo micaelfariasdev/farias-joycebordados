@@ -4,32 +4,35 @@ from django.contrib.auth import views as auth_views
 from . import views
 from django.urls import path
 
-app_name = 'empresa'
+app_name = 'adm'
 
 urlpatterns = [
-    path('login/', views.Login, name='login'),
-    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('dash/', login_required(views.DashBoardView), name='empresa'),
-    path('config/', login_required(views.DadosProfileView), name='dados'),
-    path('config/edit/', login_required(views.DadosEditView), name='dados-edit'),
-    path('carrossel/', login_required(views.CarrosselProfileView), name='carrossel'),
-    path('pedidos/', login_required(views.PedidosListView), name='pedidos'),
-    path('pedidos/<int:pk>/', login_required(views.PedidodetailView),
+    path('profile/login/', views.Login, name='login'),
+    path('profile/logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('profile/dash/', login_required(views.DashBoardView), name='empresa'),
+    path('profile/config/', login_required(views.DadosProfileView), name='dados'),
+    path('profile/config/edit/',
+         login_required(views.DadosEditView), name='dados-edit'),
+    path('profile/carrossel/',
+         login_required(views.CarrosselProfileView), name='carrossel'),
+    path('profile/pedidos/', login_required(views.PedidosListView), name='pedidos'),
+    path('profile/pedidos/<int:pk>/', login_required(views.PedidodetailView),
          name='detail-pedido'),
-    path('pedidos/new/', login_required(views.PedidoNewView),
+    path('profile/pedidos/new/', login_required(views.PedidoNewView),
          name='new-pedido'),
-    path('pedidos/new/save', login_required(views.PedidoNewSaveView),
+    path('profile/pedidos/new/save', login_required(views.PedidoNewSaveView),
          name='save-pedido'),
-    path('carrossel/<int:pk>/del/',
+    path('profile/carrossel/<int:pk>/del/',
          login_required(views.DelFotoCarroselView), name='foto-del'),
-    path('carrossel/new/', login_required(views.AddFotoCarroselView), name='foto-new'),
-    path('pedidos/<int:pk>/edit/',
+    path('profile/carrossel/new/',
+         login_required(views.AddFotoCarroselView), name='foto-new'),
+    path('profile/pedidos/<int:pk>/edit/',
          login_required(views.PedidoEditView), name='pedido-edit'),
-    path('pedidos/<int:pk>/del/',
+    path('profile/pedidos/<int:pk>/del/',
          login_required(views.PedidoDelView), name='pedido-del'),
-    path('pedidos/api/',
+    path('profile/pedidos/api/',
          login_required(views.pedidos_json), name='pedido-api'),
-    path('fechar/', login_required(views.fechar_pagina), name='fechar_pagina'),
-    path('send/<int:pk>', login_required(views.whastapp), name='sendwht'),
+    path('profile/fechar/', login_required(views.fechar_pagina), name='fechar_pagina'),
+    path('profile/send/<int:pk>', login_required(views.whastapp), name='sendwht'),
 
 ]

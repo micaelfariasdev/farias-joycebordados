@@ -4,7 +4,7 @@
 {% endblock %}
 {% block main %}
   {% load filtros %}
-<form method="post" action="{% url "empresa:save-pedido" %}">
+<form method="post" action="{% url "adm:save-pedido" %}">
   {% csrf_token %}
   <div class="pedido-detail-conteiner">
     <div class="cliente">

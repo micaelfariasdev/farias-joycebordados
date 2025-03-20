@@ -1,7 +1,7 @@
 <div class="conteiner profile">
     {% include "empresa/partial/menu.html" %}
     <div class="conteiner-profile">
-        <form class="dados-grid" action="{% url "empresa:dados-edit" %}" method="post" enctype="multipart/form-data">
+        <form class="dados-grid" action="{% url "adm:dados-edit" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class='flex jf-sb gap20'>
                 <h1>Configuração</h1>

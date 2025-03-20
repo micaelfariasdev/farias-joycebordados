@@ -3,7 +3,7 @@
     {% include "empresa/partial/menu.html" %}
     <div class="conteiner-profile">
         <div class="dados-grid">
-        <form action="{% url "empresa:foto-new" %}" method="post" enctype="multipart/form-data">
+        <form action="{% url "adm:foto-new" %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
             <div class='flex jf-sb gap20'>
                 <h1>Fotos Carrosel</h1>
@@ -13,7 +13,7 @@
                 {% for i in fotos %}
                 <span>
                     <img src="{{ i.foto.url }}" alt=""><br>
-                    <a href="{% url "empresa:foto-del" pk=i.pk %}" id='excluir'>❌</a>
+                    <a href="{% url "adm:foto-del" pk=i.pk %}" id='excluir'>❌</a>
                 </span>
                 {% endfor %}
             </div>

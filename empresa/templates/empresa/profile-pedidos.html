@@ -1,86 +1,84 @@
-{% extends 'global/base-admin.html' %} {% load static %} {% load filtros %}
-{% block titulo %} {{ dados.nome }} {% endblock %} {% block main %} 
-{% include "empresa/partial/pedidos.html" %} {% endblock %} {% block script %}
+{% extends 'global/base-admin.html' %} {% load static %} {% load filtros %} {%
+block titulo %} {{ dados.nome }} {% endblock %} {% block main %} {% include
+"empresa/partial/pedidos.html" %} {% endblock %} {% block script %}
 <script>
-  var grid = new gridjs.Grid({
-    columns: [
-      "Código",
-      "Nome",
-      "Data de Entrega",
-      "Pedido",
-      "Status",
-      "Pg",
-      "Aço"
-    ],
-    data: [
-      {% for pedido in pedidos %}
-        [
-          '#{{ pedido.codigo }}',
-          '{{ pedido.cliente.nome }}',
-          '{{ pedido.data_entrega|date:"d/m/Y" }}',
-          '{{ pedido.produto }}',
-          '{{ pedido.get_status_display }}',
-          {% if pedido.pago %}
-            '✅'
-          {% else %}
-            '❌'
-          {% endif %},
-          gridjs.html(
-            '<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> <a href="{% url 'empresa:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>'),
-        ],
-      {% endfor %}
-    ],
+    var grid = new gridjs.Grid({
+      columns: [
+        "Código",
+        "Nome",
+        "Data de Entrega",
+        "Pedido",
+        "Status",
+        "Pg",
+        "Aço"
+      ],
+      data: [
+        {% for pedido in pedidos %}
+          [
+            '#{{ pedido.codigo }}',
+            '{{ pedido.cliente.nome }}',
+            '{{ pedido.data_entrega|date:"d/m/Y" }}',
+            '{{ pedido.produto }}',
+            '{{ pedido.get_status_display }}',
+            {% if pedido.pago %}
+              '✅'
+            {% else %}
+              '❌'
+            {% endif %},
+            gridjs.html(
+              '<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> <a href="{% url 'adm:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>'),
+          ],
+        {% endfor %}
+      ],
 
-    search: true,
-    sort: true,
-    pagination: {
-      limit: 20
-    }
-  }).render(document.getElementById("tabela2"))
+      search: true,
+      sort: true,
+      pagination: {
+        limit: 20
+      }
+    }).render(document.getElementById("tabela2"))
 
-  var popup2;
-  var add = document.querySelector('form .button-style');
-  
-  add.addEventListener('click', event => {
-      event.preventDefault();
-      popup2 = window.open(add.href, "popup2", "width=820,height=920");
-      var interval02 = setInterval(function() {
-        if (popup2.closed) {
-            clearInterval(interval02); 
-            window.location.reload(); 
-        }
+    var popup2;
+    var add = document.querySelector('form .button-style');
+
+    add.addEventListener('click', event => {
+        event.preventDefault();
+        popup2 = window.open(add.href, "popup2", "width=820,height=920");
+        var interval02 = setInterval(function() {
+          if (popup2.closed) {
+              clearInterval(interval02);
+              window.location.reload();
+          }
+        }, 1000);
+
+    });
+
+    function popupzap(event, url) {
+      event.preventDefault(); // Evita que o link seja seguido diretamente
+
+      // Abre o WhatsApp em uma nova janela
+      let popup2 = window.open(url, "popup2", "width=820,height=850");
+
+      // Verifica constantemente se a janela foi fechada
+      let intervalo = setInterval(function() {
+          if (popup2 && popup2.closed) {
+              clearInterval(intervalo);
+              window.location.reload(); // Recarrega a página ao fechar o popup
+          }
       }, 1000);
-      
-  });
-
-  function popupzap(event, url) {
-    event.preventDefault(); // Evita que o link seja seguido diretamente
-
-    // Abre o WhatsApp em uma nova janela
-    let popup2 = window.open(url, "popup2", "width=820,height=850");
-
-    // Verifica constantemente se a janela foi fechada
-    let intervalo = setInterval(function() {
-        if (popup2 && popup2.closed) {
-            clearInterval(intervalo); 
-            window.location.reload(); // Recarrega a página ao fechar o popup
-        }
-    }, 1000);
-}
-  
-  function popup(pk, event) {
-    var url = `${window.location.origin}${window.location.pathname}`
-    var pknum = pk
-    popup2 = window.open(url + pknum, "popup2", "width=820,height=850");
-
-var intervalo = setInterval(function() {
-  if (popup2.closed) {
-      clearInterval(intervalo); 
-      window.location.reload(); 
   }
-}, 1000); }
 
+    function popup(pk, event) {
+      var url = `${window.location.origin}${window.location.pathname}`
+      var pknum = pk
+      popup2 = window.open(url + pknum, "popup2", "width=820,height=850");
 
+  var intervalo = setInterval(function() {
+    if (popup2.closed) {
+        clearInterval(intervalo);
+        window.location.reload();
+    }
+  }, 1000); }
 </script>
 
 {% endblock script %}

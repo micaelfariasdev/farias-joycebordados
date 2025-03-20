@@ -5,7 +5,7 @@
 {% block main %}
   {% load filtros %}
   <div class="pedido-detail-conteiner">
-  <form method="post" action="{% url 'empresa:pedido-edit' pk=pedido.pk %}" style='justify-items: center;'>
+  <form method="post" action="{% url 'adm:pedido-edit' pk=pedido.pk %}" style='justify-items: center;'>
       <div class="cliente">
         <h2>Cliente</h2>
 
@@ -96,7 +96,7 @@
         <button type="submit">Editar</button>
       </div>
     </form>
-    <form action="{% url "empresa:pedido-del" pedido.pk %}" method="post" style='justify-items: center;'>
+    <form action="{% url "adm:pedido-del" pedido.pk %}" method="post" style='justify-items: center;'>
       {% csrf_token %}
         <div class='pedido'>
           <button type="submit" class='red'>Deletar</button>

@@ -10,20 +10,17 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Q
-from django.http import JsonResponse, HttpResponseForbidden
+from django.http import JsonResponse
+from django.urls import reverse
 
 
 def fechar_pagina(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     return render(request, 'global/fechar.html')
 
 
 def DashBoardView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
 
     filter = {
@@ -60,9 +57,7 @@ def DashBoardView(request):
 
 
 def PedidosListView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     pesquisa = request.GET.get('q', '').strip()
     pg = request.GET.get('pago', '').strip()
     status = request.GET.get('status', '').strip()
@@ -90,9 +85,7 @@ def PedidosListView(request):
 
 
 def PedidodetailView(request, pk):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
     pedido = Pedido.objects.get(pk=pk)
     form = PedidosForm(instance=pedido)
@@ -101,48 +94,40 @@ def PedidodetailView(request, pk):
 
 
 def PedidoEditView(request, pk):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == "POST":
         form = PedidosForm(request.POST or None, instance=pedido)
         if form.is_valid():
             form.save()
             # Redireciona para a lista de pedidos após salvar
-            return redirect('empresa:fechar_pagina')
+            return redirect('adm:fechar_pagina')
         else:
             # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
             print(form.errors)  # (Opcional) Para depuração
             # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-            return redirect('empresa:pedidos')
-    return redirect('empresa:pedidos')
+            return redirect('adm:pedidos')
+    return redirect('adm:pedidos')
 
 
 def PedidoDelView(request, pk):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == "POST":
         pedido.delete()
-        return redirect('empresa:fechar_pagina')
-    return redirect('empresa:pedidos')
+        return redirect('adm:fechar_pagina')
+    return redirect('adm:pedidos')
 
 
 def PedidoNewView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
     form = PedidosForm()
     return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
 
 
 def PedidoNewSaveView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     form = PedidosForm()
     print('aq')
     if request.method == "POST":
@@ -154,20 +139,18 @@ def PedidoNewSaveView(request):
                 pedido = form.save(commit=False)
                 pedido.save()
                 # Agora salva no banco
-                return redirect('empresa:fechar_pagina')
+                return redirect('adm:fechar_pagina')
             else:
                 # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
                 print(form.errors)  # (Opcional) Para depuração
                 # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-                return redirect('empresa:pedidos')
+                return redirect('adm:pedidos')
 
-    return redirect('empresa:pedidos')
+    return redirect('adm:pedidos')
 
 
 def DadosProfileView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
     form = EmpresaForm(instance=dados)
 
@@ -175,9 +158,7 @@ def DadosProfileView(request):
 
 
 def CarrosselProfileView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
     fotos = dados.fotos_carrossel.all()
     form = FotosCarrosselForm(initial={'empresa': dados})
@@ -185,18 +166,14 @@ def CarrosselProfileView(request):
 
 
 def DelFotoCarroselView(request, pk):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     foto = get_object_or_404(FotosCarrossel, pk=pk)
     foto.delete()
-    return redirect('empresa:carrossel')
+    return redirect('adm:carrossel')
 
 
 def Login(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = Empresa.objects.get(pk=1)
     if request.method == 'POST':
         form = CustomLoginForm(request=request, data=request.POST)
@@ -209,7 +186,7 @@ def Login(request):
             if user is not None:
                 login(request, user)
                 # Redireciona para o dashboard ou página principal
-                return redirect('empresa:empresa')
+                return redirect('adm:empresa')
             else:
                 # Se as credenciais forem inválidas
                 form.add_error(None, 'Usuário ou senha inválidos')
@@ -223,9 +200,7 @@ def Login(request):
 
 
 def AddFotoCarroselView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     if request.method == "POST":
         form = FotosCarrosselForm(request.POST or None,
                                   request.FILES or None,)
@@ -233,19 +208,17 @@ def AddFotoCarroselView(request):
             form.save()
             print('salvo')
             # Redireciona para a lista de pedidos após salvar
-            return redirect('empresa:carrossel')
+            return redirect('adm:carrossel')
         else:
             # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
             print(form.errors)  # (Opcional) Para depuração
             # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-            return redirect('empresa:carrossel')
-    return redirect('empresa:carrossel')
+            return redirect('adm:carrossel')
+    return redirect('adm:carrossel')
 
 
 def DadosEditView(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     dados = get_object_or_404(Empresa, pk=1)
     if request.method == "POST":
         form = EmpresaForm(request.POST or None,
@@ -254,29 +227,25 @@ def DadosEditView(request):
             form.save()
             print('salvo')
             # Redireciona para a lista de pedidos após salvar
-            return redirect('empresa:dados')
+            return redirect('adm:dados')
         else:
             # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
             print(form.errors)  # (Opcional) Para depuração
             # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-            return redirect('empresa:dados')
+            return redirect('adm:dados')
 
-    return redirect('empresa:dados')
+    return redirect('adm:dados')
 
 
 def pedidos_json(request):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     data = gerar_json()
     # Retorna a resposta JSON
     return JsonResponse(data, safe=False)
 
 
 def whastapp(request, pk):
-    # Se o subdomínio não for 'adm', negue o acesso
-    if request.get_host().split(':')[0] != 'adm':
-        return HttpResponseForbidden("Acesso restrito a este subdomínio.")
+
     pedido = Pedido.objects.get(pk=pk)
     num = pedido.cliente.numero
     dado = dict()

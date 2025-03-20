@@ -1,9 +1,8 @@
 {% load filtros %}
-<tr class="{% if pedido.status.0 == '1' %}red
-{% elif pedido.status.0 == '2' %}green
-{% elif pedido.status.0 == '3' %}gray
-{% endif %}">
-<a href="{% url 'empresa:detail-pedido' pk=pedido.pk %}">
+<tr
+  class="{% if pedido.status.0 == '1' %}red {% elif pedido.status.0 == '2' %}green {% elif pedido.status.0 == '3' %}gray {% endif %}"
+>
+  <a href="{% url 'adm:detail-pedido' pk=pedido.pk %}">
     <td>
       <strong>#{{ pedido.codigo }}</strong>
     </td>
@@ -14,10 +13,10 @@
     <td>{{ pedido.get_status_display }}</td>
     <td>
       {% if pedido.pago %}
-        <span class="icon yes">✅</span>
+      <span class="icon yes">✅</span>
       {% else %}
-        <span class="icon no">❌</span>
+      <span class="icon no">❌</span>
       {% endif %}
     </td>
-</a>
+  </a>
 </tr>

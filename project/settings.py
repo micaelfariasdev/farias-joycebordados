@@ -36,6 +36,14 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+
+HOST_SCHEME = 'http'
+PARENT_HOST = 'fariasfardas.com'
+HOSTS = {
+    'adm': {'subdomain': 'adm', 'urlconf': 'empresa.urls', 'name': 'empresa'},
+}
+
+
 DEFAULT_HOST = 'bordado'
 
 ROOT_HOSTCONF = 'project.hosts'
@@ -63,7 +71,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_hosts.middleware.HostsBaseMiddleware',  # Corrigido para HostsBaseMiddleware
+
 ]
 
 
@@ -131,6 +139,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
 LANGUAGE_CODE = 'pt-BR'
+
 
 TIME_ZONE = 'America/Sao_Paulo'
 
