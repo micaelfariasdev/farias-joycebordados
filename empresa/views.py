@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, 
 from .forms import CustomLoginForm
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
@@ -10,14 +10,18 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
 from django.db.models import Q
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseForbidden, Http404
 
 
 def fechar_pagina(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     return render(request, 'global/fechar.html')
 
 
 def DashBoardView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
 
     filter = {
@@ -54,6 +58,8 @@ def DashBoardView(request):
 
 
 def PedidosListView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     pesquisa = request.GET.get('q', '').strip()
     pg = request.GET.get('pago', '').strip()
     status = request.GET.get('status', '').strip()
@@ -81,6 +87,8 @@ def PedidosListView(request):
 
 
 def PedidodetailView(request, pk):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
     pedido = Pedido.objects.get(pk=pk)
     form = PedidosForm(instance=pedido)
@@ -89,6 +97,8 @@ def PedidodetailView(request, pk):
 
 
 def PedidoEditView(request, pk):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == "POST":
         form = PedidosForm(request.POST or None, instance=pedido)
@@ -105,6 +115,8 @@ def PedidoEditView(request, pk):
 
 
 def PedidoDelView(request, pk):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     pedido = get_object_or_404(Pedido, pk=pk)
     if request.method == "POST":
         pedido.delete()
@@ -113,12 +125,16 @@ def PedidoDelView(request, pk):
 
 
 def PedidoNewView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
     form = PedidosForm()
     return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
 
 
 def PedidoNewSaveView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     form = PedidosForm()
     print('aq')
     if request.method == "POST":
@@ -141,6 +157,8 @@ def PedidoNewSaveView(request):
 
 
 def DadosProfileView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
     form = EmpresaForm(instance=dados)
 
@@ -148,6 +166,8 @@ def DadosProfileView(request):
 
 
 def CarrosselProfileView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
     fotos = dados.fotos_carrossel.all()
     form = FotosCarrosselForm(initial={'empresa': dados})
@@ -155,12 +175,16 @@ def CarrosselProfileView(request):
 
 
 def DelFotoCarroselView(request, pk):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     foto = get_object_or_404(FotosCarrossel, pk=pk)
     foto.delete()
     return redirect('empresa:carrossel')
 
 
 def Login(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = Empresa.objects.get(pk=1)
     if request.method == 'POST':
         form = CustomLoginForm(request=request, data=request.POST)
@@ -187,6 +211,8 @@ def Login(request):
 
 
 def AddFotoCarroselView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     if request.method == "POST":
         form = FotosCarrosselForm(request.POST or None,
                                   request.FILES or None,)
@@ -204,6 +230,8 @@ def AddFotoCarroselView(request):
 
 
 def DadosEditView(request):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     dados = get_object_or_404(Empresa, pk=1)
     if request.method == "POST":
         form = EmpresaForm(request.POST or None,
@@ -223,13 +251,16 @@ def DadosEditView(request):
 
 
 def pedidos_json(request):
-
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     data = gerar_json()
     # Retorna a resposta JSON
     return JsonResponse(data, safe=False)
 
 
 def whastapp(request, pk):
+    if request.get_host().split(':')[0] != 'adm':  # Se o subdomínio não for 'adm', negue o acesso
+        return Http404("Acesso restrito a este subdomínio.")
     pedido = Pedido.objects.get(pk=pk)
     num = pedido.cliente.numero
     dado = dict()
