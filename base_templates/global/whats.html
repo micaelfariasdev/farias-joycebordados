@@ -7,8 +7,10 @@
 <body>
     <p>Você será redirecionado...</p>
     <script>
+      
       var num = '{{ numero }}'
-      var msg = encodeURIComponent(`{{ mensagem }}`)
+      var url = `${window.location.origin}/{{ codigo }}`
+      var msg = encodeURIComponent(`{{ mensagem }}\nAcesse seu pedido para mais informações:\n${url} `)
       setTimeout(() => {
         window.location.href = `https://wa.me/${num}?text=${msg}`;
     }, 1000);

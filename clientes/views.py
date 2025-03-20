@@ -1,15 +1,28 @@
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from empresa.models import Empresa, Pedido
-# Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+from django.http import HttpResponseBadRequest
 
 
-def PedidoClient(request):
-    codigo = request.POST.get('Codigo').strip()
-    if codigo[0] == '#':
-        codigo = codigo[1:]
-    pedido = Pedido.objects.get(codigo=codigo)
-    empresa = Empresa.objects.get(pk=1)
+@csrf_exempt
+def PedidoClient(request, cod=None):
+    if request.method == 'GET':
+        codigo_ = request.GET.get('codigo').strip()
+    elif cod:
+        codigo_ = cod  # Evita erro se for None
+
+    if not codigo_:
+        # Retorna erro 400 se o código estiver vazio
+        return HttpResponseBadRequest("Código inválido.")
+
+    if codigo_.startswith('#'):
+        codigo_ = codigo_[1:]
+
+    # Garante que retorna 404 se não encontrar
+    pedido = get_object_or_404(Pedido, codigo=codigo_)
+    empresa = get_object_or_404(Empresa, pk=1)
+
     qr_pix = pedido.gerar_qr_pix()
 
     return render(request, 'clientes/pedido-cliente.html', {'pedido': pedido, 'dados': empresa, 'qr_pix': qr_pix})
