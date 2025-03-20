@@ -26,6 +26,7 @@ urlpatterns = [
     path('<str:cod>/', views.red, name='pedido-cliente'),
     path('', include('joycebordados.urls')),
     path('cliente/', include('clientes.urls')),
+    path('profile/', include('empresa.urls')),
 ]
 
 host_patterns = patterns('',
