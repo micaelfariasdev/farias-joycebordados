@@ -35,6 +35,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1'
 ]
 
+DEFAULT_HOST = 'bordado'
+
+ROOT_HOSTCONF = 'project.hosts'
 
 # Application definition
 
@@ -59,8 +62,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django_hosts.middleware.HostsMiddleware',
+    'django_hosts.middleware.HostsBaseMiddleware',  # Corrigido para HostsBaseMiddleware
 ]
+
 
 ROOT_URLCONF = 'project.urls'
 
