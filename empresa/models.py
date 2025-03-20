@@ -1,3 +1,6 @@
+import json
+from django.utils.timezone import now
+from django.contrib.auth.models import User
 import os
 from django.dispatch import receiver
 from django.db.models.signals import post_delete, post_save
@@ -161,3 +164,10 @@ class Pedido(models.Model):
 
     def __str__(self):
         return self.codigo
+
+
+class HistoricoPedido(models.Model):
+    pedido = models.ForeignKey(
+        Pedido, on_delete=models.CASCADE, related_name="historico")
+    alteracoes = models.JSONField()  # Guarda as mudanças feitas
+    data_alteracao = models.DateTimeField(default=now)

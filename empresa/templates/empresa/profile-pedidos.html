@@ -28,7 +28,11 @@
               '❌'
             {% endif %},
             gridjs.html(
-              '<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> <a href="{% url 'adm:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>'),
+              `<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> 
+              {% if pedido.status.0 != '3' %}
+              <a href="{% url 'adm:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>
+              {% endif %}
+              `),
           ],
         {% endfor %}
       ],

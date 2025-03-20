@@ -48,12 +48,12 @@
 
         <span>
           <strong>Valor:</strong>
-          {{ pedido.valor }}
+          {{ pedido.valor|monetario }}
         </span>
 
         <span>
           <strong>Valor Total:</strong>
-          {{ pedido.valor_total }}
+          {{ pedido.valor_total|monetario }}
         </span>
         <span>
           <strong>Pagamento:</strong>
@@ -63,6 +63,27 @@
             Aguardando Pagamento
           {% endif %}
         </span>
+      </div>
+      <hr>
+      <div>
+        <table border="1">
+          <tr>
+              <th>Data</th>
+              <th>Alterações</th>
+          </tr>
+          {% for log in pedido.historico.all %}
+          <tr>
+              <td>{{ log.data_alteracao|date:'d/m/Y - H:m' }}</td>
+              <td>
+                  <ul>
+                      {% for campo, valores in log.alteracoes.items %}
+                      <li><strong>{{ campo }}</strong>: "{{ valores.antes }}" → "{{ valores.depois }}"</li>
+                      {% endfor %}
+                  </ul>
+              </td>
+          </tr>
+          {% endfor %}
+      </table>
       </div>
       {% if not pedido.pago %}
         <div class="pagamentos">
