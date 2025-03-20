@@ -33,20 +33,10 @@ ALLOWED_HOSTS = [
     "www.bordado.fariasfardas.com",
     "adm.fariasfardas.com",
     "www.adm.fariasfardas.com",
-    '127.0.0.1'
+    '127.0.0.1',
+    '*'
 ]
 
-
-HOST_SCHEME = 'http'
-PARENT_HOST = 'fariasfardas.com'
-HOSTS = {
-    'adm': {'subdomain': 'adm', 'urlconf': 'empresa.urls', 'name': 'empresa'},
-}
-
-
-DEFAULT_HOST = 'bordado'
-
-ROOT_HOSTCONF = 'project.hosts'
 
 # Application definition
 
@@ -63,16 +53,16 @@ INSTALLED_APPS = [
     'django_hosts',
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-
-]
+MIDDLEWARE = ["django_hosts.middleware.HostsRequestMiddleware",
+              'django.middleware.security.SecurityMiddleware',
+              'django.contrib.sessions.middleware.SessionMiddleware',
+              'django.middleware.common.CommonMiddleware',
+              'django.middleware.csrf.CsrfViewMiddleware',
+              'django.contrib.auth.middleware.AuthenticationMiddleware',
+              'django.contrib.messages.middleware.MessageMiddleware',
+              'django.middleware.clickjacking.XFrameOptionsMiddleware',
+              "django_hosts.middleware.HostsResponseMiddleware",
+              ]
 
 
 ROOT_URLCONF = 'project.urls'
@@ -182,3 +172,10 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "micaelfarias.dev@gmail.com"
 EMAIL_HOST_PASSWORD = "obob bhhj kqdc ilej"
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+DEFAULT_HOST = 'bordado'
+
+ROOT_HOSTCONF = 'project.hosts'
+HOSTS = {
+    'default': 'localhost',  # Subdomínios serão definidos dentro do arquivo de urls
+}
