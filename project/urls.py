@@ -28,7 +28,10 @@ urlpatterns = [
     path('cliente/', include('clientes.urls')),
 ]
 
-
+host_patterns = patterns('',
+                         host(r'bordado', 'joycebordados.urls', name='bordado'),
+                         host(r'adm', 'empresa.urls', name='adm'),
+                         )
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL,
