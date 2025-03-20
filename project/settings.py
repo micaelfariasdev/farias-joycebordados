@@ -30,6 +30,8 @@ DEBUG = bool(int(os.environ.get('DEBUG', 1)))
 ALLOWED_HOSTS = [
     "bordado.fariasfardas.com",
     "www.bordado.fariasfardas.com",
+    "adm.fariasfardas.com",
+    "www.adm.fariasfardas.com",
     '127.0.0.1'
 ]
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'joycebordados',
     "empresa",
     "clientes",
+    'django_hosts',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_hosts.middleware.HostsMiddleware',
 ]
 
 ROOT_URLCONF = 'project.urls'
