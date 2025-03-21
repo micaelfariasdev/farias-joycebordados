@@ -1,0 +1,6 @@
+notepad $env:USERPROFILE\.ssh\config
+
+# COLE ISSO DENTRO
+Host joycebordados
+    HostName bordado.fariasfardas.com
+    User micaelfarias.dev
