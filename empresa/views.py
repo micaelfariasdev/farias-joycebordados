@@ -1,3 +1,5 @@
+from django.http import JsonResponse
+from django.db.models import Q
 from django.shortcuts import render, redirect
 from .forms import CustomLoginForm
 from django.contrib.auth import authenticate, login
@@ -10,8 +12,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-from django.db.models import Q
-from django.http import JsonResponse
 
 
 def fechar_pagina(request):
@@ -132,7 +132,7 @@ def PedidoNewSaveView(request):
     if request.method == "POST":
         if request.method == 'POST':
             form = PedidosForm(request.POST)
-            
+
             if form.is_valid():  # ✅ Verifica se o formulário é válido
                 # Salva sem enviar ao banco ainda
                 pedido = form.save(commit=False)
@@ -141,7 +141,6 @@ def PedidoNewSaveView(request):
                 return redirect('adm:fechar_pagina')
             else:
                 return render(request, 'empresa/pedido-new.html', {'form': form})
-
 
 
 def DadosProfileView(request):
@@ -168,7 +167,8 @@ def DelFotoCarroselView(request, pk):
 
 
 def Login(request):
-
+    if request.user.is_authenticated:
+        return redirect('adm:empresa')
     dados = Empresa.objects.get(pk=1)
     if request.method == 'POST':
         form = CustomLoginForm(request=request, data=request.POST)

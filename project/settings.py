@@ -179,3 +179,5 @@ ROOT_HOSTCONF = 'project.hosts'
 HOSTS = {
     'default': 'localhost',  # Subdomínios serão definidos dentro do arquivo de urls
 }
+
+LOGOUT_REDIRECT_URL = "/profile/login/"
