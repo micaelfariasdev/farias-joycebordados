@@ -936,6 +936,21 @@ input#id_valor{
     text-align: right;
 }
 
+.conteiner-login{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: var(--color-white);
+    padding: 20px;
+    border-radius: 20px;
+    position: absolute;
+    top: 30%;
+    box-shadow: 5px 5px 14px #00000073;
+}
+.conteiner-login img{
+    height: 100px;
+}
+
 /* footer css style */
 
 footer {
