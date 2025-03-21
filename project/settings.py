@@ -161,7 +161,7 @@ LOGIN_REDIRECT_URL = '/profile/dashboard'  # Redireciona usuários após login
 LOGOUT_REDIRECT_URL = '/'
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://bordado.fariasfardas.com",
+    "https://adm.fariasfardas.com",
 ]
 
 
