@@ -10,9 +10,6 @@ from datetime import datetime
 from dateutil.relativedelta import relativedelta
 import locale
 locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
-from django.views.decorators.csrf import csrf_exempt
-
-
 from django.db.models import Q
 from django.http import JsonResponse
 
@@ -170,7 +167,6 @@ def DelFotoCarroselView(request, pk):
     return redirect('adm:carrossel')
 
 
-@csrf_exempt
 def Login(request):
 
     dados = Empresa.objects.get(pk=1)
