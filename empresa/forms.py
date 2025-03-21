@@ -4,15 +4,22 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.contrib import admin
 
+
 class PedidosForm(forms.ModelForm):
     class Meta:
         model = Pedido
         fields = '__all__'
-    empresa = forms.ModelChoiceField(queryset=Empresa.objects.all(), initial=Empresa.objects.get(pk=1))
+
+    empresa = forms.ModelChoiceField(
+        queryset=Empresa.objects.all(), initial=Empresa.objects.get(pk=1))
     quantidade = forms.IntegerField(required=False)
-    valor = forms.FloatField(required=False)
+    valor = forms.DecimalField(required=False,
+                             widget=forms.TextInput(
+                                 attrs={'type': 'text', 'class': 'form-control'})
+                             )
     codigo = forms.CharField(required=False)
-    data_entrega = forms.DateField(required=False, widget=forms.DateInput(attrs={'type': 'date'}))
+    data_entrega = forms.DateField(
+        required=False, widget=forms.DateInput(attrs={'type': 'date'}))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -20,6 +27,8 @@ class PedidosForm(forms.ModelForm):
         self.fields['cliente'].widget = RelatedFieldWidgetWrapper(
             self.fields['cliente'].widget, rel_field.remote_field, admin.site
         )
+
+
 
 
 class EmpresaForm(forms.ModelForm):
@@ -35,6 +44,7 @@ class FotosCarrosselForm(forms.ModelForm):
         # Apenas os campos que desejo exibir no formulário
         fields = '__all__'
 
+
 class CustomLoginForm(AuthenticationForm):
     username = forms.CharField(
         widget=forms.TextInput(attrs={'placeholder': 'Usuário'}),
@@ -44,6 +54,7 @@ class CustomLoginForm(AuthenticationForm):
         widget=forms.PasswordInput(attrs={'placeholder': 'Senha'}),
         max_length=100
     )
+
 
 class FilterForm(forms.Form):
     data_init = forms.DateField(

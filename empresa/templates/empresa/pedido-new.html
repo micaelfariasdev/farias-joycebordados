@@ -17,6 +17,13 @@
       <span style="display:none;">{{ form.empresa }}</span>
       <span style="display:none;">{{ form.codigo }}</span>
       <h2>Pedido</h2>
+      {% if form.errors %}
+          <ul class="error-list">
+            {% for error in form.errors %}
+              <li class="error">{{ form.errors }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
       {{ form.data_entrega.label_tag }}
       {{ form.data_entrega }}
       {{ form.produto.label_tag }}
@@ -107,7 +114,18 @@ if (form) {
 
 
 
-</script>
+var inputvalor = document.querySelector('#id_valor')
+document.querySelector("input#id_valor").addEventListener("input", function (e) {
+  let value = e.target.value.replace(/[^\d,]/g, ''); // Remove tudo, exceto números e vírgulas
 
+  // Se houver mais de 2 dígitos, coloca a vírgula nas últimas duas casas
+  if (value.length > 2) {
+    value = `${value.slice(0, -2)}.${value.slice(-2)}`;  // Coloca vírgula entre os números
+  }
+
+  e.target.value = value;
+});
+
+</script>
 {% endblock %}
 

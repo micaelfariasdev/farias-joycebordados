@@ -8,10 +8,11 @@ from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarr
 from .utils import gerar_json, enviar_msg
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
+import locale
+locale.setlocale(locale.LC_ALL, 'pt_BR.UTF-8')
 
 from django.db.models import Q
 from django.http import JsonResponse
-from django.urls import reverse
 
 
 def fechar_pagina(request):
@@ -129,11 +130,10 @@ def PedidoNewView(request):
 def PedidoNewSaveView(request):
 
     form = PedidosForm()
-    print('aq')
     if request.method == "POST":
         if request.method == 'POST':
             form = PedidosForm(request.POST)
-
+            
             if form.is_valid():  # ✅ Verifica se o formulário é válido
                 # Salva sem enviar ao banco ainda
                 pedido = form.save(commit=False)
@@ -141,12 +141,8 @@ def PedidoNewSaveView(request):
                 # Agora salva no banco
                 return redirect('adm:fechar_pagina')
             else:
-                # Caso o formulário não seja válido, você pode logar os erros, mas o retorno será um erro 400
-                print(form.errors)  # (Opcional) Para depuração
-                # Ou você pode retornar um redirect mesmo com erro, ou renderizar o mesmo formulário com erros.
-                return redirect('adm:pedidos')
+                return render(request, 'empresa/pedido-new.html', {'form': form})
 
-    return redirect('adm:pedidos')
 
 
 def DadosProfileView(request):

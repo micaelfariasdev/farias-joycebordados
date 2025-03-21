@@ -932,6 +932,9 @@ input.gridjs-input{
     border-radius: 20px !important;
 }
 
+input#id_valor{
+    text-align: right;
+}
 
 /* footer css style */
 

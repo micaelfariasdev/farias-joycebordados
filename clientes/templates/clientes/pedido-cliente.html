@@ -76,8 +76,13 @@
               <td>{{ log.data_alteracao|date:'d/m/Y - H:m' }}</td>
               <td>
                   <ul>
+                    
                       {% for campo, valores in log.alteracoes.items %}
+                      {% if campo == 'Criação' %}
+                      <li><strong>{{ campo }}</strong>: <strong>{{ valores.criacao }}</strong></li>
+                      {% else %}
                       <li><strong>{{ campo }}</strong>: "{{ valores.antes }}" → "{{ valores.depois }}"</li>
+                      {% endif %}
                       {% endfor %}
                   </ul>
               </td>

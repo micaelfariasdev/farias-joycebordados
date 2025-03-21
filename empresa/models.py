@@ -1,4 +1,4 @@
-import json
+
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 import os
@@ -57,22 +57,6 @@ class FotosCarrossel(models.Model):
         return self.empresa.nome
 
 
-# Função para excluir imagens ao deletar
-
-
-# @receiver([post_save, post_delete], sender=Empresa)
-# def delete_empresa_images(sender, instance, **kwargs):
-
-#     if not instance.logo:
-#         logo_path = instance.logo.path
-#         if os.path.isfile(logo_path):
-#             os.remove(logo_path)
-
-#     if instance.foto_sobre:
-#         foto_sobre_path = instance.foto_sobre.path
-#         if os.path.isfile(foto_sobre_path):
-#             os.remove(foto_sobre_path)
-
 
 @receiver(post_delete, sender=FotosCarrossel)
 def delete_foto_carrossel(sender, instance, **kwargs):
@@ -103,9 +87,9 @@ class Pedido(models.Model):
     produto = models.CharField(max_length=100)
     quantidade = models.IntegerField(null=True, blank=True)
     valor = models.DecimalField(
-        max_digits=10, decimal_places=2, null=True, blank=True)
+        max_digits=99, decimal_places=2, null=True, blank=True)
     valor_total = models.DecimalField(
-        max_digits=10, decimal_places=2, blank=True, null=True)
+        max_digits=99, decimal_places=2, blank=True, null=True)
     observacao = models.TextField(blank=True, null=True)
     status = models.CharField(max_length=100, choices=(
         ('0-pendente', 'Pendente'),
