@@ -4,56 +4,58 @@
 {% endblock %}
 {% block main %}
   {% load filtros %}
-<form method="post" action="{% url "adm:save-pedido" %}">
-  {% csrf_token %}
-  <div class="pedido-detail-conteiner">
-    <div class="cliente">
-      <h2>Cliente</h2>
-      {{ form.cliente }}
+  <div class="divmeddia">
+    <form method="post" action="{% url "adm:save-pedido" %}">
+      {% csrf_token %}
+      <div class="pedido-detail-conteiner">
+        <div class="cliente">
+          <h2>Cliente</h2>
+          {{ form.cliente }}
 
-    </div>
-    <hr />
-    <div class="pedido">
-      <span style="display:none;">{{ form.empresa }}</span>
-      <span style="display:none;">{{ form.codigo }}</span>
-      <h2>Pedido</h2>
-      {% if form.errors %}
-          <ul class="error-list">
-            {% for error in form.errors %}
-              <li class="error">{{ form.errors }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
-      {{ form.data_entrega.label_tag }}
-      {{ form.data_entrega }}
-      {{ form.produto.label_tag }}
-      {{ form.produto }}
-      {{ form.observacao.label_tag }}
-      {{ form.observacao }}
-      {{ form.status.label_tag }}
-      {{ form.status }}
-      <div class="valores">
-        <span>
-          {{ form.quantidade.label_tag }}
-          {{ form.quantidade }}
-        </span>
-        <span>
-          {{ form.valor.label_tag }}
-          {{ form.valor }}
-        </span>
-        <span style="display:none;">
-          {{ form.valor_total }}
-        </span>
-        <span>
-          {{ form.pago.label_tag }}
-          {{ form.pago }}
-        </span>
+        </div>
+        <hr />
+        <div class="pedido">
+          <span style="display:none;">{{ form.empresa }}</span>
+          <span style="display:none;">{{ form.codigo }}</span>
+          <h2>Pedido</h2>
+          {% if form.errors %}
+              <ul class="error-list">
+                {% for error in form.errors %}
+                  <li class="error">{{ form.errors }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          {{ form.data_entrega.label_tag }}
+          {{ form.data_entrega }}
+          {{ form.produto.label_tag }}
+          {{ form.produto }}
+          {{ form.observacao.label_tag }}
+          {{ form.observacao }}
+          {{ form.status.label_tag }}
+          {{ form.status }}
+          <div class="valores">
+            <span>
+              {{ form.quantidade.label_tag }}
+              {{ form.quantidade }}
+            </span>
+            <span>
+              {{ form.valor.label_tag }}
+              {{ form.valor }}
+            </span>
+            <span style="display:none;">
+              {{ form.valor_total }}
+            </span>
+            <span>
+              {{ form.pago.label_tag }}
+              {{ form.pago }}
+            </span>
+          </div>
+          <button type="submit">Salvar</button>
+        </div>
       </div>
-      <button type="submit">Salvar</button>
-    </div>
+    </form>
   </div>
-</form>
-<script>
+  <script>
 // Seleciona o botão que abre o popup
 var add = document.querySelector('.add-related');
 

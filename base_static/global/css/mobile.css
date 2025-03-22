@@ -102,5 +102,9 @@
     .form-ped>.nav-filter {
         display: none;
     }
+    .pedido-detail-conteiner,
+    .divmeddia{
+        width: 100%;
+    }
 
 }

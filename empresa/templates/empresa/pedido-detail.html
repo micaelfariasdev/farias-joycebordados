@@ -4,8 +4,9 @@
 {% endblock %}
 {% block main %}
   {% load filtros %}
-  <div class="pedido-detail-conteiner">
-  <form method="post" action="{% url 'adm:pedido-edit' pk=pedido.pk %}" style='justify-items: center;'>
+  <div class="divmeddia">
+    <div class="pedido-detail-conteiner">
+      <form method="post" action="{% url 'adm:pedido-edit' pk=pedido.pk %}" style='justify-items: center;'>
       <div class="cliente">
         <h2>Cliente</h2>
 
@@ -103,6 +104,7 @@
         </div>
     </form>
   </div>
+</div>
   <script>
 
     document.getElementsByTagName('form')[0].addEventListener('submit', function(event) {
