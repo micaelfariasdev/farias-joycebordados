@@ -970,6 +970,28 @@ input#id_valor {
     display: none;
 }
 
+.cliente-new{
+    background: var(--color-white);
+    border-radius: 20px;
+    padding: 20px;
+    width: fit-content;
+    justify-self: center;
+    box-shadow: 0px 0px 15px black;
+}
+
+.pop-new-cliente{
+    position: absolute;
+    top: -500px;
+    border-radius: 20px;
+    left: 25%;
+    transition: all 1s;
+}
+
+.pop-new-cliente.show{
+    top: 100px;
+    transition: all 1s;
+}
+
 /* footer css style */
 
 footer {

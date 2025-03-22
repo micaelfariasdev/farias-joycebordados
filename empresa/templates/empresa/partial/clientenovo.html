@@ -1,0 +1,36 @@
+<div class="cliente-new">
+    <form method="post" class='formcliente'>
+        <h1>Novo Cliente</h1>
+        {% csrf_token %} {{formcliente.as_p}}
+        <button type="submit">Criar</button>
+        <a href="#" ><button type="button" class="red">Voltar</button></a>
+    </form>
+</div>
+<script>
+    var formcliente = document.querySelector(".formcliente");
+    if (formcliente) {
+        formcliente.addEventListener("submit", function (event) {
+        event.preventDefault();
+        Swal.fire({
+          title: "Tem certeza?",
+          text: "Deseja Criar um cliente novo?.",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Sim",
+          cancelButtonText: "Não",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            Swal.fire({
+              title: "Cliente criado",
+              icon: "success",
+              showCancelButton: false,
+              confirmButtonText: "ok",
+            }).then((result) => {
+              this.submit();
+            });
+          }
+        });
+      });
+    }
+  
+  </script>

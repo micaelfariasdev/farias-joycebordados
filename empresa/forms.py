@@ -1,5 +1,5 @@
 from django import forms
-from .models import Pedido, Empresa, FotosCarrossel
+from .models import Pedido, Empresa, FotosCarrossel, Cliente
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.admin.widgets import RelatedFieldWidgetWrapper
 from django.contrib import admin
@@ -21,13 +21,18 @@ class PedidosForm(forms.ModelForm):
     data_entrega = forms.DateField(
         required=False, widget=forms.DateInput(attrs={'type': 'date'}))
 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        rel_field = Pedido._meta.get_field('cliente')  # Campo relacionado
-        self.fields['cliente'].widget = RelatedFieldWidgetWrapper(
-            self.fields['cliente'].widget, rel_field.remote_field, admin.site
-        )
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     rel_field = Pedido._meta.get_field('cliente')  # Campo relacionado
+    #     self.fields['cliente'].widget = RelatedFieldWidgetWrapper(
+    #         self.fields['cliente'].widget, rel_field.remote_field, admin.site
+    #     )
 
+class ClienteForm(forms.ModelForm):
+    
+    class Meta:
+        model = Cliente
+        fields = '__all__'
 
 
 

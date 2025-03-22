@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.timezone import now
 from .models import Empresa, Pedido, FotosCarrossel
-from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm
+from .forms import PedidosForm, FilterForm, ProcurarForm, EmpresaForm, FotosCarrosselForm, ClienteForm
 from .utils import gerar_json, enviar_msg
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -123,7 +123,14 @@ def PedidoNewView(request):
 
     dados = Empresa.objects.get(pk=1)
     form = PedidosForm()
-    return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, })
+    formcliente = ClienteForm()
+
+    if request.method == 'POST':
+        formcliente = ClienteForm(request.POST)
+        if formcliente.is_valid():  
+            formcliente.save()
+              
+    return render(request, 'empresa/pedido-new.html', {'dados': dados, 'form': form, 'formcliente':formcliente})
 
 
 def PedidoNewSaveView(request):
@@ -246,3 +253,16 @@ def whastapp(request, pk):
     dado = dict()
     dado.update(enviar_msg(num, pedido))
     return render(request, 'global/whats.html', dado)
+
+def NewCliente(request):
+    form = ClienteForm()
+
+    if request.method == "POST":
+        formcliente = ClienteForm(request.POST)
+        if formcliente.is_valid:
+            formcliente.save()
+            return redirect('adm:fechar_pagina')
+        else:
+            print('deu errado')
+
+    return render(request, 'empresa/cliente-new.html', {'formcliente':formcliente})

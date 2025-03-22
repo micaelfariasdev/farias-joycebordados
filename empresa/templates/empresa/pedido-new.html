@@ -10,8 +10,10 @@
       <div class="pedido-detail-conteiner">
         <div class="cliente">
           <h2>Cliente</h2>
-          {{ form.cliente }}
-
+          <div>
+            {{ form.cliente }}
+            <a href="{% url "adm:cliente-new" %}" class="button-style add-related"><i class="fa-solid fa-user-plus"></i></a>
+          </div>
         </div>
         <hr />
         <div class="pedido">
@@ -55,36 +57,27 @@
       </div>
     </form>
   </div>
+
+<div class="pop-new-cliente">
+  {% include "empresa/partial/clientenovo.html" %}
+</div>
+
+
   <script>
 // Seleciona o botão que abre o popup
 var add = document.querySelector('.add-related');
+var cancel = document.querySelector("body > main > div.pop-new-cliente > div > form > a > button");
+var popcliente = document.querySelector('.pop-new-cliente');
 
 add.addEventListener('click', function (event) {
     event.preventDefault();
-    
-    var popup3 = window.open(add.href, "popup3", "width=600,height=650");
+    popcliente.style.top = '100px'
+    //popcliente.classList.add('show')
+});
+cancel.addEventListener('click', function (event) {
+    event.preventDefault();
+    popcliente.style.top = '-500px'
 
-    // Espera o pop-up carregar
-    popup3.onload = function () {
-        var cliente = popup3.document.querySelector('input[type="submit"]');
-        
-        if (cliente) {
-            cliente.addEventListener('click', function (event) {
-                setTimeout(function () {
-                    popup3.alert('Pedido Salvo!');
-                    popup3.close();
-                }, 900);
-            });
-        }
-    };
-
-    // Verifica se o popup foi fechado e recarrega a página principal
-    var intervalo = setInterval(function () {
-        if (popup3.closed) {
-            clearInterval(intervalo);
-            location.reload();
-        }
-    }, 1000);
 });
 
 // Manipula o envio do formulário na página principal
