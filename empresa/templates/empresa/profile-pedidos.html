@@ -4,14 +4,16 @@
 {% endblock %} {% block main %} {% include "empresa/partial/pedidos.html" %} 
 {% endblock %} {% block script %}
 <script>
+    const mediaQueryped = window.matchMedia("(max-width: 768px)");
+
     var grid = new gridjs.Grid({
       columns: [
         "Código",
         "Nome",
-        "Data de Entrega",
-        "Pedido",
+        {name:"Data de Entrega", hidden: mediaQueryped.matches },
+        {name:"Pedido", hidden: mediaQueryped.matches},
         "Status",
-        "Pg",
+        {name:"Pg", hidden: mediaQueryped.matches},
         "Ação"
       ],
       data: [
@@ -28,9 +30,9 @@
               '❌'
             {% endif %},
             gridjs.html(
-              `<a class="button-style" onclick="popup({{pedido.pk}})">📝</a> 
+              `<a class="button-style color-black sc-70" onclick="popup({{pedido.pk}})"><i class="fa-solid fa-pen"></i></a> 
               {% if pedido.status.0 != '3' %}
-              <a href="{% url 'adm:sendwht' pedido.pk %}" class="button-style" onclick="popupzap(event, this.href)">📤</a>
+              <a href="{% url 'adm:sendwht' pedido.pk %}" class="button-style gren color-black sc-70" onclick="popupzap(event, this.href)"><i class="fa-solid fa-paper-plane"></i></a>
               {% endif %}
               `),
           ],

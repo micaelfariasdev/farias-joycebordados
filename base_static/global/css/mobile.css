@@ -1,0 +1,106 @@
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@media (max-width: 768px) {
+    html {
+        height: 100vh;
+        scroll-behavior: smooth;
+        width: 98%;
+    }
+
+    body {
+        font-size: 14px;
+    }
+
+
+    main {
+        width: 100vw;
+    }
+
+    .menu-profile {
+        position: fixed;
+        width: 20px;
+        top: 0;
+        z-index: 100;
+        left: 0;
+        padding: 0px;
+        height: 100%;
+        transition: all 1s;
+    }
+
+    .blur {
+        position: fixed;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(255, 255, 255, 0.593);
+        z-index: 90;
+        backdrop-filter: blur(4px);
+        transition: all 1s;
+    }
+
+    .menu-profile.show {
+        width: 159px;
+        padding: 50px 15px;
+    }
+
+    .menu-profile nav {
+        display: none;
+        transition: all 1s;
+    }
+
+    .menu-profile nav.show {
+        display: flex;
+        gap: 20px;
+    }
+
+    .menu-profile .nav-button-hidden {
+        display: block;
+        position: fixed;
+        left: 5px;
+        top: 80px;
+        z-index: 99;
+        background: var(--color-primary);
+        border: none;
+        border-radius: 0 10px 10px 0;
+        transition: all 1s;
+    }
+
+    .menu-profile .nav-button-hidden.show {
+        left: -60px;
+    }
+
+    .conteiner.profile {
+        width: 100%;
+
+    }
+
+    .pedidos-conteiner {
+        width: 100%;
+        flex-direction: column;
+        z-index: 50;
+    }
+
+    .pedidos-filtro {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .form-ped {
+        flex-direction: row;
+        height: 50px;
+        gap: 10px;
+        transform: scale(.9);
+        justify-content: space-between;
+    }
+
+    div.tabela2 {
+        width: 10px;
+    }
+
+    .form-ped>span,
+    .form-ped>.nav-filter {
+        display: none;
+    }
+
+}

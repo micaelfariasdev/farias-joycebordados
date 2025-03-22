@@ -42,30 +42,38 @@
 
       <div class="valores">
         <span>
-          <strong>Quantidade:</strong>
-          {{ pedido.quantidade }}
+          <p><strong>Quantidade:</strong></p>
+          <p>{{ pedido.quantidade }}</p>
         </span>
 
         <span>
-          <strong>Valor:</strong>
-          {{ pedido.valor|monetario }}
+          <p><strong>Valor:</strong></p>
+          <p>{{ pedido.valor|monetario }}</p>
         </span>
 
         <span>
-          <strong>Valor Total:</strong>
-          {{ pedido.valor_total|monetario }}
+          <p><strong>Valor Total:</strong></p>
+          <p>{{ pedido.valor_total|monetario }}</p>
         </span>
         <span>
-          <strong>Pagamento:</strong>
+          <p><strong>Pagamento:</strong></p>
           {% if pedido.pago %}
-            Pago
+            <p>Pago</p>
           {% else %}
-            Aguardando Pagamento
+            <p>Aguardando Pagamento</p>
           {% endif %}
         </span>
+        {% if not pedido.pago %}
+            <div class="pagamentos">
+              <button onclick="showPix()">Efetuar pagamento:</button>
+              <div class="dados-pagamento"></div>
+            </div>
+            {% include "clientes/partial/pix.html" %}
+          {% endif %}
       </div>
       <hr>
-      <div>
+      {% if pedido.historico > 0 %}
+      <div class='tabela historico'>
         <table border="1">
           <tr>
               <th>Data</th>
@@ -88,14 +96,8 @@
               </td>
           </tr>
           {% endfor %}
-      </table>
+        </table>
       </div>
-      {% if not pedido.pago %}
-        <div class="pagamentos">
-          <button onclick="showPix()">Efetuar pagamento:</button>
-          <div class="dados-pagamento"></div>
-        </div>
-        {% include "clientes/partial/pix.html" %}
       {% endif %}
     </div>
   </div>

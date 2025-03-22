@@ -11,6 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{% static 'global/css/mobile.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Nome do App">
+    <link rel="apple-touch-icon" href="{% static 'global/img/iconapp.png' %}">
+
 
   </head>
   <body>
@@ -19,5 +26,6 @@
     </main>
     {% block script %}{% endblock script %}
    <script src="{% static "global/js/popup.js" %}"></script>
+   <script src="{% static "global/js/mobile.js" %}"></script>
   </body>
 </html>
