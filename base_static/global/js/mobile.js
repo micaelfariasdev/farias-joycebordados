@@ -40,3 +40,15 @@ function Atualizar(e) {
 
 mediaQuery.addEventListener("change", Atualizar);
 Atualizar(mediaQuery); // Executa ao carregar
+
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll("a").forEach(link => {
+        link.addEventListener("click", function (event) {
+            // Verifica se o link é interno (mesmo domínio)
+            if (link.hostname === window.location.hostname) {
+                event.preventDefault(); // Impede o comportamento padrão
+                window.location.href = link.href; // Navega sem fechar o Web App
+            }
+        });
+    });
+});
