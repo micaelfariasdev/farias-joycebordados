@@ -6,4 +6,7 @@ Host joycebordados
     User micaelfarias.dev
 
 git remote | xargs -I {} git push {} --all
-ssh joycebordados 'cd ~/app_repo; . venv/bin/activate; python manage.py makemigrations; python manage.py migrate; git pull origin main; sudo systemctl restart bordado-farias; exit'
+ssh joycebordados 'cd ~/app_repo; . venv/bin/activate;python manage.py collectstatic;
+ python manage.py makemigrations; 
+ python manage.py migrate; git pull origin main; 
+ sudo systemctl restart bordado-farias; exit'

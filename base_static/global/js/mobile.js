@@ -16,7 +16,7 @@ function Atualizar(e) {
     }
     if (tabela) {
         if (mediaQuery.matches){ 
-        tabela.style.transform = 'scale(0.8) translate(-35px, -330px)';
+        tabela.style.transform = 'scale(0.8) translate(-35px, -50px)';
     } else {
         tabela.style.transform = ''; // Resetando o estilo
     }}
