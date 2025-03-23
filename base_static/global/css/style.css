@@ -743,6 +743,16 @@ span {
     border-radius: 20px;
 }
 
+.conteiner-profile .cliente-label {
+    grid-column: 3 / span 2;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    background: var(--color-quaternary);
+    border-radius: 20px;
+}
+
+
 .conteiner-profile .filter form {
     display: grid;
     grid-template-columns: 50% 50%;
@@ -762,6 +772,19 @@ span {
 
 .conteiner-profile .grafico {
     grid-column: 1 / span 3;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    max-height: 400px;
+    background: var(--color-quaternary);
+    color: #000000;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.conteiner-profile .grafico-cliente {
+    grid-column: 3 / span 2;
+    grid-row: 5 / span 2;
     width: 100%;
     height: auto;
     max-width: 100%;
@@ -957,11 +980,11 @@ input#id_valor {
     justify-items: center;
 }
 
-.nav-button-hidden{
+.nav-button-hidden {
     display: none;
 }
 
-.cliente-new{
+.cliente-new {
     background: var(--color-white);
     border-radius: 20px;
     padding: 20px;
@@ -970,7 +993,7 @@ input#id_valor {
     box-shadow: 0px 0px 15px black;
 }
 
-.pop-new-cliente{
+.pop-new-cliente {
     position: absolute;
     top: -500px;
     border-radius: 20px;
@@ -978,7 +1001,7 @@ input#id_valor {
     transition: all 1s;
 }
 
-.pop-new-cliente.show{
+.pop-new-cliente.show {
     top: 100px;
     transition: all 1s;
 }
@@ -1066,15 +1089,23 @@ footer .conteiner a {
     flex-wrap: nowrap;
 }
 
-.color-black{
+.color-black {
     color: var(--color-black);
 }
 
-.sc-70{
+.sc-70 {
     display: inline-block;
     transform: scale(.7);
 }
 
-.hidden{
+.hidden {
     display: none;
+}
+
+.c-span-2 {
+    grid-column: span 2;
+}
+
+.r-span-2 {
+    grid-row: span 2;
 }

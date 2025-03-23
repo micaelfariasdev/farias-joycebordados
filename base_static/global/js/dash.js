@@ -1,10 +1,13 @@
 
 let chartInstance = null;  // Variável para armazenar a instância do gráfico
+let chartInstance2 = null;  // Variável para armazenar a instância do gráfico
+function ToRealBrasil(valor){
+    return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
 
 fetch('/profile/grafico/api/')
     .then(response => response.json())
     .then(data => {
-
         var init = document.getElementsByName('data_init')[0];
         var end = document.getElementsByName('data_end')[0];
         var compinit = document.getElementsByName('data_init')[1];
@@ -14,11 +17,6 @@ fetch('/profile/grafico/api/')
         var fatData = document.querySelector('.fat > p')
         var ticketData = document.querySelector('.ticket > p')
 
-        var compPedidosData = document.querySelector('.vendas > span')
-        var compfatData = document.querySelector('.fat > span')
-        var compticketData = document.querySelector('.ticket > span')
-
-
         var CardPedido = document.querySelector('.vendas')
         var CardFat = document.querySelector('.fat')
         var CardTicket = document.querySelector('.ticket')
@@ -27,11 +25,10 @@ fetch('/profile/grafico/api/')
         var spanend = document.querySelector('#end')
 
         function filtrarDados() {
-
-            const dataInicio = new Date(init.value);  // Pega o valor da data de início
-            const dataFim = new Date(end.value);     // Pega o valor da data de fim
-            const compdataInicio = new Date(compinit.value);  // Pega o valor da data de início
-            const compdataFim = new Date(compend.value);     // Pega o valor da data de fim
+            const dataInicio = new Date(init.value);  
+            const dataFim = new Date(end.value);    
+            const compdataInicio = new Date(compinit.value);  
+            const compdataFim = new Date(compend.value);     
 
             // Ajusta a data final para incluir o último dia
             dataFim.setDate(dataFim.getDate() + 1);
@@ -43,6 +40,7 @@ fetch('/profile/grafico/api/')
                 const dataPedido = new Date(partes[0], partes[1] - 1, partes[2]);
                 return dataPedido >= dataInicio && dataPedido <= dataFim;
             });
+
 
             const dadosFiltradosCompre = data.filter(item => {
                 const partes = item.data.split('-');
@@ -101,8 +99,8 @@ fetch('/profile/grafico/api/')
             }
 
             // Cria o gráfico novamente
-            const ctx = document.getElementById('graficoPedidos').getContext('2d');
-            chartInstance = new Chart(ctx, {
+            const ctx1 = document.getElementById('graficoPedidos').getContext('2d');
+            chartInstance = new Chart(ctx1, {
                 type: 'line',  // Tipo de gráfico (linha)
                 data: {
                     labels: labels,
@@ -146,6 +144,7 @@ fetch('/profile/grafico/api/')
         end.addEventListener('change', filtrarDados);
         compinit.addEventListener('change', filtrarDados);
         compend.addEventListener('change', filtrarDados);
+
 
     })
     .catch(error => console.error('Erro ao carregar JSON:', error));
@@ -212,3 +211,116 @@ function infomouse() {
         console.error('Elemento com a classe "info" não encontrado!');
     }
 };
+
+fetch('/profile/pedidos/api/')
+    .then(response => response.json())
+    .then(data => {
+        var init = document.getElementsByName('data_init')[0];
+        var end = document.getElementsByName('data_end')[0];
+        var compinit = document.getElementsByName('data_init')[1];
+        var compend = document.getElementsByName('data_end')[1];
+        const clientepedidos = document.getElementById('client-pedido-plus')
+        const clientegasto = document.getElementById('client-pedido-valor')
+
+        function filtrarPedidos(){
+
+        const dataInicio = new Date(init.value);  
+        const dataFim = new Date(end.value);  
+        
+        dataFim.setDate(dataFim.getDate() + 1);
+
+        const dadosFiltrados = data.filter(item => {
+            const partes = item.data.split('-');
+            const dataPedido = new Date(partes[0], partes[1] - 1, partes[2]);
+            return dataPedido >= dataInicio && dataPedido <= dataFim;
+        });
+
+        var lista = {}
+        dadosFiltrados.forEach(item => {
+            if(item.cliente){
+                const nome = item.cliente.nome
+                const valor = +item.valor_total
+                if (lista[nome]) {
+                    lista[nome]['quantidade'] += 1
+                }else{
+                    lista[nome] = {'quantidade':1}
+                }
+                if (lista[nome]['valorTOT']) {
+                    lista[nome]['valorTOT'] += valor
+                }else{
+                    lista[nome]['valorTOT'] = valor
+                }
+                if (lista[nome]['MaiorPedido']) {
+                    if(lista[nome]['MaiorPedido']['valor'] < item.valor_total)
+                    lista[nome]['MaiorPedido'] = {'pedido': item.codigo, 'valor': +item.valor_total}
+                }else{
+                    lista[nome]['MaiorPedido'] = {'pedido': item.codigo, 'valor': +item.valor_total}
+                }
+            }
+            return lista;
+        });
+        const ordenado = Object.entries(lista)
+        .sort((a, b) => b[1]['quantidade'] - a[1]['quantidade']); 
+        const maiorgasto = Object.entries(lista)
+        .sort((a, b) => b[1]['valorTOT'] - a[1]['valorTOT']); 
+
+        const labels = ordenado.map((person) => person[0]);
+        const valores = ordenado.map((person) => person[1]['quantidade']);
+
+        clientepedidos.innerHTML = `<strong>${ordenado[0][0]}:</strong> ${ordenado[0][1]['quantidade']} Pedidos 
+                                    <span>Ao todo ${ordenado[0][0]} gastou ${ToRealBrasil(ordenado[0][1]['valorTOT'])}
+                                     com os ${ordenado[0][1]['quantidade']} Pedidos`
+        clientegasto.innerHTML = `<strong>${maiorgasto[0][0]}:</strong> ${ToRealBrasil(maiorgasto[0][1]['valorTOT'])}
+                                   <span>O seu maior pedido foi "#${maiorgasto[0][1]['MaiorPedido']['pedido']}" valendo  ${ToRealBrasil(maiorgasto[0][1]['MaiorPedido']['valor'])}</span> `
+
+        if (chartInstance2) {
+            chartInstance2.destroy();
+        }
+
+        const ctx2 = document.getElementById('graficoclientes').getContext('2d');
+            chartInstance2 = new Chart(ctx2, {
+                type: 'bar',  
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Quantidade de Pedidos',
+                            data: valores,
+                            borderColor: 'blue',
+                            backgroundColor: 'rgb(194, 237, 141)',
+                            borderWidth: 1,
+                            yAxisID: 'y'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    devicePixelRatio: window.devicePixelRatio || 4,  // Melhora a renderização em telas de alta resolução
+                    scales: {
+                        x: {
+                            max: 2, 
+                            ticks: {
+                                color: 'black',
+                            }
+                        },
+                        y: {
+                            min: 0,  // Valor mínimo do eixo Y
+                            ticks: {
+                                color: 'blue',
+                                stepSize: 1  // Passo entre os ticks
+                            },
+                            position: 'left'  // Posição do eixo Y à esquerda
+                        },
+                    }
+                }
+            });
+        
+        }
+        window.onload = filtrarPedidos()
+        // Adiciona os event listeners
+        init.addEventListener('change', filtrarPedidos);
+        end.addEventListener('change', filtrarPedidos);
+        compinit.addEventListener('change', filtrarPedidos);
+        compend.addEventListener('change', filtrarPedidos);
+    })

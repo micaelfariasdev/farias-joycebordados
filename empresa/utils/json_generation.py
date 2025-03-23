@@ -40,7 +40,7 @@ def Json_Pedido():
             if hasattr(valor, "id"):
                 dic[campo.name] = {"id": valor.id, "nome": str(valor)}
             elif isinstance(valor, (datetime.date, datetime.datetime)):
-                dic[campo.name] = valor.isoformat()
+                dic[campo.name] = valor.strftime('%Y-%m-%d')
             elif isinstance(valor, (ImageFieldFile)):
                 pass
             else:
