@@ -109,3 +109,32 @@
     }
 
 }
+
+@media screen and (orientation:portrait) {
+    .conteiner-profile {
+        display: grid;
+        align-items: center;
+        justify-items: center;
+        align-self: flex-start;
+        gap: 20px;
+        width: 100%;
+        grid-template-columns: repeat(3, 1fr);
+        margin: 0 auto;
+        padding: 20px;
+    }
+    .card-legenda {
+        grid-column: 1 / span 3;
+    }
+    .conteiner-profile .filter {
+        grid-column: 1 / span 3;
+        grid-row: 3;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 20px;
+    }
+    .conteiner-profile h1 {
+        grid-column: span 3;
+        justify-self: start;
+    }
+    
+}

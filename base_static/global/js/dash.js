@@ -1,7 +1,7 @@
 
 let chartInstance = null;  // Variável para armazenar a instância do gráfico
 
-fetch('/profile/pedidos/api/')
+fetch('/profile/grafico/api/')
     .then(response => response.json())
     .then(data => {
 

@@ -62,6 +62,7 @@
         "templatetags": "utils",
         "deploy": "command",
         "base_static": "resource",
+        "urls": "routes",
         
     },
     "workbench.iconTheme": "material-icon-theme",

@@ -12,7 +12,7 @@ function admin_area(event) {
 }
 
 
-detail.addEventListener('click', admin_area);
+// detail.addEventListener('click', admin_area);
 
 
 

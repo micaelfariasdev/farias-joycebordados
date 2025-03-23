@@ -1,9 +1,11 @@
 
 
+import datetime
 from empresa.models import Pedido
+from django.db.models.fields.files import ImageFieldFile
 
 
-def gerar_json():
+def Json_Grafico():
     dic = {}
     data = []
     pedidos = Pedido.objects.all()
@@ -18,11 +20,31 @@ def gerar_json():
             dic[date]['quantidade'] += 1
             dic[date]['valor'] += pedido.valor_total
 
-    # Ordena os pedidos por data
     dic = dict(sorted(dic.items()))
 
-    # Converte o dicionário para uma lista de dicionários
     for dt, qnt in dic.items():
         data.append(qnt)
+
+    return data
+
+
+def Json_Pedido():
+    data = []
+    pedidos = Pedido.objects.all()
+
+    for pedido in pedidos:
+        dic = {}
+        for campo in pedido._meta.fields:
+            valor = getattr(pedido, campo.name)
+
+            if hasattr(valor, "id"):
+                dic[campo.name] = {"id": valor.id, "nome": str(valor)}
+            elif isinstance(valor, (datetime.date, datetime.datetime)):
+                dic[campo.name] = valor.isoformat()
+            elif isinstance(valor, (ImageFieldFile)):
+                pass
+            else:
+                dic[campo.name] = valor
+        data.append(dic.copy())
 
     return data

@@ -504,16 +504,7 @@ th {
 }
 
 
-.conteiner-profile {
-    display: flex;
-    justify-self: center;
-    padding: 20px;
-    width: 1440px;
-    justify-content: space-between;
-    flex-flow: column nowrap;
-    gap: 20px;
-    background: var(--color-white);
-}
+
 
 .pedido-detail-conteiner .pedido,
 .pedido-detail-conteiner .cliente {
