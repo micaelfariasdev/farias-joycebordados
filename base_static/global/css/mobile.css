@@ -115,11 +115,8 @@
         align-items: center;
         justify-items: center;
         align-self: flex-start;
-        position: relative;
-        left: -10px;
         gap: 20px;
-        width:80%;
-        max-width: 400px;
+        width:100%;
         grid-template-columns: repeat(3, 1fr);
         margin: 0 auto;
         padding: 20px;
@@ -143,7 +140,7 @@
         border-radius: 5px;
     }
     .conteiner-profile .card *{
-        font-size: .5rem;
+        font-size: .7rem;
     }
 
     .conteiner-profile .filter {
