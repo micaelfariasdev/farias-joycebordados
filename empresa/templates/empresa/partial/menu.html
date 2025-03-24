@@ -3,10 +3,10 @@
   <button class='nav-button-hidden hidden fucionstart'><i class="fa-solid fa-bars"></i></button>
   <nav>
     <a href="https://bordado.fariasfardas.com/" target='_blank'>Visitar site</a>
-    <a href="{% url 'adm:empresa' %}" target="_self">DashBoard</a>
-    <a href="{% url 'adm:dados' %}" target="_self">Dados</a>
-    <a href="{% url 'adm:carrossel' %}" target="_self">Fotos</a>
-    <a href="{% url 'adm:pedidos' %}" target="_self">Pedidos</a>
+    <a href="{% url 'adm:empresa' %}" target="_self" rel="noopener noreferrer">DashBoard</a>
+    <a href="{% url 'adm:dados' %}" target="_self" rel="noopener noreferrer">Dados</a>
+    <a href="{% url 'adm:carrossel' %}" target="_self" rel="noopener noreferrer">Fotos</a>
+    <a href="{% url 'adm:pedidos' %}" target="_self" rel="noopener noreferrer">Pedidos</a>
     <form action="{% url 'adm:logout' %}" method="post">
       {% csrf_token %}
       <button type="submit" class="red">Sair</button>

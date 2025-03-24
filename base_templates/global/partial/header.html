@@ -10,13 +10,6 @@
   <div class="conteiner-acess">
     <div class="areas">
       <a href="#" onclick="showLog()">Buscar pedido</a>
-      {% comment %} <a href="{% host_url 'bordado' 'home' %}" class='popup-adm' onclick='admin_area()'>Área Administrativa</a>
-      {% if user.is_authenticated %}
-      <form action="{% url 'adm:logout' %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="red">Sair</button>
-      </form>
-      {% endif %} {% endcomment %}
     </div>
     <nav class="nav">
       <a href="{% url 'joycebordados:home' %}">Home</a>

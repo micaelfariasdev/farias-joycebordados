@@ -247,11 +247,25 @@ main .conteiner {
 .serv {
     justify-items: center;
     text-align: justify;
+    background: var(--color-white);
+    padding: 20px;
+    border-radius: 20px;
+    width: fit-content;
+    height: 250px;
+    box-shadow: 0px 0px 10px -1px inset;
+    transition: all 0.5s;
+}
+
+.serv:hover{
+    transform: scale(1.1);
+    background: var(--color-secondary);
+    box-shadow: 0px 0px 10px -1px ;
+
 }
 
 .sobre-conteiner {
     display: grid;
-    grid-template-columns: 60% 40%;
+    grid-template-columns: 1fr auto;
     align-items: stretch;
     justify-content: space-between;
     width: 90%;
@@ -268,13 +282,14 @@ main .conteiner {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
+
 .sobre {
     padding: 40px;
 }
 
 .sobre-img {
-    height: 100%;
-    object-fit: cover;
+    height: auto;
+    width: min-content;
 }
 
 .sobre h2,
@@ -284,9 +299,10 @@ main .conteiner {
 }
 
 .sobre-img img {
-    width: 100%;
+    width: 200px;
     height: 100%;
     border-radius: 20px;
+    object-fit: cover;
 }
 
 .google-conteiner {
@@ -294,13 +310,17 @@ main .conteiner {
     align-items: start;
     grid-template-columns: 1fr 1fr;
     justify-content: stretch;
-    width: 75%;
+    width: fit-content;
     gap: 20px;
     font-size: 1.2rem;
     background: var(--color-white);
     border-radius: 30px;
     padding: 40px;
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
+}
+
+.google-conteiner button.gren{
+    color: var(--color-black);
 }
 
 .map {
