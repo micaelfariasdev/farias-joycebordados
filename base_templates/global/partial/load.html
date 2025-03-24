@@ -1,0 +1,30 @@
+{% load static %}
+<style>
+    .fade-in {
+    opacity: 0;
+    animation: fadeIn 2.5s forwards;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    20% { opacity: 1; transform: scale(1); }
+    40% {  transform: scale(.8); }
+    60% { transform: scale(1); }
+    80% {opacity: 1; transform: scale(.8); }
+    100% { opacity: 0;  transform: translateY(500%);    }
+  }
+  </style>
+  
+  <div id="splash-screen">
+    <img src="../../base_static/global/img/logo-larger.png"  width="200" class="fade-in">
+  </div>
+  
+  <script>
+    window.addEventListener("load", function () {
+      setTimeout(() => {
+        document.getElementById("splash-screen").style.opacity = "0";
+        setTimeout(() => document.getElementById("splash-screen").style.display = "none", 500);
+      }, 2500);
+    });
+  </script>
+  
