@@ -49,37 +49,38 @@
                 {{ form.cep }}
             </span>
         </div>    
+        <div style='height: 100px;'>
+            <label for="{{ form.sobre.id_for_label }}">Sobre: </label>
+            <textarea name="{{ form.sobre.name }}" id="{{ form.sobre.id_for_label }}">{{ form.sobre.value }}</textarea>
+        </div>
         <hr>
-        <div class='flex jf-sb gap20'>
-            <span>
-                <label for="{{ form.logo.id_for_label }}">Alterar imagem: </label>
-                <input type="file" name="{{ form.logo.name }}" id="{{ form.logo.id_for_label }}">
-                <label for="logo-clear">Remover imagem: </label>
-                <input type="checkbox" name="logo-clear" id="logo-clear">
-            </span>
-            <span>
-                {% if form.logo.value %}
-                <img src="{{ form.logo.value.url }}" alt="Logo atual" >
-                {% endif %}
-            </span>
-        </div>  
-        <div class='flex gap20 jf-sb'>
-            <div style='width: 110%;'>
-                <label for="{{ form.sobre.id_for_label }}">Sobre: </label>
-                <textarea name="{{ form.sobre.name }}" id="{{ form.sobre.id_for_label }}">{{ form.sobre.value }}</textarea>
-            </div>
-            <div class='flex cl jf-sb'>
-                <span>
+        <div class='media-dados-conteiner'>
+            <div class='media-dados'>
+                <div>
+                    {% if form.logo.value %}
+                    <img src="{{ form.logo.value.url }}" alt="Logo atual" >
+                    {% endif %}
+                </div>
+                <div>
+                    <label for="{{ form.logo.id_for_label }}">Alterar imagem: </label>
+                    <input type="file" name="{{ form.logo.name }}" id="{{ form.logo.id_for_label }}">
+                    <label for="logo-clear">Remover imagem: </label>
+                    <input type="checkbox" name="logo-clear" id="logo-clear">
+                </div>
+            </div>  
+            <vr>
+            <div class='media-dados'>
+                <div>
+                    {% if form.foto_sobre.value %}
+                    <img src="{{ form.foto_sobre.value.url }}" alt="Logo atual" >
+                    {% endif %}
+                </div>
+                <div>
                     <label for="{{ form.foto_sobre.id_for_label }}">Alterar imagem: </label>
                     <input type="file" name="{{ form.foto_sobre.name }}" id="{{ form.foto_sobre.id_for_label }}">
                     <label for="foto_sobre-clear">Remover imagem: </label>
                     <input type="checkbox" name="foto_sobre-clear" id="foto_sobre-clear">
-                </span>
-                <span>
-                    {% if form.foto_sobre.value %}
-                    <img src="{{ form.foto_sobre.value.url }}" alt="Logo atual" >
-                    {% endif %}
-                </span>
+                </div>
             </div>  
         </div>   
         </form>

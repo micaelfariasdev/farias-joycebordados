@@ -19,7 +19,7 @@
 
     .menu-profile {
         position: fixed;
-        width: 20px;
+        width: 10px;
         top: 0;
         z-index: 100;
         left: 0;
@@ -166,5 +166,31 @@
         width: 100%;
         grid-column: 1 / span 3;
 
+    }
+    .media-dados-conteiner {
+        display: grid;
+        grid-template-columns: auto auto;
+        gap: 10px;
+    }
+
+    .media-dados-conteiner div {
+        width: 100%;
+    }
+
+    .conteiner-profile img {
+        max-height: 100%;
+        max-width: 100%;
+    }
+
+    .media-dados-conteiner span {
+        width: 100%;
+    }
+    
+    .media-dados-conteiner div {
+        width: 100%;
+    }
+    
+    .media-dados-conteiner input {
+        width: 100%;
     }
 }

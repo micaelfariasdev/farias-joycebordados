@@ -256,10 +256,10 @@ main .conteiner {
     transition: all 0.5s;
 }
 
-.serv:hover{
+.serv:hover {
     transform: scale(1.1);
     background: var(--color-secondary);
-    box-shadow: 0px 0px 10px -1px ;
+    box-shadow: 0px 0px 10px -1px;
 
 }
 
@@ -319,7 +319,7 @@ main .conteiner {
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.411);
 }
 
-.google-conteiner button.gren{
+.google-conteiner button.gren {
     color: var(--color-black);
 }
 
@@ -443,7 +443,10 @@ button {
 
 hr {
     width: 100%;
-    border: 1px solid var(--color-secondary);
+    border: 2px solid var(--color-secondary);
+    margin-block: 20px;
+    position: relative;
+    top: 5px;
 }
 
 table {
@@ -550,8 +553,8 @@ span {
 }
 
 .valores {
-    display: flex;
-    flex-flow: row wrap;
+    display: grid;
+    grid-template-columns: auto auto;
     gap: 20px;
     align-content: flex-end;
     justify-content: space-between;
@@ -934,10 +937,15 @@ span {
 }
 
 .conteiner-profile img {
-    max-width: 200px;
     max-height: 200px;
-
+    max-width: 200px;
+    aspect-ratio: 1/1;
+    object-fit: contain;
+    border: 2px var(--color-secondary) solid;
+    border-radius: 20px;
+    padding: 10px;
 }
+
 
 .conteiner-profile label {
     font-weight: bolder;
@@ -949,14 +957,13 @@ span {
     width: 100%;
 }
 
+
 .conteiner-profile button {
     color: var(--color-primary);
     border: var(--color-primary) 2px solid;
 }
 
-.conteiner-profile hr {
-    margin-block: 15px;
-}
+
 
 
 td.gridjs-td:first-child {
@@ -1024,6 +1031,32 @@ input#id_valor {
 .pop-new-cliente.show {
     top: 100px;
     transition: all 1s;
+}
+
+.media-dados-conteiner {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    width: 100%;
+    gap: 20px;
+}
+
+.media-dados {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+}
+
+.media-dados-conteiner span {
+    width: min-content;
+}
+
+.media-dados-conteiner div {
+    width: min-content;
+}
+
+.media-dados-conteiner input {
+    width: fit-content;
 }
 
 /* footer css style */

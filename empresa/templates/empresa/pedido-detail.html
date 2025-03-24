@@ -157,17 +157,38 @@
     dataInput.value = "{{ pedido.data_entrega|date:'Y-m-d' }}";
 });
 
-var inputvalor = document.querySelector('#id_valor')
 document.querySelector("input#id_valor").addEventListener("input", function (e) {
   let value = e.target.value.replace(/[^\d,]/g, ''); // Remove tudo, exceto números e vírgulas
-
+  
   // Se houver mais de 2 dígitos, coloca a vírgula nas últimas duas casas
   if (value.length > 2) {
     value = `${value.slice(0, -2)}.${value.slice(-2)}`;  // Coloca vírgula entre os números
   }
-
+  
   e.target.value = value;
 });
+function ToRealBrasil(valor){
+  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+}
+
+var inputvalor = document.querySelector('#id_valor')
+var valortotal = document.querySelector("span .valortot")
+var quantidade = document.querySelector("#id_quantidade")
+
+quantidade.addEventListener("input", function (e) {
+  let valoratualal = e.target.value * inputvalor.value
+
+  valortotal.innerHTML = ToRealBrasil(valoratualal)
+
+})
+inputvalor.addEventListener("input", function (e) {
+  let valoratualal = e.target.value * quantidade.value
+
+  valortotal.innerHTML = ToRealBrasil(valoratualal)
+
+})
+
+
 
   </script>
 {% endblock %}
