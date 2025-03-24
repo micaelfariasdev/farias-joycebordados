@@ -6,7 +6,8 @@
     html {
         height: 100vh;
         scroll-behavior: smooth;
-        width: 98%;
+        width: 95vw;
+
     }
 
     body {
@@ -15,7 +16,7 @@
 
 
     main {
-        width: 100vw;
+        scroll-behavior: smooth;
     }
 
     .menu-profile {
@@ -116,25 +117,59 @@
         align-items: center;
         justify-items: center;
         align-self: flex-start;
+        position: relative;
+        left: -10px;
         gap: 20px;
-        width: 100%;
+        width:80%;
+        max-width: 400px;
         grid-template-columns: repeat(3, 1fr);
         margin: 0 auto;
         padding: 20px;
     }
-    .card-legenda {
+
+    .conteiner-profile h1{
         grid-column: 1 / span 3;
+        grid-row: 1;
+        width: 100%;
+        justify-self: start;
     }
+    .conteiner-profile .card-legenda {
+        grid-column: 1 / span 3;
+        width: 100%;
+        grid-row: 2;
+    }
+    .conteiner-profile .card{
+        font-size: .5rem;
+        padding: 5px;
+        height: min-content;
+        border-radius: 5px;
+    }
+    .conteiner-profile .card *{
+        font-size: .5rem;
+    }
+
     .conteiner-profile .filter {
         grid-column: 1 / span 3;
         grid-row: 3;
+        width: 100%;
         display: flex;
         flex-flow: row nowrap;
         gap: 20px;
+        display: none;
     }
-    .conteiner-profile h1 {
-        grid-column: span 3;
-        justify-self: start;
+   
+    .conteiner-profile .grafico{
+        width: 100%;
+        grid-column: 1 / span 3;
     }
-    
+
+    .conteiner-profile .card.c-span-2{
+        grid-column: 1 / span 3;
+        width: 100%;
+    }
+    .conteiner-profile .grafico-cliente{
+        width: 100%;
+        grid-column: 1 / span 3;
+
+    }
 }
