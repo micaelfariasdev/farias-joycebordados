@@ -30,8 +30,9 @@
       setTimeout(() => {
         window.location.href = `https://wa.me/${num}?text=${msg}`;
     }, 1000);
-      window.onload = function () {
-      }
+    setTimeout(() => {
+      window.close();
+  }, 1000);
     </script>
 </body>
 </html>
