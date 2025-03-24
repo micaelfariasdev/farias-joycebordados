@@ -33,4 +33,12 @@
       });
     }
   
+
+  var cleave = new Cleave('#id_numero', {
+   // phone: true,
+   // phoneRegionCode: 'br',
+   prefix: '(',
+    delimiters: [') ', ' ', '-'],
+    blocks: [(3), 1, 4, 4],
+});
   </script>

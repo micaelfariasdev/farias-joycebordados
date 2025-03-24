@@ -57,7 +57,6 @@ class FotosCarrossel(models.Model):
         return self.empresa.nome
 
 
-
 @receiver(post_delete, sender=FotosCarrossel)
 def delete_foto_carrossel(sender, instance, **kwargs):
     # Deleta a foto do carrossel se existir
@@ -68,7 +67,17 @@ def delete_foto_carrossel(sender, instance, **kwargs):
 
 class Cliente(models.Model):
     nome = models.CharField(max_length=100)
-    numero = models.CharField(max_length=15)
+    numero = models.CharField(max_length=16)
+
+    def save(self, *args, **kwargs):
+        newnumber = ''
+        for n in self.numero:
+            if n.isnumeric():
+                newnumber += n
+
+        self.numero = newnumber
+
+        return super().save(*args, **kwargs)
 
     def __str__(self):
         return self.nome
