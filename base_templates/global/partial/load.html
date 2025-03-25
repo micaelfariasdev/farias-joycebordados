@@ -1,4 +1,4 @@
-{% load static %}
+<!-- {% load static %} -->
 <style>
     .fade-in {
     opacity: 0;
@@ -13,10 +13,19 @@
     80% {opacity: 1; transform: scale(.8); }
     100% { opacity: 0;  transform: translateY(500%);    }
   }
+  #splash-screen{
+    width: 100vw;
+    height: 100vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
   </style>
   
   <div id="splash-screen">
-    <img src="../../base_static/global/img/logo-larger.png"  width="200" class="fade-in">
+    <!-- <img src="{% static "global/img/logo-larger.png" %}"  width="200" class="fade-in"> -->
+    <img src="../../../base_static/global/img/logo-larger.png"  width="200" class="fade-in">
   </div>
   
   <script>
