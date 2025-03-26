@@ -52,12 +52,12 @@
         <p>Aguardando Pagamento</p>
         {% endif %}
       </span>
-     <!-- {% if not pedido.pago %}
+    {% if not pedido.pago %}
       <div class="pagamentos">
         <button onclick="showPix()">Efetuar pagamento:</button>
         <div class="dados-pagamento"></div>
       </div>
-      {% include "clientes/partial/pix.html" %} {% endif %}-->
+      {% include "clientes/partial/pix.html" %} {% endif %}
     </div>
     <hr />
     {% if pedido.historico %}

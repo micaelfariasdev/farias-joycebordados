@@ -127,7 +127,7 @@ class Pedido(models.Model):
         valor = str(int(self.valor_total*100))
         pix = f'({numero[:2]}) {numero[2:]}'
         pix = PixQrCode(nome, pix, "SAO PAULO",
-                        valor, f'{self.cliente.nome}{self.codigo}').generate_code()
+                        valor).generate_code()
 
         # Gerar o QR Code
         qr = qrcode.make(pix)
