@@ -2,7 +2,8 @@
 {% block titulo %}
   {{ dados.nome }}
 {% endblock %} {% block main %}
-{% include "empresa/partial/dash.html" %}
+    {% include "global/partial/load.html" %}
+    {% include "empresa/partial/dash.html" %}
 {% endblock %}
 {% block script %}
 <script src="{% static "global/js/dash.js" %}"></script>

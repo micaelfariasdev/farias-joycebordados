@@ -1,0 +1,8 @@
+{% extends 'global/base-admin.html' %} 
+{% load static %} {% load filtros %} 
+{% block titulo %} Clientes
+{% endblock %} {% block main %} {% include "empresa/partial/clientes.html" %} 
+{% endblock %} 
+{% block script %}
+<script src="{% static "global/js/clientes.js" %}"></script>
+{% endblock script %}

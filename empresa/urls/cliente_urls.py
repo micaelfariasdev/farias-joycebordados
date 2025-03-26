@@ -7,5 +7,6 @@ from django.urls import path
 app_name = 'adm'
 
 urlpatterns = [
-    path('profile/clientes/new', login_required(views.NewCliente), name='cliente-new'),
+    path('profile/clientes/', login_required(views.ClientesListView), name='clientes'),
+    path('profile/clientes/<int:pk>/', login_required(views.EditCliente), name='cliente-edit'),
 ]

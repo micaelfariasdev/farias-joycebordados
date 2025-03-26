@@ -7,6 +7,7 @@
     <a href="{% url 'adm:dados' %}" target="_self" rel="noopener noreferrer">Dados</a>
     <a href="{% url 'adm:carrossel' %}" target="_self" rel="noopener noreferrer">Fotos</a>
     <a href="{% url 'adm:pedidos' %}" target="_self" rel="noopener noreferrer">Pedidos</a>
+    <a href="{% url 'adm:clientes' %}" target="_self" rel="noopener noreferrer">Clientes</a>
     <form action="{% url 'adm:logout' %}" method="post">
       {% csrf_token %}
       <button type="submit" class="red">Sair</button>

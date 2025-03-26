@@ -1,8 +1,9 @@
 {% extends 'global/base-admin.html' %} 
 {% load static %} 
 {% load filtros %} 
-{% block titulo %} Configuração {% endblock %} 
+{% block titulo %} Login {% endblock %} 
 {% block main %} 
-{% include "empresa/partial/login.html" %} 
+    {% include "global/partial/load.html" %}
+    {% include "empresa/partial/login.html" %} 
 {% endblock %} 
 

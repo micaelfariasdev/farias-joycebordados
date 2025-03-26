@@ -3,42 +3,36 @@
         <h1>Novo Cliente</h1>
         {% csrf_token %} {{formcliente.as_p}}
         <button type="submit">Criar</button>
-        <a href="#" ><button type="button" class="red">Voltar</button></a>
+        <a href="" ><button type="button" class="red">Voltar</button></a>
     </form>
 </div>
 <script>
-    var formcliente = document.querySelector(".formcliente");
-    if (formcliente) {
-        formcliente.addEventListener("submit", function (event) {
-        event.preventDefault();
-        Swal.fire({
-          title: "Tem certeza?",
-          text: "Deseja Criar um cliente novo?.",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: "Sim",
-          cancelButtonText: "Não",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            Swal.fire({
-              title: "Cliente criado",
-              icon: "success",
-              showCancelButton: false,
-              confirmButtonText: "ok",
-            }).then((result) => {
-              this.submit();
-            });
-          }
-        });
-      });
+     
+    document.addEventListener('DOMContentLoaded', function() {
+      var inputphone = document.getElementById('id_numero');
+    
+      // Aplica a formatação assim que a página carregar
+      formatarnum({ target: inputphone });
+    
+      // Adiciona o evento de input para formatação em tempo real
+      inputphone.addEventListener('input', formatarnum);
+    });
+    function formatarnum(event) {
+      let num = event.target.value;
+    
+      num = num.replace(/\D/g, '');
+    
+      if (num.length > 0) {
+        if (num.length <= 2) {
+          num = `(${num}`;
+        } else if (num.length <= 6) {
+          num = `(${num.slice(0, 2)}) ${num.slice(2)}`;
+        } else {
+          num = `(${num.slice(0, 2)}) ${num.slice(2, 3)} ${num.slice(3, 7)}-${num.slice(7, 11)}`;
+        }
+      }
+      event.target.value = num;
     }
-  
 
-  var cleave = new Cleave('#id_numero', {
-   // phone: true,
-   // phoneRegionCode: 'br',
-   prefix: '(',
-    delimiters: [') ', ' ', '-'],
-    blocks: [(3), 1, 4, 4],
-});
+
   </script>
