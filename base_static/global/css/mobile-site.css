@@ -1,0 +1,46 @@
+@charset 'utf-8';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+@media screen and (orientation:portrait) {
+    html {
+        width: 100vw;
+        height: 100vh;
+
+    }
+
+    body {
+        width: 100vw;
+    }
+
+    header {
+        width: 100vw;
+    }
+
+    main {
+        width: 100vw;
+    }
+
+    footer {
+        width: 100vw;
+    }
+
+    header .conteiner{
+        flex-flow: column nowrap;
+        padding: 0;
+        justify-content: center;
+    }
+
+    header .conteiner-acess {
+        display: none;
+    }
+    main .pedido-detail-conteiner{
+        width: 100%;
+    }
+    main .valores{
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+
+}
