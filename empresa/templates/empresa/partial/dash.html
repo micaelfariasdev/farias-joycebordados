@@ -10,14 +10,32 @@
     <div class="card vendas">
       <h3>Vendas</h3>
       <p></p>
+      <div class="comparation">
+        <span></span>
+      </div>
+      <div class="info">
+        <span></span>
+      </div>
     </div>
     <div class="card fat">
       <h3>Faturamento</h3>
       <p></p>
+      <div class="comparation">
+        <span></span>
+      </div>
+      <div class="info">
+        <span></span>
+      </div>
     </div>
     <div class="card ticket">
       <h3>Ticket Médio</h3>
       <p></p>
+      <div class="comparation">
+        <span></span>
+      </div>
+      <div class="info">
+        <span></span>
+      </div>
     </div>
     <div class="filter">
       <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr;">
@@ -33,6 +51,21 @@
             ><strong>{{ form.data_end.label }}</strong></label
           >
           {{ form.data_end }}
+        </div>
+      </div>
+      <div style="display: grid; gap: 10px; grid-template-columns: 1fr 1fr;">
+        <span style='grid-column: span 2'>Compare:</span>
+        <div class="filter-label">
+          <label for="{{ form2.data_init.id_for_label }}"
+            ><strong>{{ form2.data_init.label }}</strong></label
+          >
+          {{ form2.data_init }}
+        </div>
+        <div class="filter-label">
+          <label for="{{ form2.data_end.id_for_label }}"
+            ><strong>{{ form2.data_end.label }}</strong></label
+          >
+          {{ form2.data_end }}
         </div>
       </div>
     </div>

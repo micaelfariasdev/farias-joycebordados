@@ -16,7 +16,7 @@
     --color-quinary: #1B2845;
     --color-black: #000000;
     --color-white: #FFFFFF;
-    --color-gray: #808080;
+    --color-gray: #bbb8b8;
     --filtro-white: invert(1);
     --filtro-black: invert(0);
 
@@ -667,6 +667,59 @@ span {
     padding: 20px;
     background: var(--color-quaternary);
     border-radius: 20px;
+}
+
+.card p {
+    display: inline-block;
+    font-size: 2rem;
+}
+
+.card .comparation span {
+    padding: 1px 5px;
+    background: red;
+    width: fit-content;
+    border-radius: 10px;
+    transform: scale(.8);
+    cursor: default;
+}
+#baixa{
+    background-color: rgba(247, 114, 114, 0.5);
+    color: rgb(206, 7, 7);
+}
+#baixa::before{
+    content: '▼ ';
+}
+#cresce{
+    background-color: rgba(114, 247, 125, 0.5);
+    color: rgb(24, 206, 7);
+}
+#cresce::before{
+    content: '▲ +';
+}
+#igual{
+    background-color: rgba(155, 155, 155, 0.5);
+    color: rgb(255, 255, 255);
+}
+#igual::before{
+    content: '⁈ ';
+}
+
+.card .comparation:hover~.info {
+    display: block;
+}
+
+.card .info {
+    display: none;
+    padding: 10px;
+    position: absolute;
+    background: var(--color-gray);
+    color: var(--color-primary);
+    text-align: start;
+    font-size: .8rem;
+    width: 170px;
+    border-radius: 10px;
+    transform: scale(.8) translateY(75%) translateX(50%);
+    pointer-events: none;
 }
 
 .card-legenda {
